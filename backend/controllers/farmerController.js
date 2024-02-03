@@ -29,6 +29,7 @@ exports.registerFarmer = async (req, res, next) => {
         farmerInfo: {
             name,
             email,
+            password,
             avatar: {
                 public_id: result.public_id,
                 url: result.secure_url,
@@ -59,48 +60,36 @@ exports.getFarmer = async (req, res, next) => {
 
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
+  try {
+      if (req.body.farmerInfo.avatar && req.body.farmerInfo.avatar !== '') {
+          const farmer = await Farmer.findById(req.farmer.id);
+          const image_id = farmer.farmerInfo.avatar.public_id;
+          await cloudinary.v2.uploader.destroy(image_id);
+      }
 
-try {
-  if (req.body.avatar && req.body.avatar !== '') {
-    const farmer = await Farmer.findById('65bcf308eaf8d8ecbf26ef5e');
-    const image_id = farmer.farmerInfo.avatar.public_id;
-    await cloudinary.v2.uploader.destroy(image_id);
-    
-}
+      const results = await cloudinary.v2.uploader.upload(req.body.farmerInfo.avatar, {
+          folder: 'avatars',
+          width: 150,
+          crop: "scale"
+      });
 
-const results = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: 'avatars',
-    width: 150,
-    crop: "scale"
-});
-
-  const UpdateDataUser =
-  {
-    farmerInfo: {
-      'farmerInfo.name': req.body.name,
-      'farmerInfo.email': req.body.email,
-      'farmerInfo.avatar':  {
-        public_id: results.public_id,
-        url: results.secure_url,
-    },
-    
-  }
-  }
-
-
-  const farmer = await Farmer.findByIdAndUpdate(req.params.id,
-    UpdateDataUser,
-      {
+      const farmer = await Farmer.findByIdAndUpdate(req.params.id, {
+          $set: {
+              'farmerInfo.name': req.body.farmerInfo.name,
+              'farmerInfo.email': req.body.farmerInfo.email,
+              'farmerInfo.avatar.public_id': results.public_id,
+              'farmerInfo.avatar.url': results.secure_url,
+          }
+      }, {
           new: true,
-          runValidators:true,
-
-      })
+          runValidators: true,
+      });
 
       return res.status(200).json({
-          success:true,
-farmer
-      })
-    } catch (error) {
+          success: true,
+          farmer
+      });
+  } catch (error) {
       console.log('Error:', error);
       res.status(500).json({
           success: false,
@@ -108,3 +97,23 @@ farmer
       });
   }
 }
+
+//DELETE
+exports.deleteFarmer = async (req, res, next) =>
+{
+    const farmer = await Farmer.findByIdAndDelete(req.params.id)
+
+    if(!farmer)
+    {
+        return res.status(404).json({ message: `Farmer not found with id: ${req.params.id}`})
+    }
+
+    const image_id = farmer.farmerInfo.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(image_id)
+    await Farmer.findByIdAndDelete(req.params.id)
+    return res.status(200).json({
+        success: true,
+    })
+}
+
+///NOTE FarmerLocation  Edit,
