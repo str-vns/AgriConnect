@@ -46,7 +46,6 @@ exports.registerFarmer = async (req, res, next) => {
     }
   };
 
-
   //READ
 exports.getFarmer = async (req, res, next) => {
   const farmers = await Farmer.find();
@@ -56,7 +55,6 @@ exports.getFarmer = async (req, res, next) => {
     farmers,
   });
 };
-
 
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
