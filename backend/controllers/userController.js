@@ -62,26 +62,26 @@ exports.getUser = async (req, res, next) => {
 exports.getUpdateUser = async (req, res, next) => {
  
   try {
-//   if (req.body.avatar && req.body.avatar !== '') {
-//     const user = await User.findById(req.user.id);
-//     const image_id = user.avatar.public_id;
-//     await cloudinary.v2.uploader.destroy(image_id);
+  if (req.body.avatar && req.body.avatar !== '') {
+    const user = await User.findById(req.user.id);
+    const image_id = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(image_id);
     
-// }
+}
 
-// const results = await cloudinary.v2.uploader.upload(req.body.avatar, {
-//     folder: 'avatars',
-//     width: 150,
-//     crop: "scale"
-// });
+const results = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: 'avatars',
+    width: 150,
+    crop: "scale"
+});
     const UpdateDataUser =
     {
         name: req.body.name,
         email: req.body.email,
-      //   avatar: {
-      //     public_id: results.public_id,
-      //     url: results.secure_url
-      // },
+        avatar: {
+          public_id: results.public_id,
+          url: results.secure_url
+      },
     }
 
     const user = await User.findByIdAndUpdate(req.params.id, UpdateDataUser,
