@@ -41,7 +41,7 @@ exports.newProducts = async (req, res, next) => {
       const product = await Product.create({
         name,
         description,
-        avatar: {
+        images: {
           public_id: result.public_id,
           url: result.secure_url,
         },
@@ -57,7 +57,6 @@ exports.newProducts = async (req, res, next) => {
           product
       })
   }
-
 
    //Create
    exports.getProduct = async (req, res, next) => {
