@@ -4,7 +4,7 @@ const cookie = require('cookie-parser');
 const cors = require('cors');
 const users = require('./routes/userAuth');
 const farmers = require('./routes/farmerAuth');
-
+const product = require('./routes/product')
 app.use(cors());
   
 
@@ -14,5 +14,5 @@ app.use(cookie());
 
 app.use('/api/v1/user/', users)
 app.use('/api/v1/farmer/', farmers)
-
+app.use('/api/v1/', product)
 module.exports = app;
