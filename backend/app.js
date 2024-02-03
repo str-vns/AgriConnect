@@ -5,6 +5,7 @@ const cors = require('cors');
 const users = require('./routes/userAuth');
 const farmers = require('./routes/farmerAuth');
 const product = require('./routes/product')
+const bank = require('./routes/bank')
 app.use(cors());
   
 
@@ -15,4 +16,6 @@ app.use(cookie());
 app.use('/api/v1/user/', users)
 app.use('/api/v1/farmer/', farmers)
 app.use('/api/v1/', product)
+app.use('/api/v1/', bank)
+
 module.exports = app;
