@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const sendToken = require("../utility/jwtToken");
 const cloudinary = require("cloudinary");
 const { TopologyDescription } = require("mongodb");
-
+const Farmer = require("../models/farmer");
 //Crud for user
 
 //CREATE
@@ -120,5 +120,52 @@ exports.deleteUser = async (req, res, next) =>
     await User.findByIdAndDelete(req.params.id)
     return res.status(200).json({
         success: true,
+    })
+}
+
+//Login
+exports.UserLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Please enter email & password' });
+  }
+
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    const farmer = await Farmer.findOne({ "farmerInfo.email": email }).select('+farmerInfo.password');
+    
+    if (!farmer) {
+      return res.status(401).json({ message: 'Invalid Email or Password for User or Farmer' });
+    }
+
+    const isPasswordMatched = await farmer.comparePassword(password);
+
+    if (!isPasswordMatched) {
+      return res.status(401).json({ message: 'Invalid Email or Password for Farmer' });
+    }
+    sendToken(farmer, 200, res);
+    return;
+  }
+
+  const isPasswordMatched = await user.comparePassword(password);
+
+  if (!isPasswordMatched) {
+    return res.status(401).json({ message: 'Invalid Email or Password for User' });
+  }
+  sendToken(user, 200, res);
+};
+
+exports.UserLogout =  async (req, res, next ) =>
+{
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: 'Logged out'
     })
 }
