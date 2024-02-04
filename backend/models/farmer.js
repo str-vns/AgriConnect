@@ -105,7 +105,7 @@ farmerSchema.methods.getJwtToken = function () {
 }
 
 farmerSchema.methods.comparePassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
+    return await bcrypt.compare(enteredPassword, this.farmerInfo.password);
 }
 
 farmerSchema.methods.getResetPasswordToken = function () {
