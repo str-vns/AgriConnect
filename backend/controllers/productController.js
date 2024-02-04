@@ -6,56 +6,48 @@ const Product = require('../models/product')
 //create
 exports.newProducts = async (req, res, next) => {
 
-    // let images = []
-    //   if (typeof req.body.images === 'string') {
-    //       images.push(req.body.images)
-    //   } else {
-    //       images = req.body.images
-    //   }
-  
-    //   let imagesLinks = [];
-  
-    //   for (let i = 0; i < images.length; i++) {
-    //       let imageDataUri = images[i]
-    //       try {
-              const result = await cloudinary.v2.uploader.upload(  req.body.avatar, {
-                  folder: 'products',
-                  width: 150,
-                  crop: "scale",
-              });
-  
-    //           imagesLinks.push({
-    //               public_id: result.public_id,
-    //               url: result.secure_url
-    //           })
-  
-    //       } catch (error) {
-    //           console.log(error)
-    //       }
-  
-    //   }
-  
-    //   req.body.images = imagesLinks
-    //   req.body.user = req.user.id;
-    const { name, description, user } = req.body;
-      const product = await Product.create({
-        name,
-        description,
-        images: {
-          public_id: result.public_id,
-          url: result.secure_url,
-        },
-        user
-      });
-      if (!product)
-          return res.status(400).json({
-              success: false,
-              message: 'Product not created'
-          })
-      res.status(201).json({
-          success: true,
-          product
-      })
+  let images = []
+	if (typeof req.body.images === 'string') {
+		images.push(req.body.images)
+	} else {
+		images = req.body.images
+	}
+
+	let imagesLinks = [];
+
+	for (let i = 0; i < images.length; i++) {
+		let imageDataUri = images[i]
+		try {
+			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+				folder: 'products',
+				width: 150,
+				crop: "scale",
+			});
+
+			imagesLinks.push({
+				public_id: result.public_id,
+				url: result.secure_url
+			})
+
+		} catch (error) {
+			console.log(error)
+		}
+
+	}
+
+	req.body.images = imagesLinks
+	req.body.user = req.user.id;
+
+	const product = await Product.create(req.body);
+	if (!product)
+		return res.status(400).json({
+			success: false,
+			message: 'Product not created'
+		})
+	res.status(201).json({
+		success: true,
+		product
+	})
   }
 
    //Create
