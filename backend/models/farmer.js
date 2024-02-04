@@ -77,6 +77,39 @@ const farmerSchema = new mongoose.Schema(
                 index: '2dsphere',
             }
         },
+        reviews: [
+            {
+              user: {
+                type: mongoose.Schema.ObjectId,
+                ref: "User",
+                required: true,
+              },
+              name: {
+                type: String,
+                required: true,
+              },
+              rating: {
+                type: Number,
+                required: true,
+              },
+              comment: {
+                type: String,
+                required: true,
+              },
+              images: [
+                {
+                  public_id: {
+                    type: String,
+                    required: true,
+                  },
+                  url: {
+                    type: String,
+                    required: true,
+                  },
+                },
+              ],
+            },
+          ],
         resetPasswordToken: String,
         resetPasswordExpire: Date,
         createdAt: {
