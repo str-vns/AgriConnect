@@ -13,7 +13,7 @@ app.use(express.json({ limit: '1000mb' }));
 app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 app.use(cookie());
 
-app.use('/api/v1/user/', users)
+app.use('/api/v1/', users)
 app.use('/api/v1/farmer/', farmers)
 app.use('/api/v1/', product)
 app.use('/api/v1/', bank)
