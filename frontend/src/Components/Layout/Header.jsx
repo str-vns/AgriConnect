@@ -1,56 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Search from './Search';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { getUser, logout } from '../../Utilitys/helpers';
-import axios from 'axios'; // Import Axios
-import { GoogleLogout } from 'react-google-login';
 
-const clientId = "965475144008-u9mfeqg7399ld09i40faoutoe9l4eibs.apps.googleusercontent.com";
-
-const Header = ({ cartProducts }) => {
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
-
-  const logoutUser = async () => {
-    try {
-      await axios.get(`http://localhost:4000/api/v1/logout`);
-      setUser({}); 
-      logout(() => navigate('/'));
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
-
-  const onSuccess = async (res) => {
-    toast.success(`Logout Success: currentUser: ${JSON.stringify(res.profileObj)}`, {
-      position: 'top-right',
-    });
-  }
-
-  const logoutHandler = () => {
-    logoutUser();
-    navigate('/');
-    window.location.reload();
-    toast.success('Logged out Successfully', {
-      position: 'top-right',
-    });
-  };
-
-  useEffect(() => {
-    setUser(getUser());
-  }, []);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
-
+const Header = () => {
   return (
     <Fragment>
      <div class="flex h-screen w-16 flex-col justify-between border-e bg-white">
@@ -247,6 +197,6 @@ const Header = ({ cartProducts }) => {
 </div>
     </Fragment>
   );
-};
+  }
 
 export default Header;
