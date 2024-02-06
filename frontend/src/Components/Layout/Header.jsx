@@ -1,9 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Fragment>
-     <div class="flex h-screen w-16 flex-col justify-between border-e bg-white">
+      
+     <div class="flex  h-screen w-16 flex-col justify-between border-e bg-white">
   <div>
     <div class="inline-flex h-16 w-16 items-center justify-center">
       <span
@@ -166,6 +168,7 @@ const Header = () => {
   </div>
 
   <div class="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-white p-2">
+<Link to="/login" id="login_btn">
     <form action="/logout">
       <button
         type="submit"
@@ -193,6 +196,7 @@ const Header = () => {
         </span>
       </button>
     </form>
+    </Link>
   </div>
 </div>
     </Fragment>
