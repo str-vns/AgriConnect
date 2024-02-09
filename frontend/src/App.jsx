@@ -5,6 +5,8 @@ import Home from './Components/Home';
 import Header from './Components/Layout/Header'
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';
+import FarmRegister from './Components/User/FarmRegister';
+import UserRegister from './Components/User/UserRegister';
 
 function App() {
  
@@ -16,6 +18,8 @@ function App() {
             <Route path="/" element = {<Home />}/>
             <Route path="/login" element={<Login />}  exact="true" />
             <Route path="/register" element={<Register />} />
+            <Route path="/userRegister" element={<UserRegister/>}/>
+            <Route path="/farmerRegister" element={<FarmRegister/>}/>
           </Routes>
 
          </Router>
