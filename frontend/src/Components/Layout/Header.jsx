@@ -92,10 +92,7 @@ const Header = () => {
                 </li>
 
                 <li>
-                  <a
-                    href=""
-                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  >
+                <Link to="/" class="border-t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5 opacity-75"
@@ -114,14 +111,11 @@ const Header = () => {
                     <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
                       Invoices
                     </span>
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href=""
-                    class="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  >
+                <Link to="/" class="border-t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5 opacity-75"
@@ -137,10 +131,10 @@ const Header = () => {
                       />
                     </svg>
 
-                    <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                    <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible z-10">
                       Account
                     </span>
-                  </a>
+                    </Link>
                 </li>
               </ul>
             </div>
