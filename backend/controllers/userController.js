@@ -10,41 +10,38 @@ const Farmer = require("../models/farmer");
 //CREATE
 exports.registerUser = async (req, res, next) => {
   try {
-    if(!req.file)
-    {
-        return res.status(400).json({ success: false, message: 'Missing required parameter - file'  });
+    if (!req.file) {
+        return res.status(400).json({ success: false, message: 'Missing required parameter - file' });
     }
 
-    const result = await cloudinary.v2.uploader.upload(
-      req.body.avatar,
-      {
-        folder: "avatars",
+    const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: 'avatars',
         width: 150,
-        crop: "scale",
-      },
-      (err, res) => {
-        console.log(err, res);
-      }
-    );
+        crop: "scale"
+    });
 
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     const user = await User.create({
-      name,
-      email,
-      password,
-      avatar: {
-        public_id: result.public_id,
-        url: result.secure_url,
-      },
+        name,
+        email,
+        password,
+        avatar:  result ?  {
+            public_id: result.public_id,
+            url: result.secure_url
+        } : {
+            public_id: 'default',
+            url: '/images/default_avatar.jpg'
+        },
+
     });
 
     sendToken(user, 200, res);
-  } catch (error) {
+} catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Error in UserController Register" });
-  }
-};
+    res.status(500).json({ success: false, message: 'Server Error' });
+}
+}
 
 //READ
 
