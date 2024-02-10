@@ -18,14 +18,14 @@ const Mappy = () => {
         initialViewState={{
           longitude: 120.811536,
           latitude: 14.843619,
-          zoom: 10
+          zoom: 14
         }}
         style={{ width: "100%", height: "100%" }}
         mapStyle="https://api.maptiler.com/maps/streets-v2/style.json?key=O7BfebJywf5BGbak0iIT"
       >
         <NavigationControl position="top-left" />
 
-        {/* First Marker */}
+ 
         <Marker longitude={120.820068} latitude={14.839891}  onClick={() => handleMarkerClick(120.820068, 14.839891)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ const Mappy = () => {
           </svg>
         </Marker>
       
-        {/* Second Marker with Popup */}
+ 
         <Marker longitude={120.829602} latitude={14.849681}  onClick={() => handleMarkerClick(120.829602, 14.849681)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,6 @@ const Mappy = () => {
           </svg>
         </Marker>
 
-        {/* Popup */}
         {popupInfo && (
          <Popup
          longitude={popupInfo.longitude}
