@@ -65,86 +65,6 @@ const Login = () => {
     }
   };
 
-  const responseFacebook = async (response) => {
-    try {
-      console.log(response)
-        
-      const {accessToken, userID} = response
-      const { data } = await axios.post('http://localhost:4000/api/v1/facebook_login', {accessToken, userID})
-  
-      if (data && data.user) {
-        console.log("Received from server:", data.user);
-  
-        sessionStorage.setItem("user", JSON.stringify(data.user));
-  
-        // Retrieve the user data from session storage
-        const userJson = sessionStorage.getItem("user");
-        
-        if (userJson) {
-          const user = JSON.parse(userJson);
-          console.log("Stored in session storage:", user);
-        
-          authenticate(data, () => {
-            toast.success("Logged in successfully", {
-              position: "top-right",
-            });
-            navigate("/");
-            console.log("Retrieved from session storage:", user);
-            console.log(user.name, user.email, user.avatar);
-          });
-        } else {
-          console.error("No user data in session storage");
-        }
-      } else {
-        console.error("No user data in server response");
-      }
-    } catch (err) {
-      console.error("Error:", err);
-      if (err.response) {
-        console.error("Response Data:", err.response.data);
-      }
-      toast.error("Facebook Login Failed", {
-        position: "top-right",
-      });
-    }
-  }
-  
-  const responseGoogle = async (response) => {
-    try {
-      const { data } = await axios.post(
-        "http://localhost:4000/api/v1/google_login",
-        {
-          tokenId: response.tokenId,
-        }
-      );
-      console.log("Received from server:", data.user);
-
-
-      sessionStorage.setItem("user", JSON.stringify(data.user));
-      console.log(
-        "Stored in session storage:",
-        JSON.parse(sessionStorage.getItem("user"))
-      );
-
-      authenticate(data, () => {
-        toast.success("Logged in successfully", {
-          position: "top-right",
-        });
-        navigate("/");
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        console.log("Retrieved from session storage:", user);
-        console.log(user.name, user.email, user.avatar);
-      });
-    } catch (err) {
-      console.error("Error:", err);
-      if (err.response) {
-        console.error("Response Data:", err.response.data);
-      }
-      toast.error("Google Login Failed", {
-        position: "top-right",
-      });
-    }
-  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -152,11 +72,6 @@ const Login = () => {
     login(email, password);
   };
 
-  useEffect(() => {
-    if (getUser() && redirect === "shippings") {
-      navigate(`/${redirect}`);
-    }
-  }, []);
 
   return (
   
@@ -168,16 +83,21 @@ const Login = () => {
 
         <Header />
       </div>
-<section className="flex flex-wrap  lg:h-screen lg:items-center justify-center bg-white w-full md:w-6/6">
-  <div className="w-full px-4 py-10 sm:px-6 sm:py-16 lg:w-2/4 lg:px-8 lg:py-24">
-    <div className=" max-w-lg text-center">
-      <h1 className="text-2xl font-bold sm:text-3xl text-black">
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <Metadata title={"Login"} />
 
+          <section className="flex flex-wrap  lg:h-screen lg:items-center justify-center bg-white w-full md:w-6/6">
+  <div className="w-full px-4 py-10 sm:px-6 sm:py-16 lg:w-2/4 lg:px-8 lg:py-24">
+    <div className=" text-center">
+      <h1 className="text-2xl font-bold sm:text-3xl text-black">
                   Welcome To OnGarage! Please Login{" "}
                 </h1>
               </div>
               <form
-                className="mt-8 max-w-md space-y-4"
+                className="mx-auto mb-0 mt-8 max-w-md space-y-4"
                 onSubmit={submitHandler}
               >
                 <div>
@@ -185,11 +105,11 @@ const Login = () => {
                     Email
                   </label>
 
-                  <div className="relative">
+                  <div className="relative ">
                     <input
                       type="email"
                       id="email_field"
-                      className="w-full rounded-lg border-2 border-black bg-white p-4 pe-12 text-sm shadow-sm text-black"
+                      className="w-full rounded-lg border-2 border-black bg-white p-4 pe-12 text-sm shadow-sm text-black "
                       placeholder="Enter Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -292,6 +212,7 @@ const Login = () => {
                   </button>
                 </div>
               </form>
+          
            </div>
             <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
               <img
@@ -300,8 +221,10 @@ const Login = () => {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
-            
           </section>
+        </Fragment>
+      )}
+
           </div>
         </Fragment>
 
