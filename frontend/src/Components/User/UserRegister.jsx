@@ -4,191 +4,499 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import MetaData from '../Layout/MetaData';
 const UserRegister = () => {
-  
-    
-     
-    
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+
+  const { name, email, password, passwordConfirm } = user || {};
+
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState(
+    "/images/default_avatar.jpg"
+  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+    if (error) {
+      console.log(error);
+      setError();
+    }
+  }, [error, isAuthenticated]);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const submitHandler = (e) => {
+    if (!name || !email || !password) {
+      toast.error("Name, email, and password are required");
+      return;
+    }
+
+    if (!avatar) {
+      toast.error("image are required");
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      setError("Password does not match");
+      toast.error("Password does not match");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.set("password", password);
+    formData.append("passwordConfirm", passwordConfirm);
+    if (avatar) formData.append("avatar", avatar);
+
+    register(formData);
+  };
+
+  console.log("Password:", password);
+  console.log("Password Confirmation:", passwordConfirm);
+
+  const onChange = (e) => {
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+
+      setAvatar(e.target.files[0]);
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:4000/api/v1/register`,
+        userData,
+        config
+      );
+      console.log(data.user);
+      setIsAuthenticated(true);
+      setLoading(false);
+      setUser(data.user);
+      toast.success("Registration successful");
+      navigate("/");
+      window.location.reload()
+    } catch (error) {
+      setError(error.message || "An error occurred during registration");
+      toast.error("Registration failed");
+      setIsAuthenticated(false);
+      console.log(error.response.data);
+      setLoading(false);
+      setUser(null);
+      setError(error);
+      console.log(error);
+    }
+  };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must have at 8 characters"),
+    passwordConfirm: Yup.string()
+      .required("Please re-type your password")
+      .oneOf([Yup.ref("password")], "Passwords does not match"),
+      images: Yup.string().required("Image is required")
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      images: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Submitting Register with values:", values);
+
+      try {
+        submitHandler(values);
+        toast.success("Register Success");
+      } catch (error) {
+        console.error("Error submitting review:", error);
+      }
+    },
+  });
+
   return (
-    <div className="flex bg-white h-screen">
-    <div className="w-full md:w-1/6">
+    <Fragment>
+      
+      <MetaData title={"Register User"} />
+   
+      <section className="flex  bg-white h-screen">
+           <div className="w-full md:w-1/6  ">
       <Header />
     </div>
-
-<section class="w-full md:w-5/6 mr-0 md:mr-4 xl:mr-60">
-  <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-    <section class="relative flex h-32  items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-      <img
-        alt="Night"
-        src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-        class="absolute inset-0 h-full w-full object-cover opacity-80"
-      />
-
-      <div class="hidden lg:relative lg:block lg:p-12">
-        <a class="block text-white" href="/">
-          <span class="sr-only">Home</span>
-          <svg
-            class="h-8 sm:h-10"
-            viewBox="0 0 28 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z"
-              fill="currentColor"
+        <div className="lg:grid flex flex-grow justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
+          <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+            <img
+              alt="Night"
+              src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              className="absolute inset-0 h-full w-full object-cover opacity-80"
             />
-          </svg>
-        </a>
 
-        <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-          Welcome to Squid 🦑
-        </h2>
+            <div className="hidden lg:relative lg:block lg:p-12">
+              <a className="block text-white" href="/">
+                <span className="sr-only">Home</span>
+                <svg
+                  className="h-8 sm:h-10"
+                  viewBox="0 0 28 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                ></svg>
+              </a>
 
-        <p class="mt-4 leading-relaxed text-white/90">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-          quibusdam aperiam voluptatum.
-        </p>
-      </div>
-    </section>
+              <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                Welcome to Agriconnect 🌾
+              </h2>
 
-    <main
-      class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6 "
-    >
-      <div class="max-w-xl lg:max-w-3xl">
-        <div class="relative -mt-16 block lg:hidden">
-          <a
-            class="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20"
-            href="/"
-          >
-            <span class="sr-only">Home</span>
-            <svg
-              class="h-8 sm:h-10"
-              viewBox="0 0 28 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z"
-                fill="currentColor"
-              />
-            </svg>
-          </a>
+              <p className="mt-4 leading-relaxed text-white/90">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+              </p>
+            </div>
+          </section>
 
-          <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-            Welcome to Squid 🦑
-          </h1>
+          <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+            <div className="max-w-xl lg:max-w-3xl">
+              <div className="relative -mt-16 block lg:hidden">
+                <a
+                  className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
+                  href="/"
+                >
+                  <span className="sr-only">Home</span>
+                  <svg
+                    className="h-8 sm:h-10"
+                    viewBox="0 0 28 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ></svg>
+                </a>
 
-          <p class="mt-4 leading-relaxed text-gray-500">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-            quibusdam aperiam voluptatum.
-          </p>
-        </div>
+               
+              </div>
 
-        <form action="#" class="mt-8 grid grid-cols-6 gap-6">
-          <div class="col-span-6 sm:col-span-3">
-            <label for="FirstName" class="block text-sm font-medium text-gray-700">
-              First Name
-            </label>
+              <form
+                className="mt-8 grid grid-cols-6 gap-6"
+                onSubmit={formik.handleSubmit}
+                encType="multipart/form-data"
+              >
+                <h1 className="text-3xl font-bold text-black col-span-6">
+                 User Register
+                </h1>
 
-            <input
-              type="text"
-              id="FirstName"
-              name="first_name"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div>
+                <div className="form-group col-span-6">
+                  <label
+                    htmlFor="name_field"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Name
+                    {formik.errors.name && formik.touched.name && (
+                      <span className="text-red-500 text-sm ml-3">
+                        {formik.errors.name}
+                      </span>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    id="name_field"
+                    className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={(event) => {
+                      onChange(event);
+                      formik.setFieldValue("name", event.target.value);
+                    }}
+                  />
+                </div>
 
-          <div class="col-span-6 sm:col-span-3">
-            <label for="LastName" class="block text-sm font-medium text-gray-700">
-              Last Name
-            </label>
+                <div className="col-span-6">
+                  <label
+                    htmlFor="email_field"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Email
+                    {formik.errors.email && formik.touched.email && (
+                      <span className="text-red-500 text-sm ml-3">
+                        {formik.errors.email}
+                      </span>
+                    )}
+                  </label>
+                  <input
+                    type="email"
+                    id="email_field"
+                    className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={(event) => {
+                      onChange(event);
+                      formik.setFieldValue("email", event.target.value);
+                    }}
+                  />
+                </div>
 
-            <input
-              type="text"
-              id="LastName"
-              name="last_name"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <div className="form-group">
+                    <label
+                      htmlFor="password_field"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Password 
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password_field"
+                        className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                        name="password"
+                        value={formik.values.password}
+                        onChange={(event) => {
+                          onChange(event);
+                          formik.setFieldValue("password", event.target.value);
+                        }}
+                        />
+                     
 
-          <div class="col-span-6">
-            <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
+                      <span
+                        onClick={toggleShowPassword}
+                        className="absolute right-4 bottom-1 transform -translate-y-1/2 cursor-pointer"
+                      >
+                        {showPassword ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={`h-4 w-4 text-black `}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={`h-4 w-4 text-teal-600 `}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  {formik.errors.password && formik.touched.password && (
+                      <span className="text-red-500 text-sm ml-3">
+                        {formik.errors.password}
+                      </span>
+                    )}
+                </div>
 
-            <input
-              type="email"
-              id="Email"
-              name="email"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="passwordConfirm"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password Confirmation  
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                      value={formik.values.passwordConfirm}
+                      onChange={(event) => {
+                        onChange(event);
+                        formik.setFieldValue("passwordConfirm", event.target.value);
+                      }}
+                      />
 
-          <div class="col-span-6 sm:col-span-3">
-            <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
+                    <span
+                      onClick={toggleShowPassword}
+                      className="absolute right-4 bottom-1 transform -translate-y-1/2 cursor-pointer"
+                    >
+                      {showPassword ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-4 w-4 text-black `}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-4 w-4 text-teal-600 `}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </div>
+                  {formik.errors.passwordConfirm && formik.touched.passwordConfirm && (
+                      <span className="text-red-500 text-sm ml-3">
+                        {formik.errors.passwordConfirm}
+                      </span>
+                    )}
+                </div>
 
-            <input
-              type="password"
-              id="Password"
-              name="password"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div>
-
-          <div class="col-span-6 sm:col-span-3">
-            <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
-              Password Confirmation
-            </label>
-
-            <input
-              type="password"
-              id="PasswordConfirmation"
-              name="password_confirmation"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div>
-
-          <div class="col-span-6">
-            <label for="MarketingAccept" class="flex gap-4">
-              <input
-                type="checkbox"
-                id="MarketingAccept"
-                name="marketing_accept"
-                class="size-5 rounded-md border-gray-200 bg-white shadow-sm"
-              />
-
-              <span class="text-sm text-gray-700">
-                I want to receive emails about events, product updates and company announcements.
-              </span>
-            </label>
-          </div>
-
-          <div class="col-span-6">
-            <p class="text-sm text-gray-500">
-              By creating an account, you agree to our
-              <a href="#" class="text-gray-700 underline"> terms and conditions </a>
-              and
-              <a href="#" class="text-gray-700 underline">privacy policy</a>.
-            </p>
-          </div>
-
+                <div className="col-span-6 form-group">
+                  <label
+                    htmlFor="avatar_upload"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Avatar
+                  </label>
+                  <div className="d-flex flex-wrap items-centermy-2">
+                    <div className="pr-3">
+                      <figure className="avatar w-20 h-20">
+                        <img
+                          src={avatarPreview}
+                          className="rounded-circle w-16 h-16  object-cover "
+                          alt="Avatar Preview"
+                        />
+                      </figure>
+                    </div>
+                    <div className="custom-file relative">
+                      <input
+                        type="file"
+                        name="avatar"
+                        className="hidden "
+                        id="customFile"
+                        accept="image/*"
+                        onChange={(event) => {
+                          onChange(event);
+                          formik.setFieldValue(
+                            "images",
+                            event.currentTarget.files
+                          );
+                          formik.setFieldTouched("images", true, false);
+                        }}
+                      />
+                      <label
+                        htmlFor="customFile"
+                        className="px-4 py-2 border-2 border-black rounded-md cursor-pointer bg-white text-black hover:bg-black hover:text-white"
+                      >
+                        Choose Avatar
+                      </label>
+                      {formik.errors.images && formik.touched.images && (
+                      <span className="text-red-500 text-sm ml-3">
+                        {formik.errors.images}
+                      </span>
+                    )}
+                    </div>
+                  </div>
+                </div>
           <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button
-              class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
-            >
-              Create an account
-            </button>
+                <button
+                  id="register_button"
+                  type="submit"
+                  className="inline-block rounded-lg bg-black px-5 py-3 w-[150px] text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
+                  // disabled={loading ? false : true}
+                >
+                  REGISTER
+                </button>
 
             <p class="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
+              <Link to="/Login" > 
               <a href="#" class="text-gray-700 underline">Log in</a>.
+              </Link>
             </p>
-          </div>
-        </form>
-      </div>
-    </main>
-  </div>
-</section>
-  </div>
-  
+ </div>
+              </form>
+            </div>
+          </main>
+        </div>
+      </section>
+    </Fragment>
     
   )
 }
