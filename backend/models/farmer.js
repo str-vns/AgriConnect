@@ -55,6 +55,11 @@ const farmerSchema = new mongoose.Schema(
                 required: true
 
             },
+            address:
+            {
+                type: String,
+                required: true
+            },
             city:
             {
                 type: String,
@@ -71,10 +76,13 @@ const farmerSchema = new mongoose.Schema(
                 enum: ['Point'],
                 default: 'Point',
             },
-            coordinates:
+            latitude:
             {
                 type: [Number],
-                index: '2dsphere',
+            },
+            longitude:
+            {
+                type: [Number],
             }
         },
         reviews: [
