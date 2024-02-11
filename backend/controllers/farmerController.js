@@ -9,21 +9,21 @@ const { TopologyDescription } = require("mongodb");
 //Crud for Farmers
 exports.registerFarmer = async (req, res, next) => {
     try {
-      // if(!req.file)
-      // {
-      //     return res.status(400).json({ success: false, message: 'Missing required parameter - file'  });
-      // }
-  
-      const result = await cloudinary.uploader.upload(
-        req.body.avatar,
-        {
-            folder: "avatars",
-            width: 150,
-            crop: "scale",
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'Missing required parameter - file' });
         }
-    );
-
-    const { name, email, password, farmInfo } = req.body;
+    
+        const result = await cloudinary.uploader.upload(
+            req.file.path, 
+            
+            {
+                folder: "avatars",
+                width: 150,
+                crop: "scale",
+            }
+        );
+    
+        const { name, email, password, farmInfo } = req.body;
 
     const farmer = await Farmer.create({
         farmerInfo: {
@@ -37,15 +37,18 @@ exports.registerFarmer = async (req, res, next) => {
         },
         farmInfo,
     });
-  
-      sendToken(farmer, 200, res);
+    
+        sendToken(farmer, 200, res);
+
+        if (!farmer) {
+            return res.status(400).json({ message: `farmer not saved` })
+        }
 
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: "Server Error" });
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
     }
-  };
-
+}
   //READ
 exports.getFarmer = async (req, res, next) => {
   const farmers = await Farmer.find();
