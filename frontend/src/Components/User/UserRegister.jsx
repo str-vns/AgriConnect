@@ -28,15 +28,15 @@ const UserRegister = () => {
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
-    if (error) {
-      console.log(error);
-      setError();
-    }
-  }, [error, isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/");
+  //   }
+  //   if (error) {
+  //     console.log(error);
+  //     setError();
+  //   }
+  // }, [error, isAuthenticated]);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
