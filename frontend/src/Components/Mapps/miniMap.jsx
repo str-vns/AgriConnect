@@ -61,6 +61,7 @@ const miniMap = () => {
                     </svg>
                 </Marker>
             </Map>
+            
  </>
   )
 }
