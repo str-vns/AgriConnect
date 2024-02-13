@@ -137,7 +137,7 @@ const Header = () => {
                     </Link>
                 </li>
                 <li>
-                <Link to="details/pavo/index.html" class="border-t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700">
+                <Link to="farmers/index.html" class="border-t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700">
               <svg class="w-6 h-6 text-blue-500 dark:text-white" 
               aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
               fill="none" viewBox="0 0 24 24">
