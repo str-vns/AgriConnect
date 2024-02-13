@@ -161,9 +161,9 @@ const UserRegister = () => {
       <MetaData title={"Register User"} />
    
       <section className="flex  bg-white h-screen">
-           <div className="w-full md:w-1/6  ">
+          
       <Header />
-    </div>
+    
         <div className="lg:grid flex flex-grow justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
           <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
             <img
