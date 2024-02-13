@@ -136,6 +136,18 @@ const Header = () => {
                     </span>
                     </Link>
                 </li>
+                <li>
+                <Link to="details/pavo/index.html" class="border-t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700">
+              <svg class="w-6 h-6 text-blue-500 dark:text-white" 
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4"/>
+              </svg>
+                    <span class="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible z-10">
+                      Goverment
+                    </span>
+                    </Link>
+                </li>
               </ul>
             </div>
           </div>
