@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Header from '../Layout/Header';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FarmRegisterSteps from './FarmRegisterSteps';
 import { Fragment } from 'react';
@@ -14,24 +14,51 @@ const FarmerLocation = ({ farmCollection }) => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [postalCode, setPostalCode] = useState("");
-    
+    const [location, setLocation] = useState(null);
+    const [longitude, setLongitude] = useState()
+    const [latitude, setLatitude] = useState(null)
     const navigate = useNavigate();
  
-    
+    useEffect(() => {
+        const watchId = navigator.geolocation.watchPosition(
+            position => {
+                setLocation({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
+            },
+            error => {
+                console.error("Error getting geolocation:", error);
+            }
+        );
+
+        return () => {
+            navigator.geolocation.clearWatch(watchId);
+        };
+    }, []); 
+
 
     const submitHandler = async (e) => {
         e.preventDefault();
         document.querySelector("#register_button").disabled = true;
-        
+    
+        if (!location) {
+            toast.error("Location information is missing.", {
+                position: "top-right",
+            });
+            return;
+        }
+    
         farmCollection.farmInfo = {
             farmName: farmname,
             address: address,
             city: city,
             postalCode: postalCode,
-        }
+            latitude: location.latitude,
+            longitude: location.longitude,
+        };
         createRegister(farmCollection);
-        console.log(farmCollection.password)
-
+        console.log(farmCollection.password);
     };
 
     const createRegister = async (farmCollection) => {
@@ -150,6 +177,34 @@ const FarmerLocation = ({ farmCollection }) => {
                                     onChange={(e) => setPostalCode(e.target.value)}
                                 />
                             </div> 
+                            <div>
+    {location ? (
+        
+      <div>
+         <input
+                                    type="text"
+                                    id="latitude_field"
+                                    className="mt-1 p-4 hidden lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                                    name="latitude"
+                                    value={location.latitude}
+                                    onChange={(e) => setLatitude(e.target.value)}
+                                />
+
+<input
+                                    type="text"
+                                    id="longitude_field"
+                                    className="mt-1 hidden p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
+                                    name="longitude"
+                                    value={location.longitude}
+                                    onChange={(e) => setLongitude(e.target.value)}
+                                />
+                                
+        
+      </div>
+    ) : (
+      <div className='hidden'>Loading...</div>
+    )}
+  </div>
                             <div className="w-full ">
                             <Mapa/>
   </div>
