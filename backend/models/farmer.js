@@ -78,11 +78,13 @@ const farmerSchema = new mongoose.Schema(
             },
             latitude:
             {
-                type: [Number],
+                type: String,
+                required: true
             },
             longitude:
             {
-                type: [Number],
+                type: String,
+                required: true
             }
         },
         reviews: [
