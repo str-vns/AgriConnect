@@ -8,7 +8,7 @@ const Header = () => {
         <div>
           <div class="inline-flex h-16 w-16 items-center justify-center">
             <span class="grid h-10 w-10 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-              L
+             <img src="/images/Loogo.png"/>
             </span>
           </div>
 
