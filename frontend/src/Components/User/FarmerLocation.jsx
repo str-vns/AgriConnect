@@ -92,7 +92,7 @@ const FarmerLocation = ({ farmCollection }) => {
             <MetaData title={"Register Location"} />
             <section className="flex  bg-white h-screen">
                 <Header />
-                <div className="lg:grid flex flex-grow justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
+                <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
            
                 <section className="relative flex flex-col h-full items-center bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6 bg-black">
                 <h1 className="text-2xl font-bold p-4  ">Your location</h1>
@@ -199,9 +199,9 @@ const FarmerLocation = ({ farmCollection }) => {
                                     onChange={(e) => setLongitude(e.target.value)}
                                 />
                                 
-        
       </div>
     ) : (
+        
       <div className='hidden'>Loading...</div>
     )}
   </div>
