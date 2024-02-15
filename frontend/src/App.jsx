@@ -22,6 +22,14 @@ import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
 import First from './Components/Farmers/Categories/First';
 import Second from './Components/Farmers/Categories/Second';
+import Third from './Components/Farmers/Categories/Third';
+  import THIRDONE from './Components/Farmers/Categories/Details/Third/third_one';
+  import THIRDTWO from './Components/Farmers/Categories/Details/Third/third_two';
+  import THIRDTHREE from './Components/Farmers/Categories/Details/Third/third_three';
+import Fourth from './Components/Farmers/Categories/Fourth';
+  import FOURTHONE from './Components/Farmers/Categories/Details/Fourth/fourth_one';
+  import FOURTHTWO from './Components/Farmers/Categories/Details/Fourth/fourth_two';
+  import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_three';
 import One from './Components/Farmers/Categories/Details/One';
 function App() {
   const [state, setState] = useState({
@@ -59,6 +67,15 @@ function App() {
         <Route path="/second" element={<Second />} />
 
         <Route path="/one" element={<One />} />
+
+        <Route path="/third" element={<Third />} />
+          <Route path="/thirdone" element={<THIRDONE />} />
+          <Route path="/thirdtwo" element={<THIRDTWO />} />
+          <Route path="/thirdthree" element={<THIRDTHREE />} />
+        <Route path="/fourth" element={<Fourth />} />
+          <Route path="/fourthone" element={<FOURTHONE />} />
+          <Route path="/fourthtwo" element={<FOURTHTWO />} />
+          <Route path="/fourththree" element={<FOURTHTHREE />} />
       </Routes>
     </Router>
   );

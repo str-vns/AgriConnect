@@ -147,8 +147,8 @@ const Government = () => (
                 <div>Ready out-of-the-box with minor setup settings</div>
               </li>
             </ul>
-            <a className="btn-outline-reg" href="/third">
-              Details
+            <a className="btn-outline-reg" href="/Third">
+              View More
             </a>
           </div>
         </div>{" "}
@@ -186,8 +186,8 @@ const Government = () => (
                 <div>Ready out-of-the-box with minor setup settings</div>
               </li>
             </ul>
-            <a className="btn-outline-reg" href="article.html">
-              Details
+            <a className="btn-outline-reg" href="/Fourth">
+              View More
             </a>
           </div>
         </div>{" "}
