@@ -50,9 +50,7 @@ const Third = () => (
           <div className="card-body">
             <h5 className="card-title">Agricultural Productivity Competitiveness Enhancement Fund</h5>
             <p className="mb-4">
-            This program was initiated by the Department of Agriculture (DA) in the year 2019 for the objective 
-            of bringing improvements in the productivity and competitiveness of the agriculture and fishery 
-            sectors of the country. The program extends financial support to farmer cooperatives and associations 
+            The program extends financial support to farmer cooperatives and associations 
             (FCAs) and local government units (LGUs) in the financing of various activities aimed at building 
             capacities.
             </p>
@@ -70,10 +68,10 @@ const Third = () => (
           <div className="card-body">
             <h5 className="card-title">Farmers Scientist Training Program</h5>
             <p className="mb-4">
-            The Agriculture Training Institute (ATI) is implemented by the Agricultural Training Institute (ATI) 
-            in cooperation with the local government units (LGUs) and non-government organizations (NGOs). 
-            It intends to provide the capability for farmers in which they also can partake in research and 
-            development (R&D) activities.
+            Implemented by the Agricultural Training Institute
+            in cooperation with the local government and non-government organizations. 
+            It intends to provide the capability for farmers to partake in research and 
+            development activities.
             </p>
           </div>
           <a className="btn-outline-reg" href="/thirdtwo">
