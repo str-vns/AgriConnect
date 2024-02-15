@@ -108,7 +108,7 @@ const Government = () => (
                 <div>Ready out-of-the-box with minor setup settings</div>
               </li>
             </ul>
-            <a className="btn-outline-reg" href="article.html">
+            <a className="btn-outline-reg" href="/Second">
               View More
             </a>
           </div>
