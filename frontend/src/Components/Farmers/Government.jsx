@@ -69,6 +69,7 @@ const Government = () => (
                 <div>Ready out-of-the-box with minor setup settings</div>
               </li>
             </ul>
+<<<<<<< Updated upstream
             <a className="btn-outline-reg" href="/First">
               Details
             </a>
@@ -108,8 +109,10 @@ const Government = () => (
                 <div>Ready out-of-the-box with minor setup settings</div>
               </li>
             </ul>
+=======
+>>>>>>> Stashed changes
             <a className="btn-outline-reg" href="article.html">
-              Details
+              View More
             </a>
           </div>
         </div>{" "}
