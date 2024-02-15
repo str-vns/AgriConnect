@@ -14,6 +14,9 @@ import { useState } from 'react';
 import Test from './Test';
 import FarmerInfo from './Components/Farmers/FarmerInfo';
 import ListReviews from './Components/Review/ListReviews';
+import UpdatePassword from "./Components/User/UpdatePassword";
+import ForgotPassword from "./Components/User/ForgotPassword";
+import NewPassword from "./Components/User/NewPassword";
 
 function App() {
   const [state, setState] = useState({
@@ -35,6 +38,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} exact="true"/>
         <Route path="/register" element={<Register />} />
+        <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
+        <Route path="/password/reset/:token" element={<NewPassword />} exact="true"/>
+        <Route path="/password/update" element={<UpdatePassword />} exact="true"/>
         <Route path="/userRegister" element={<UserRegister />} />
         <Route path="/farmerRegister" element={<FarmRegister farmerInfo={state.farmCollection} saveFarmerRegister={saveFarmerRegister} />} />
         <Route path="/farmerLocation" element={<FarmerLocation farmCollection={state.farmCollection} />} />
