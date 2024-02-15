@@ -7,7 +7,7 @@ const { isAuthenticatedUser } = require('../middleware/auth');
 router.post('/register', upload.single('avatar'), registerUser)
 router.get('/alluser', getUser)
 router.route('/profile/:id').put( getUpdateUser).delete( deleteUser)
-router.post('/login',  UserLogin)
+router.post('/login', isAuthenticatedUser, UserLogin)
 router.get('/logout', UserLogout)
 
 module.exports = router;

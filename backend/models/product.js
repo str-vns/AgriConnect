@@ -23,7 +23,12 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-
+  stock: {
+    type: Number,
+    required: [true, "Enter the quantity of the Product"],
+    maxlength: [4, "Product cant exceed up to 4 digits"],
+    default: 0,
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",

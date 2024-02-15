@@ -39,6 +39,7 @@ const Login = () => {
         { email, password },
         config
       );
+
       console.log(data);
       authenticate(data, () => {
         toast.success("Logged in successfully", {
@@ -47,9 +48,13 @@ const Login = () => {
         if (data.user.role === 'admin'){
           authenticate(data, () => navigate("/Dashboard"))
       }
+      else if(data.user.role === 'client')
+      {
+        authenticate(data, () => navigate("/"))
+      }
       else
       {
-          authenticate(data, () => navigate("/"))
+        authenticate(data, () => navigate("/222"))
       }
         window.location.reload();
       });

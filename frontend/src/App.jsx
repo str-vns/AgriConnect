@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import FarmerLocation from './Components/User/FarmerLocation';
 import { useState } from 'react';
 import Test from './Test';
+import FarmerInfo from './Components/Farmers/FarmerInfo';
+import ListReviews from './Components/Review/ListReviews';
 
 function App() {
   const [state, setState] = useState({
@@ -37,6 +39,8 @@ function App() {
         <Route path="/farmerRegister" element={<FarmRegister farmerInfo={state.farmCollection} saveFarmerRegister={saveFarmerRegister} />} />
         <Route path="/farmerLocation" element={<FarmerLocation farmCollection={state.farmCollection} />} />
         <Route path="/test" element={<Test/>}/>
+        <Route path="/farmerInfo" element={<FarmerInfo/>}/>
+        <Route path='/reviewfarmer' element={<ListReviews/>} />
       </Routes>
     </Router>
   );

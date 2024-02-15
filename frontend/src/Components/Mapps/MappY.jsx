@@ -4,6 +4,7 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import Loader from '../Layout/Loader'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const Mappy = () => {
   const [popupInfo, setPopupInfo] = useState(null);
@@ -117,12 +118,14 @@ const Mappy = () => {
         </a>
       </p>
       <div className="source-link">
+        <Link to="/farmerInfo">
         <a
           href="https://github.com/visgl/react-map-gl/tree/7.1-release/examples/controls"
           target="_new"
         >
           View Code ↗
         </a>
+        </Link>
       </div>
     </div>
   </Popup>
