@@ -33,10 +33,10 @@ const First = () => (
             <img src="farmers/images/features-icon-1.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Platform Integration</h5>
+            <h5 className="card-title">Kapital Access for Young Agripreneurs (KAYA)</h5>
             <p className="mb-4">
-              You sales force can use the app on any smartphone platform without
-              compatibility issues
+            KAYA program is part of the programs of the Department of Agriculture for the youth. It will help in financing the capital requirement of a start-up and even existing agri-based projects of young entrepreneurs and agri-fishery graduates.
+
             </p>
           </div>
           <a className="btn-outline-reg" href="/one">
@@ -51,10 +51,10 @@ const First = () => (
             <img src="farmers/images/features-icon-2.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Easy On Resources</h5>
+            <h5 className="card-title">Agri-Negosyo Program (ANYO)</h5>
             <p className="mb-4">
-              Works smoothly even on older generation hardware due to our
-              optimization efforts
+            The loan program of ANYO provides loans to Agriculture MSEs that may be used in the financing of their capital requirement, operations or fixed asset acquisition. Iit also provides capacity building where borrowers may have technical assistance and training in improving their business.
+
             </p>
           </div>
           <a className="btn-outline-reg" href="/two">
@@ -69,10 +69,11 @@ const First = () => (
             <img src="farmers/images/features-icon-3.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Great Performance</h5>
+            <h5 className="card-title">Agrarian Production Credit Program (APCP)</h5>
             <p className="mb-4">
-              Optimized code and innovative technology insure no delays and
-              ultra-fast responsiveness
+            The Agrarian Production Credit Program (APCP) is a joint effort by the Department of Agriculture, 
+            the Department of Agrarian Reform, and LandBank of the Philippines. It assists Agrarian Reform Beneficiaries (ARBs) whose groups are not yet eligible for LandBank loans.
+          
             </p>
           </div>
           <a className="btn-outline-reg" href="/three">
