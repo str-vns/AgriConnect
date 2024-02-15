@@ -132,19 +132,19 @@ const Government = () => (
         {/* end of col */}
         <div className="lg:col-span-5">
           <div className="xl:mt-12">
-            <h2 className="mb-6">3. Instant results for the marketing department</h2>
+            <h2 className="mb-6">3. Training and Skill Development</h2>
             <ul className="list mb-7 space-y-2">
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Features that will help you and your marketers</div>
+                <div>Improve your farming skills by learning new tools and tricks through workshops, courses, and advice from professionals.</div>
               </li>
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Smooth learning curve due to the knowledge base</div>
+                <div>Learn as much as you can about farming and gain the confidence to handle any problem that comes up in the field.</div>
               </li>
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Ready out-of-the-box with minor setup settings</div>
+                <div>Unlock your farming potential, get expert training to learn smarter, farm better, and reach your farming goals.</div>
               </li>
             </ul>
             <a className="btn-outline-reg" href="/Third">
@@ -171,19 +171,19 @@ const Government = () => (
         {/* end of col */}
         <div className="lg:col-span-5">
           <div className="xl:mt-12">
-            <h2 className="mb-6">4. Instant results for the marketing department</h2>
+            <h2 className="mb-6">4. Environmental Conservation Programs</h2>
             <ul className="list mb-7 space-y-2">
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Features that will help you and your marketers</div>
+                <div>Programs that help farmers keep our land & air healthy and happy.</div>
               </li>
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Smooth learning curve due to the knowledge base</div>
+                <div>Initiatives to farm smart, protect what matters, and grow for tomorrow.</div>
               </li>
               <li className="flex">
                 <i className="fas fa-chevron-right" />
-                <div>Ready out-of-the-box with minor setup settings</div>
+                <div>Actions helping farmers fight climate change and build a brighter, greener future.</div>
               </li>
             </ul>
             <a className="btn-outline-reg" href="/Fourth">

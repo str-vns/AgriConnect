@@ -48,10 +48,11 @@ const Fourth = () => (
             <img src="farmers/images/features-icon-1.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Platform Integration</h5>
+            <h5 className="card-title">Sustainable Agriculture Program</h5>
             <p className="mb-4">
-              You sales force can use the app on any smartphone platform without
-              compatibility issues
+            The Sustainable Agriculture Program (SAP) advocates for the implementation of sustainable 
+            agricultural methods, including organic farming, integrated pest management, and soil conservation. 
+            It offers farmers technical guidance and monetary aid to implement these methods.
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourthone">
@@ -65,10 +66,12 @@ const Fourth = () => (
             <img src="farmers/images/features-icon-2.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Easy On Resources</h5>
+            <h5 className="card-title">National Greening Program</h5>
             <p className="mb-4">
-              Works smoothly even on older generation hardware due to our
-              optimization efforts
+            The National Greening Program (NGP) seeks to enhance the forested area of the Philippines 
+            through the cultivation of trees on both public and private lands. Farmers have the option 
+            to engage in the program either by planting trees on their own property or by participating 
+            in community-led tree-planting initiatives.
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourthtwo">
@@ -82,10 +85,12 @@ const Fourth = () => (
             <img src="farmers/images/features-icon-3.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Great Performance</h5>
+            <h5 className="card-title">Climate-Smart Agriculture Project</h5>
             <p className="mb-4">
-              Optimized code and innovative technology insure no delays and
-              ultra-fast responsiveness
+            The Climate-Smart Agriculture Project (CSAP), which is financed by the World Bank, 
+            assists farmers in adjusting to climate change and reducing its effects. 
+            It offers them instruction and materials on cultivating crops and implementing 
+            farming techniques that are resistant to climate change.
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourththree">

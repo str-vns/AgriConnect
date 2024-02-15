@@ -48,10 +48,13 @@ const Third = () => (
             <img src="farmers/images/features-icon-1.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Platform Integration</h5>
+            <h5 className="card-title">Agricultural Productivity Competitiveness Enhancement Fund</h5>
             <p className="mb-4">
-              You sales force can use the app on any smartphone platform without
-              compatibility issues
+            This program was initiated by the Department of Agriculture (DA) in the year 2019 for the objective 
+            of bringing improvements in the productivity and competitiveness of the agriculture and fishery 
+            sectors of the country. The program extends financial support to farmer cooperatives and associations 
+            (FCAs) and local government units (LGUs) in the financing of various activities aimed at building 
+            capacities.
             </p>
           </div>
           <a className="btn-outline-reg" href="/thirdone">
@@ -65,10 +68,12 @@ const Third = () => (
             <img src="farmers/images/features-icon-2.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Easy On Resources</h5>
+            <h5 className="card-title">Farmers Scientist Training Program</h5>
             <p className="mb-4">
-              Works smoothly even on older generation hardware due to our
-              optimization efforts
+            The Agriculture Training Institute (ATI) is implemented by the Agricultural Training Institute (ATI) 
+            in cooperation with the local government units (LGUs) and non-government organizations (NGOs). 
+            It intends to provide the capability for farmers in which they also can partake in research and 
+            development (R&D) activities.
             </p>
           </div>
           <a className="btn-outline-reg" href="/thirdtwo">
@@ -82,10 +87,11 @@ const Third = () => (
             <img src="farmers/images/features-icon-3.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Great Performance</h5>
+            <h5 className="card-title">Climate-Smart Agriculture (CSA) Learning Platform</h5>
             <p className="mb-4">
-              Optimized code and innovative technology insure no delays and
-              ultra-fast responsiveness
+            An online platform developed by the Philippine Rice Research Institute (PhilRice) 
+            in collaboration with other partners, this platform offers farmers an access to a wide 
+            range of resources on climate-smart agriculture (CSA) practices.
             </p>
           </div>
           <a className="btn-outline-reg" href="/thirdthree">

@@ -64,9 +64,9 @@ const FOURTHTHREE = () => (
   {/* end of navigation */}
   {/* Header */}
   <header className="ex-header bg-gray">
-    <div className="container px-4 sm:px-8 xl:px-4">
-      <h1 className="xl:ml-24">Article Details</h1>
-    </div>{" "}
+  <div className="flex justify-center items-center">
+  <h1 className="xl:ml-24">Article Details</h1>
+</div>
     {/* end of container */}
   </header>{" "}
   {/* end of ex-header */}
@@ -76,7 +76,7 @@ const FOURTHTHREE = () => (
     <div className="container px-4 sm:px-8">
       <img
         className="inline mt-12 mb-4"
-        src="images/article-details-large.jpg"
+        src="farmers/images/article-details-large.jpg"
         alt="alternative"
       />
     </div>{" "}
