@@ -19,7 +19,7 @@ import ForgotPassword from "./Components/User/ForgotPassword";
 import NewPassword from "./Components/User/NewPassword";
 
 import Government from './Components/Farmers/Government';
-
+import Information from './Components/Farmers/Information';
 function App() {
   const [state, setState] = useState({
     farmCollection: localStorage.getItem('farmCollection')
@@ -51,6 +51,7 @@ function App() {
         <Route path='/reviewfarmer' element={<ListReviews/>} />
 
         <Route path="/government" element={<Government />} />
+        <Route path="/information" element={<Information />} />
       </Routes>
     </Router>
   );
