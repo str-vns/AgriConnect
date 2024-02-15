@@ -21,8 +21,8 @@ import NewPassword from "./Components/User/NewPassword";
 import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
 import First from './Components/Farmers/Categories/First';
-
-
+import Second from './Components/Farmers/Categories/Second';
+import One from './Components/Farmers/Categories/Details/One';
 function App() {
   const [state, setState] = useState({
     farmCollection: localStorage.getItem('farmCollection')
@@ -56,6 +56,9 @@ function App() {
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
         <Route path="/first" element={<First />} />
+        <Route path="/second" element={<Second />} />
+
+        <Route path="/one" element={<One />} />
       </Routes>
     </Router>
   );
