@@ -32,12 +32,12 @@ Colors:
 
 body,
 p {
-    color: #6b747b;
+    color: #2c3a07dc;
     font: 400 1rem/1.625rem "Open Sans", sans-serif;
 }
 
 h1 {
-    color: #252c38;
+    color: #354703;
     font-weight: 700;
     font-size: 2.5rem;
     line-height: 3.125rem;
@@ -69,7 +69,7 @@ h4 {
 }
 
 h5 {
-    color: #252c38;
+    color: #354703;
     font-weight: 700;
     font-size: 1.25rem;
     line-height: 1.625rem;
@@ -99,6 +99,9 @@ h6 {
 
 .bg-gray {
     background-color: #f1f9fc;
+
+
+
 }
 
 .container {
@@ -109,7 +112,7 @@ h6 {
 .btn-solid-reg {
     display: inline-block;
     padding: 1.375rem 2.25rem 1.375rem 2.25rem;
-    border: 1px solid #594cda;
+    border: 1px solid #dac54c;
     border-radius: 32px;
     background-color: #594cda;
     color: #ffffff;
@@ -130,9 +133,9 @@ h6 {
 .btn-solid-lg {
     display: inline-block;
     padding: 1.625rem 2.75rem 1.625rem 2.75rem;
-    border: 1px solid #594cda;
+    border: 1px solid #3e4d1dd5;
     border-radius: 32px;
-    background-color: #594cda;
+    background-color: #3e4d1dd5;
     color: #ffffff;
     font-weight: 600;
     font-size: 0.875rem;
@@ -145,9 +148,9 @@ h6 {
 }
 
 .btn-solid-lg:hover {
-    border: 1px solid #594cda;
+    border: 1px solid #3e4d1dd5;
     background-color: transparent;
-    color: #594cda; /* needs to stay here because of the color property of a tag */
+    color: #3e4d1dd5; /* needs to stay here because of the color property of a tag */
     text-decoration: none;
 }
 
@@ -176,10 +179,10 @@ h6 {
 .btn-outline-reg {
     display: inline-block;
     padding: 1.375rem 2.25rem 1.375rem 2.25rem;
-    border: 1px solid #252c38;
+    border: 1px solid #3e4d1dd5;
     border-radius: 32px;
     background-color: transparent;
-    color: #252c38;
+    color: #3e4d1dd5;
     font-weight: 600;
     font-size: 0.875rem;
     line-height: 0;
@@ -501,7 +504,7 @@ input[type="checkbox"] {
 .dropdown.show > a,
 .nav-link:hover,
 .nav-link.active {
-    color: #ff6e84;
+    color: #354703;
     text-decoration: none;
 }
 
@@ -573,7 +576,7 @@ input[type="checkbox"] {
 /*    Header     */
 /*****************/
 .header {
-    background: linear-gradient(rgba(197, 234, 249, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(rgb(241, 221, 128), rgba(255, 255, 255, 1));
 }
 
 /********************/
@@ -590,7 +593,7 @@ input[type="checkbox"] {
     padding: 3.125rem 1rem 2.125rem 1rem;
     border: none;
     border-radius: 16px;
-    background-color: #f1f9fc;
+    background-color: #f8efc1;
 }
 
 .cards-1 .card-image {
@@ -792,7 +795,7 @@ input[type="checkbox"] {
 
 .cards-2 .card .card-title {
     margin-bottom: 1rem;
-    color: #eb427e;
+    color: #354703;
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 1.875rem;
@@ -945,7 +948,7 @@ a:hover.back-to-top {
 .ex-header {
     padding-top: 8.5rem;
     padding-bottom: 4rem;
-    background-color: #f1f9fc;
+    background-color: #fafcf1;
 }
 
 .ex-basic-1 .list-unstyled .fas {
@@ -1020,7 +1023,7 @@ a:hover.back-to-top {
     .navbar.top-nav-collapse {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
-        background-color: #f1f9fc;
+        background-color: #f8efc1;
     }
 
     .offcanvas-collapse {

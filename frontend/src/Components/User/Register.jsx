@@ -15,25 +15,25 @@ function Register() {
       <a href="#" class="group relative block">
   <div class="relative h-[450px] sm:h-[450px] ">
     <img
-      src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
+      src="images/User.png"
       alt=""
       class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
     />
   </div>
 
   <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-    <h3 class="text-xl font-medium text-white">Skinny Jeans Blue</h3>
+    <h3 class="text-xl font-medium text-white">Farmer</h3>
 
     <p class="mt-1.5 text-pretty text-xs text-white">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi dicta impedit
-      aperiam ipsum!
+    Welcome to the Farmer's Register  your digital companion in the world of agriculture
     </p>
      <Link to="/userRegister">
-    <span
-      class="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
-    >
-      Shop Now
-    </span>
+    <div class="flex justify-center">
+  <span class="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+    Register
+  </span>
+</div>
+
     </Link>
   </div>
   
@@ -44,14 +44,14 @@ function Register() {
       <a href="#" class="group relative block ">
   <div class="relative h-[450px] sm:h-[450px]">
     <img
-      src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
+      src="images/farmer.png"
       alt=""
       class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
     />
   </div>
 
   <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-    <h3 class="text-xl font-medium text-white">Skinny Jeans Blue</h3>
+    <h3 class="text-xl font-medium text-white">User</h3>
 
     <p class="mt-1.5 text-pretty text-xs text-white">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi dicta impedit
@@ -61,7 +61,7 @@ function Register() {
     <span
       class="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
     >
-      Shop Now
+      Register
     </span>
     </Link>
   </div>
