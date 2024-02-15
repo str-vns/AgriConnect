@@ -23,24 +23,9 @@ const First = () => (
     <link href="farmers/css/magnific-popup.css" rel="stylesheet" />
     <link href="farmers/css/styles.css" rel="stylesheet" />
     <link rel="icon" href="farmers/images/favicon.png" />
-    <header
-  id="header"
-  className="header py-2 text-center md:pt-2 lg:text-left xl:pt-2 xl:pb-2"
->
+ 
 
-
-      <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
-        <div className="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
-          <h1 className="h1-large mb-5">AGRICULTURAL PROGRAM FOR FARMERS</h1>
-          <p className="p-large mb-8">
-            Discover programs tailored for farmers like yourself. Explore
-            initiatives designed to meet the unique needs of agricultural
-            professionals.
-          </p>
-        </div>
-      
-      </div>{" "}
-    </header>{" "}
+ 
     <div id="features" className="cards-1">
       <div className="container px-4 sm:px-8 xl:px-4">
         <div className="card">
@@ -54,11 +39,12 @@ const First = () => (
               compatibility issues
             </p>
           </div>
-          <a className="btn-outline-reg" href="/information">
+          <a className="btn-outline-reg" href="/one">
             Details
           </a>
         </div>
         {/* end of card */}
+
         {/* Card */}
         <div className="card">
           <div className="card-image">
@@ -71,11 +57,12 @@ const First = () => (
               optimization efforts
             </p>
           </div>
-          <a className="btn-outline-reg" href="article.html">
+          <a className="btn-outline-reg" href="/two">
             Details
           </a>
         </div>
         {/* end of card */}
+
         {/* Card */}
         <div className="card">
           <div className="card-image">
@@ -88,62 +75,12 @@ const First = () => (
               ultra-fast responsiveness
             </p>
           </div>
-          <a className="btn-outline-reg" href="article.html">
+          <a className="btn-outline-reg" href="/three">
             Details
           </a>
         </div>
         {/* end of card */}
-        {/* Card */}
-        <div className="card">
-          <div className="card-image">
-            <img src="farmers/images/features-icon-4.svg" alt="alternative" />
-          </div>
-          <div className="card-body">
-            <h5 className="card-title">Multiple Languages</h5>
-            <p className="mb-4">
-              Choose from one of the 40 languages that come pre-installed and
-              start selling smarter
-            </p>
-          </div>
-          <a className="btn-outline-reg" href="article.html">
-            Details
-          </a>
-        </div>
-        {/* end of card */}
-        {/* Card */}
-        <div className="card">
-          <div className="card-image">
-            <img src="farmers/images/features-icon-5.svg" alt="alternative" />
-          </div>
-          <div className="card-body">
-            <h5 className="card-title">Free Updates</h5>
-            <p className="mb-4">
-              Don't worry about future costs, pay once and receive all future
-              updates at no extra cost
-            </p>
-          </div>
-          <a className="btn-outline-reg" href="article.html">
-            Details
-          </a>
-        </div>
-        {/* end of card */}
-        {/* Card */}
-        <div className="card">
-          <div className="card-image">
-            <img src="farmers/images/features-icon-6.svg" alt="alternative" />
-          </div>
-          <div className="card-body">
-            <h5 className="card-title">Community Support</h5>
-            <p className="mb-4">
-              Register the app and get acces to knowledge and ideas from the Pavo
-              online community
-            </p>
-          </div>
-          <a className="btn-outline-reg" href="article.html">
-            Details
-          </a>
-        </div>
-        {/* end of card */}
+
       </div>{" "}
       {/* end of container */}
     </div>{" "}

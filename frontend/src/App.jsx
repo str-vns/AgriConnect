@@ -20,17 +20,28 @@ import NewPassword from "./Components/User/NewPassword";
 
 import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
+
 import First from './Components/Farmers/Categories/First';
 import Second from './Components/Farmers/Categories/Second';
 import Third from './Components/Farmers/Categories/Third';
-  import THIRDONE from './Components/Farmers/Categories/Details/Third/third_one';
-  import THIRDTWO from './Components/Farmers/Categories/Details/Third/third_two';
-  import THIRDTHREE from './Components/Farmers/Categories/Details/Third/third_three';
 import Fourth from './Components/Farmers/Categories/Fourth';
-  import FOURTHONE from './Components/Farmers/Categories/Details/Fourth/fourth_one';
-  import FOURTHTWO from './Components/Farmers/Categories/Details/Fourth/fourth_two';
-  import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_three';
-import One from './Components/Farmers/Categories/Details/One';
+
+import One from './Components/Farmers/Categories/Details/First/One';
+import Two from './Components/Farmers/Categories/Details/First/Two';
+import Three from './Components/Farmers/Categories/Details/First/Three';
+
+import SecondO from './Components/Farmers/Categories/Details/Second/SecondO';
+import SecondT from './Components/Farmers/Categories/Details/Second/SecondT';
+import SecondH from './Components/Farmers/Categories/Details/Second/SecondH';
+
+import THIRDONE from './Components/Farmers/Categories/Details/Third/third_one';
+import THIRDTWO from './Components/Farmers/Categories/Details/Third/third_two';
+import THIRDTHREE from './Components/Farmers/Categories/Details/Third/third_three';
+
+import FOURTHONE from './Components/Farmers/Categories/Details/Fourth/fourth_one';
+import FOURTHTWO from './Components/Farmers/Categories/Details/Fourth/fourth_two';
+import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_three';
+// import One from './Components/Farmers/Categories/Details/One';
 function App() {
   const [state, setState] = useState({
     farmCollection: localStorage.getItem('farmCollection')
@@ -63,19 +74,27 @@ function App() {
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
+      
         <Route path="/first" element={<First />} />
         <Route path="/second" element={<Second />} />
+        <Route path="/third" element={<Third />} />
+        <Route path="/fourth" element={<Fourth />} />
 
         <Route path="/one" element={<One />} />
+        <Route path="/two" element={<Two />} />
+        <Route path="/three" element={<Three />} />
 
-        <Route path="/third" element={<Third />} />
-          <Route path="/thirdone" element={<THIRDONE />} />
-          <Route path="/thirdtwo" element={<THIRDTWO />} />
-          <Route path="/thirdthree" element={<THIRDTHREE />} />
-        <Route path="/fourth" element={<Fourth />} />
-          <Route path="/fourthone" element={<FOURTHONE />} />
-          <Route path="/fourthtwo" element={<FOURTHTWO />} />
-          <Route path="/fourththree" element={<FOURTHTHREE />} />
+        <Route path="/secondo" element={<SecondO />} />
+        <Route path="/secondt" element={<SecondT />} />
+        <Route path="/secondh" element={<SecondH />} />
+
+        <Route path="/thirdone" element={<THIRDONE />} />
+        <Route path="/thirdtwo" element={<THIRDTWO />} />
+        <Route path="/thirdthree" element={<THIRDTHREE />} />
+       
+        <Route path="/fourthone" element={<FOURTHONE />} />
+        <Route path="/fourthtwo" element={<FOURTHTWO />} />
+        <Route path="/fourththree" element={<FOURTHTHREE />} />
       </Routes>
     </Router>
   );

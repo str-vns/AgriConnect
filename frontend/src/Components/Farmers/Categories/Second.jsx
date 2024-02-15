@@ -37,7 +37,7 @@ const Second = () => (
               compatibility issues
             </p>
           </div>
-          <a className="btn-outline-reg" href="/information">
+          <a className="btn-outline-reg" href="/secondo">
             Details
           </a>
         </div>
@@ -54,7 +54,7 @@ const Second = () => (
               optimization efforts
             </p>
           </div>
-          <a className="btn-outline-reg" href="/one">
+          <a className="btn-outline-reg" href="/secondt">
             Details
           </a>
         </div>
@@ -71,7 +71,7 @@ const Second = () => (
               ultra-fast responsiveness
             </p>
           </div>
-          <a className="btn-outline-reg" href="article.html">
+          <a className="btn-outline-reg" href="secondh">
             Details
           </a>
         </div>
