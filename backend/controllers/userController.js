@@ -20,7 +20,7 @@ exports.registerUser = async (req, res, next) => {
         crop: "scale"
     });
 
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
 
     const user = await User.create({
         name,
@@ -33,7 +33,7 @@ exports.registerUser = async (req, res, next) => {
             public_id: 'default',
             url: '/images/default_avatar.jpg'
         },
-
+      role
     });
 
     sendToken(user, 200, res);
@@ -124,34 +124,25 @@ exports.deleteUser = async (req, res, next) =>
 exports.UserLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Please enter email & password' });
-  }
 
-  const user = await User.findOne({ email }).select('+password');
-
-  if (!user) {
-    const farmer = await Farmer.findOne({ "farmerInfo.email": email }).select('+farmerInfo.password');
-    
-    if (!farmer) {
-      return res.status(401).json({ message: 'Invalid Email or Password for User or Farmer' });
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Please enter email & password' })
     }
 
-    const isPasswordMatched = await farmer.comparePassword(password);
+    const user = await User.findOne({ email }).select('+password')
+
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid Email or Password' })
+    }
+  
+    const isPasswordMatched = await user.comparePassword(password);
 
     if (!isPasswordMatched) {
-      return res.status(401).json({ message: 'Invalid Email or Password for Farmer' });
+        return res.status(401).json({ message: 'Invalid Email or Password' })
     }
-    sendToken(farmer, 200, res);
-    return;
-  }
-
-  const isPasswordMatched = await user.comparePassword(password);
-
-  if (!isPasswordMatched) {
-    return res.status(401).json({ message: 'Invalid Email or Password for User' });
-  }
-  sendToken(user, 200, res);
+   
+    sendToken(user, 200, res)
+    
 };
 
 exports.UserLogout =  async (req, res, next ) =>

@@ -29,9 +29,9 @@ const productSchema = new mongoose.Schema({
     maxlength: [4, "Product cant exceed up to 4 digits"],
     default: 0,
   },
-  user: {
+  farmer: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "Farmer",
     required: true,
   },
   

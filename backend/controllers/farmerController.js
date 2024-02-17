@@ -8,47 +8,51 @@ const { TopologyDescription } = require("mongodb");
 
 //Crud for Farmers
 exports.registerFarmer = async (req, res, next) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ success: false, message: 'Missing required parameter - file' });
-        }
-    
-        const result = await cloudinary.uploader.upload(
-            req.file.path, 
-            
-            {
-                folder: "avatars",
-                width: 150,
-                crop: "scale",
-            }
-        );
-    
-        const { name, email, password, farmInfo } = req.body;
+    let images = []
+	if (typeof req.body.images === 'string') {
+		images.push(req.body.images)
+	} else {
+		images = req.body.images
+	}
 
-    const farmer = await Farmer.create({
-        farmerInfo: {
-            name,
-            email,
-            password,
-            avatar: {
-                public_id: result.public_id,
-                url: result.secure_url,
-            },
-        },
-        farmInfo,
-    });
-    
-        sendToken(farmer, 200, res);
+	let imagesLinks = [];
 
-        if (!farmer) {
-            return res.status(400).json({ message: `farmer not saved` })
-        }
+	for (let i = 0; i < images.length; i++) {
+		let imageDataUri = images[i]
+		try {
+			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+				folder: 'images',
+				width: 150,
+				crop: "scale",
+			});
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server Error" });
-    }
-}
+			imagesLinks.push({
+				public_id: result.public_id,
+				url: result.secure_url
+			})
+
+		} catch (error) {
+			console.log(error)
+		}
+
+	}
+
+	req.body.images = imagesLinks
+	req.body.user = req.user.id;
+
+	const farmer = await Farmer.create(req.body);
+	if (!farmer)
+		return res.status(400).json({
+			success: false,
+			message: 'Farmer not created'
+		})
+	res.status(201).json({
+		success: true,
+		farmer
+	})
+};
+
+
   //READ
 exports.getFarmer = async (req, res, next) => {
   const farmers = await Farmer.find();

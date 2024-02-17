@@ -1,9 +1,9 @@
-const multer = require('multer')
-const path = require('path')
+const multer = require('multer');
+const path = require('path');
 
 module.exports = multer(
     {
-        limits: {fieldSize : 50 * 1024 * 1024},
+        limits: {fieldSize : 300 * 1024 * 1024},
         storage: multer.diskStorage({}),
        fileFilter: (req,file,cb) => {
             let ext = path.extname(file.originalname).toLowerCase();
