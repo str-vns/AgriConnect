@@ -10,72 +10,105 @@ import { getUser } from "../../Utilitys/helpers";
 import Header  from "../Layout/Header";
 
 const Login = () => {
+  const [farms, setFarms] = useState([])
   const initialState = {
     email: "",
     password: "",
     err: "",
     success: "",
   };
-
-  const [user, setUser] = useState(initialState);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(initialState)
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  let matchingFarmer = null;
   let location = useLocation();
     const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : ''
 
-  const login = async (email, password) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
 
-      const { data } = await axios.post(
-        `http://localhost:4000/api/v1/login`,
-        { email, password },
-        config
-      );
+    const login = async (email, password) => {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+    
+        const { data } = await axios.post(
+          `http://localhost:4000/api/v1/login`,
+          { email, password },
+          config
+        );
+    
+        const { data: farmerData } = await axios.get(`http://localhost:4000/api/v1/farmer/allfarmer`, config);
+    
 
-      console.log(data);
-      authenticate(data, () => {
-        toast.success("Logged in successfully", {
+        setFarms(farmerData.farmers);
+    
+        if (farmerData && farmerData.farmers && farmerData.farmers.length > 0) {
+          setFarms(farmerData.farmers);
+      
+          const loggedInUserID = data.user._id;
+      
+          for (const farmer of farmerData.farmers) {
+              if (farmer && farmer.user === loggedInUserID) {
+                  matchingFarmer = farmer;
+                  break;
+              }
+          }
+      } else {
+          console.log("No farmers found in the response.");
+      }
+      
+        authenticate(data, () => {
+          toast.success("Logged in successfully", {
+            position: "top-right",
+          });
+    
+          if (data.user.role === 'admin') {
+            authenticate(data, () => navigate("/Dashboard"));
+          } else if(data.user.role === 'farmer') {
+            if(matchingFarmer){
+              authenticate(data, () => navigate("/farmerDashboard"));
+            } else
+            {
+              authenticate(data, () => navigate("/farmerLocation"));
+            }
+         
+          } else {
+            authenticate(data, () => navigate("/"));
+          }
+        });
+      } catch (error) {
+        console.error("Error:", error);
+        if (error.response) {
+          console.error("Response Data:", error.response.data);
+        }
+        toast.error("User or Password is Invalid", {
           position: "top-right",
         });
-        if (data.user.role === 'admin'){
-          authenticate(data, () => navigate("/Dashboard"))
       }
-      else if(data.user.role === 'client')
-      {
-        authenticate(data, () => navigate("/"))
-      }
-      else
-      {
-        authenticate(data, () => navigate("/222"))
-      }
-        window.location.reload();
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      if (error.response) {
-        console.error("Response Data:", error.response.data);
-      }
-      toast.error("User or Password is Invalid", {
-        position: "top-right",
-      });
-     
-    }
-  };
-
+    };
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("Submit button clicked");
     login(email, password);
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+    if (error) {
+      console.log(error);
+      setError();
+    }
+  }, [error, isAuthenticated]);
 
 
   return (

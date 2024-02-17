@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import MetaData from '../Layout/MetaData'
 import Header from '../Layout/Header'
 import ListReviews from '../Review/ListReviews'
+import Footer from '../Layout/Footer'
 function FarmerInfo() {
   return (
  <Fragment>
@@ -189,9 +190,13 @@ function FarmerInfo() {
                 </div>
             </div>
         </div>
+        <Footer />
         </div>
+        
         </section>
+
   </Fragment>
+  
   )
 }
 

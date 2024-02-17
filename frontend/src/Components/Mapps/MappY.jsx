@@ -13,12 +13,12 @@ const Mappy = () => {
   const handleMarkerClick = (location) => {
 
     setPopupInfo({
-      longitude: location.farmInfo.longitude,
-      latitude: location.farmInfo.latitude,
-      farmName: location.farmInfo.farmName,
-      address: location.farmInfo.address,
-      city: location.farmInfo.city,
-      postalCode: location.farmInfo.postalCode
+      longitude: location.longitude,
+      latitude: location.latitude,
+      farmName: location.farmName,
+      address: location.address,
+      city: location.city,
+      postalCode: location.postalCode
     });
   };
 
@@ -33,7 +33,7 @@ const Mappy = () => {
      
     
       setAllLocation(data.farmers)
-      console.log(allLocation[0].farmInfo.latitude)
+      console.log(allLocation[0].latitude)
       setLoading(false)
     } catch (error) {
       console.log(error.data.message)
@@ -65,8 +65,8 @@ const Mappy = () => {
         {allLocation.map((location, index) => (
   <Marker 
   key={index}
-  longitude={location.farmInfo.longitude} 
-  latitude={location.farmInfo.latitude}  
+  longitude={location.longitude} 
+  latitude={location.latitude}  
   onClick={() => handleMarkerClick(location)}
   >
     <svg

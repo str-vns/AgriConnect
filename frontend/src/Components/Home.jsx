@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "./Layout/Header";
 import Mappy from "./Mapps/MappY"
+
 const Home = () => {
 
   return (
@@ -13,8 +14,9 @@ const Home = () => {
 
   <div className="w-full ">
    <Mappy />
+
   </div>
- 
+  
 </div>
   );
 };

@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FarmerLocation from './Components/User/FarmerLocation';
 import { useState } from 'react';
 import Test from './Test';
+import Dashboard from './Components/Farmers/Dashboard';
 import FarmerInfo from './Components/Farmers/FarmerInfo';
 import ListReviews from './Components/Review/ListReviews';
 import UpdatePassword from "./Components/User/UpdatePassword";
@@ -41,20 +42,11 @@ import THIRDTHREE from './Components/Farmers/Categories/Details/Third/third_thre
 import FOURTHONE from './Components/Farmers/Categories/Details/Fourth/fourth_one';
 import FOURTHTWO from './Components/Farmers/Categories/Details/Fourth/fourth_two';
 import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_three';
+import ProtectedRoute from './Components/Route/ProtectedRoute';
 // import One from './Components/Farmers/Categories/Details/One';
-function App() {
-  const [state, setState] = useState({
-    farmCollection: localStorage.getItem('farmCollection')
-      ? JSON.parse(localStorage.getItem('farmCollection'))
-      : {}
-  });
 
-  const saveFarmerRegister = async (data) => {
-    console.log(data)
-    setState({ ...state, farmCollection: data });
-    localStorage.setItem('farmCollection', JSON.stringify(data));
-  }
-  console.log(state.farmCollection);
+function App() {
+  
   return (
     <Router>
       <ToastContainer />
@@ -66,11 +58,12 @@ function App() {
         <Route path="/password/reset/:token" element={<NewPassword />} exact="true"/>
         <Route path="/password/update" element={<UpdatePassword />} exact="true"/>
         <Route path="/userRegister" element={<UserRegister />} />
-        <Route path="/farmerRegister" element={<FarmRegister farmerInfo={state.farmCollection} saveFarmerRegister={saveFarmerRegister} />} />
-        <Route path="/farmerLocation" element={<FarmerLocation farmCollection={state.farmCollection} />} />
+        <Route path="/farmerRegister" element={<FarmRegister/>} />
+        <Route path="/farmerLocation" element={<FarmerLocation />} />
         <Route path="/test" element={<Test/>}/>
         <Route path="/farmerInfo" element={<FarmerInfo/>}/>
         <Route path='/reviewfarmer' element={<ListReviews/>} />
+        <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />

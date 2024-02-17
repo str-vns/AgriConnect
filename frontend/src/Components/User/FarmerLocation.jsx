@@ -8,8 +8,12 @@ import MetaData from '../Layout/MetaData';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
+import { useFormik } from "formik"
+import {getToken} from '../../Utilitys/helpers'
 import Mapa from '../Mapps/miniMap'
 const FarmerLocation = ({ farmCollection }) => {
+    const [images, setImages] = useState([]);
+    const [imagesPreview, setImagesPreview] = useState([]);
     const [farmname, setFarmname] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -31,60 +35,110 @@ const FarmerLocation = ({ farmCollection }) => {
                 console.error("Error getting geolocation:", error);
             }
         );
-
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
     }, []); 
 
+const validationSchema = Yup.object({
+    farmname: Yup.string().required("Farm name Is Required"),
+    address: Yup.string().required("Address Is Required"),
+    city: Yup.string().required("City is required"),
+    postalCode: Yup.string().required("Postal Code is required"),
+    images: Yup.string().required("Images are required")
+})
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        document.querySelector("#register_button").disabled = true;
-    
-        if (!location) {
-            toast.error("Location information is missing.", {
-                position: "top-right",
-            });
-            return;
-        }
-    
-        farmCollection.farmInfo = {
-            farmName: farmname,
-            address: address,
-            city: city,
-            postalCode: postalCode,
-            latitude: location.latitude,
-            longitude: location.longitude,
-        };
-        createRegister(farmCollection);
-        console.log(farmCollection.password);
+const formik = useFormik({
+   initialValues: {
+    farmname: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    images: ""
+   }, 
+   validationSchema,
+   onSubmit: (values) => {
+    try {
+      submitHandler(values);
+      console.log("Submitting review with values:", values);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  },
+})
+const onChange = (e) => {
+  const files = Array.from(e.target.files);
+  setImagesPreview([]);
+  setImages([]);
+  files.forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagesPreview((oldArray) => [...oldArray, reader.result]);
+        setImages((oldArray) => [...oldArray, reader.result]);
+      }
     };
 
-    const createRegister = async (farmCollection) => {
-     
-        try {
-            const { data } = await axios.post(`http://localhost:4000/api/v1/farmer/register`, farmCollection, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log(data);
-            toast.success("Registration Successful", {
-                position: "top-right",
-            });
-            localStorage.removeItem("farmCollection");
-            navigate('/login');
-            window.location.reload();
-        } catch (error) {
-            const message = error.response
-                ? error.response.data.message
-                : "An error occurred. Please try again.";
-            toast.error(message, {
-                position: "top-right",
-            });
-        }
-    };
+    reader.readAsDataURL(file);
+  });
+};
+    
+  const submitHandler = async (e) => {
+    document.querySelector("#register_button").disabled = true;
+
+    if (!location) {
+        toast.error("Location information is missing.", {
+            position: "top-right",
+        });
+        return;
+    }
+
+    const formData = new FormData();
+
+
+    formData.set('farmName', farmname);
+    formData.set('address', address);
+    formData.set('city', city);
+    formData.set('postalCode', postalCode);
+    formData.set('latitude', location.latitude);
+    formData.set('longitude', location.longitude);
+    
+    images.forEach((image, index) => {
+        formData.append(`images`, image);
+    });
+console.log(images)
+    createFarm(formData);
+    console.log(farmCollection);
+};
+
+const createFarm = async (formData) => {
+  try {
+      const config = {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${getToken()}`,
+          }
+      }
+
+      const response = await axios.post(`http://localhost:4000/api/v1/farmer/register`, formData, config);
+      console.log("Response from server:", response);
+
+      navigate("/farmerDashboard");
+      window.location.reload();
+      toast.success("Registration Successful", {
+          position: "top-right",
+      });
+  } catch (error) {
+      let message = "An error occurred. Please try again.";
+      if (error.response && error.response.data && error.response.data.message) {
+          message = error.response.data.message;
+      }
+      console.error("Error creating farm:", error);
+      toast.error(message, {
+          position: "top-right",
+      });
+  }
+};
 
 
     return(
@@ -107,7 +161,7 @@ const FarmerLocation = ({ farmCollection }) => {
                         <FarmRegisterSteps farmLocation />
                         <form
                             className="mt-8 grid grid-cols-6 gap-6"
-                            onSubmit={submitHandler}
+                            onSubmit={formik.handleSubmit}
                             encType="multipart/form-data"
                         >
                             <h1 className="text-3xl font-bold text-black col-span-6">
@@ -125,9 +179,19 @@ const FarmerLocation = ({ farmCollection }) => {
                                     id="farmname_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="farmname"
-                                    value={farmname}
-                                    onChange={(e) => setFarmname(e.target.value)}
+                                    value={formik.values.farmname}
+                                    onChange={(e) => {
+                                        setFarmname(e.target.value);
+                                        formik.setFieldValue("farmname", e.target.value);
+                                      }}
+                
                                 />
+                     {formik.errors.farmname && formik.touched.farmname && (
+                      <div className="text-red-500 text-sm ml-3">
+                        {formik.errors.farmname}
+                      </div>
+                    )}
+
                             </div>
                             <div className="col-span-6">
                                 <label
@@ -141,9 +205,18 @@ const FarmerLocation = ({ farmCollection }) => {
                                     id="address_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="address"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
+                                    value={formik.values.address}
+                                    onChange = {(e) => {
+                                        setAddress(e.target.value);
+                                        formik.setFieldValue("address", e.target.value);
+                                      }}
                                 />
+                                 {formik.errors.address && formik.touched.address && (
+                      <div className="text-red-500 text-sm ml-3">
+                        {formik.errors.address}
+                      </div>
+                    )}
+
                             </div>
                             <div className="col-span-6">
                                 <label
@@ -157,9 +230,17 @@ const FarmerLocation = ({ farmCollection }) => {
                                     id="city_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="city"
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
+                                    value={formik.values.city}
+                                    onChange = {(e) => {
+                                        setCity(e.target.value);
+                                        formik.setFieldValue("city", e.target.value);
+                                      }}
                                 />
+                                   {formik.errors.city && formik.touched.city && (
+                      <div className="text-red-500 text-sm ml-3">
+                        {formik.errors.city}
+                      </div>
+                    )}
                             </div>
                             <div className="col-span-6">
                                 <label
@@ -173,11 +254,72 @@ const FarmerLocation = ({ farmCollection }) => {
                                     id="postalCode_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="postalCode"
-                                    value={postalCode}
-                                    onChange={(e) => setPostalCode(e.target.value)}
+                                    value={formik.values.postalCode}
+                                    onChange = {(e) => {
+                                        setPostalCode(e.target.value);
+                                        formik.setFieldValue("postalCode", e.target.value);
+                                      }}
                                 />
-                            </div> 
-                            <div>
+                                   {formik.errors.postalCode && formik.touched.postalCode && (
+                      <div className="text-red-500 text-sm ml-3">
+                        {formik.errors.postalCode}
+                      </div>
+                    )}
+                            </div>
+
+                             <div className="col-span-6 ">
+                  <label className=" text-mg text-black  text-left flex mb-2">
+                    Images
+                  </label>
+                    <div className="custom-file">
+                      <input
+                        type="file"
+                        name="images"
+                        className="custom-file-input hidden"
+                        id="customFile"
+                        onChange={(event) => {
+                            onChange(event);
+                            formik.setFieldValue(
+                              "images",
+                              event.currentTarget.files
+                            );
+                            formik.setFieldTouched("images", true, false);
+                          }}
+                        multiple
+                      />
+                   <div className="flex items-center">
+                    <label
+                      htmlFor="customFile"
+                      className="px-4 py-2 border-2  border-black rounded-md cursor-pointer bg-white text-black hover:bg-black hover:text-white"
+                    >
+                      Choose Images
+                    </label>
+
+                    {formik.errors.images && formik.touched.images && (
+                        <div className="text-red-500 text-sm ml-3">
+                          {formik.errors.images}
+                        </div>
+                      )}
+
+                    </div>
+                  </div>
+                  <div className="flex flex-row mb-2">
+                    {imagesPreview.map((img) => (
+                      <img
+                        src={img}
+                        key={img}
+                        alt="Images Preview"
+                        className="my-3 mr-2 "
+                        width="55"
+                        height="52"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                    <div>
+                                
+                           
     {location ? (
         
       <div>

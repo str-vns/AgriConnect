@@ -17,19 +17,20 @@ function Register() {
     <img
       src="images/User.png"
       alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
+      class="absolute inset-0 h-full w-full object-cover opacity-100 "
     />
   </div>
 
   <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-    <h3 class="text-xl font-medium text-white">Farmer</h3>
+    
+    <h3 class="text-xl font-medium text-black">User</h3>
 
-    <p class="mt-1.5 text-pretty text-xs text-white">
-    Welcome to the Farmer's Register  your digital companion in the world of agriculture
-    </p>
+<p class="mt-1.5 text-pretty text-xs text-black">
+  Welcome to the User's Register your digital companion in the world of agriculture
+</p>
      <Link to="/userRegister">
     <div class="flex justify-center">
-  <span class="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+  <span class="mt-3 inline-block rounded-lg bg-black px-5 py-3  text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2">
     Register
   </span>
 </div>
@@ -46,20 +47,20 @@ function Register() {
     <img
       src="images/farmer.png"
       alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
+      class="absolute inset-0 h-full w-full object-cover opacity-100 "
     />
   </div>
 
   <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-    <h3 class="text-xl font-medium text-white">User</h3>
+  <h3 class="text-xl font-medium text-black">Farmer</h3>
 
-    <p class="mt-1.5 text-pretty text-xs text-white">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi dicta impedit
-      aperiam ipsum!
-    </p>
+<p class="mt-1.5 text-pretty text-xs text-black">
+Welcome to the Farmer's Register  your digital companion in the world of agriculture
+</p>
+
     <Link to="/farmerRegister">
     <span
-      class="mt-3 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+      class="mt-3 inline-block rounded-lg bg-black px-5 py-3  text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
     >
       Register
     </span>
