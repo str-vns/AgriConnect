@@ -124,7 +124,7 @@ const Government = () => (
           <div className="mb-12 lg:mb-0 xl:mr-14">
             <img
               className="inline"
-              src="farmers/images/details-2.jpg"
+              src="farmers/images/details-3.png"
               alt="alternative"
             />
           </div>
