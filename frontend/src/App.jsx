@@ -21,6 +21,7 @@ import NewPassword from "./Components/User/NewPassword";
 
 import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
+import Categories from './Components/Farmers/Categories';
 
 import First from './Components/Farmers/Categories/First';
 import Second from './Components/Farmers/Categories/Second';
@@ -67,7 +68,8 @@ function App() {
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
-      
+        <Route path="/categories" element={<Categories />} />
+
         <Route path="/first" element={<First />} />
         <Route path="/second" element={<Second />} />
         <Route path="/third" element={<Third />} />
