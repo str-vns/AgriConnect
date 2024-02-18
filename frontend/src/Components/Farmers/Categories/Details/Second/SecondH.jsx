@@ -53,7 +53,7 @@ const SecondH = () => (
          className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
          href="index.html"
          >
-      <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
+     
       </a>
       <button
          className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
@@ -78,7 +78,7 @@ const SecondH = () => (
                </a>
             </li>
             <li>
-               <a className="nav-link page-scroll" href="#details">
+               <a className="nav-link page-scroll" href="/First">
                Details
                </a>
             </li>
@@ -97,55 +97,59 @@ const SecondH = () => (
   {/* Basic */}
   <div className="ex-basic-1 py-12">
     <div className="container px-4 sm:px-8">
-      <img
-        className="inline mt-12 mb-4"
-        src="farmers/images/article-details-large.jpg"
-        alt="alternative"
-      />
     </div>{" "}
     {/* end of container */}
   </div>{" "}
   {/* end of ex-basic-1 */}
   {/* end of basic */}
   {/* Basic */}
-  <div className="ex-basic-1 pt-4">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-4">
-        {" "}
-        Are you looking for ways to grow the user base for your mobile
-        application? Then you have arrived at the right place. Here you will
-        find a curated collection of landing page HTML templates that will help
-        you build an engaging online presentation for your mobile app and
-        convince visitors to become loyal paying users.
-      </p>
-      <p className="mb-12">
-        {" "}
-        All templates in the roundup are premium which means you need to pay for
-        them but we're talking small amounts of money which won't break your
-        bank account but will help authors make a living. In return you get a
-        high quality, updated item together with high quality and very prompt
-        technical support.
-      </p>
-      <h2 className="mb-4">Advantages of working with this template</h2>
-      <p className="mb-4">
-        Besides buying the template you need some basic web skills in order to
-        customize it. Nothing too fancy HTML/CSS will do just fine and a little
-        bit of image editing. You can always hire a web designer to help with
-        the customization work while you provide the template and the content
-        that is the most important.
-      </p>
-      <p className="mb-6">
-        Riga is a landing page HTML template made with Tailwind CSS to help you
-        showcase your mobile app online and persuade visitors to download it
-        from the app stores. The author used Tailwind CSS to build the template
-        and integrated a nice animated navigation that slides from outside the
-        screen.
+  <div className="container1 px-4 sm:px-8 xl:px-32">
+  <div className="column1">
+    {/* Content for the first column */}
+    <h2 className="mb-4">TARGET OF THE PROGRAM</h2>
+    <p className="mb-6">
+    The program targets small palay and corn farmers who meet specific eligibility criteria, such as owning irrigated land, being members in good standing of Irrigators' Associations, having no existing loans for palay/corn production, and possessing a purchase order from the National Food Authority. The initiative involves the active participation of DA agencies, Irrigators' Associations, and partner organizations to provide support, extension services, assured market access, and irrigation facilities to the eligible farmer borrowers.
+</p>
+    {/* Add more content as needed */}
+  </div>
 
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">ELIGILITY CRITERIA</h2>
+    <p className="mb-6">
+      <ul>
+        <li>1. Owns between ½ hectare and 5 hectares of irrigated land with a clean land title or documented proof of ownership for safekeeping at LANDBANK.</li>
+        <li>2. Authorization for the Irrigators' Association to manage the farm in case of non-payment, with the land returned upon loan settlement.</li>
+        <li>3. No existing loan for palay/corn production.</li>
+        <li>4. Membership in good standing with an Irrigators' Association.</li>
+      </ul>
+     </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">INTEREST RATE</h2>
+    <p className="mb-6">
+      <ul>
+        <li>1. Initial 15% per annum (inclusive of finance charges).</li>
+        <li>2. Declining rates for borrowers establishing good credit: Reducing to 9% per annum after the 2nd cropping cycle, decreasing by 1% per cycle from the 3rd cycle onward.
+
+
+
+</li>
+      </ul>
+     </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">RESPONSIBLE FOR IMPLEMENTING </h2>
+    <p className="mb-6">
+    The Department of Agriculture (DA) is implementing the programs, including the National Rice Program, National Corn Program, National Livestock Program, National High-Value Crops Development Program, Promotion and Development of Organic Agriculture Program, and National Urban and Peri-Urban Agriculture Program. DBM Secretary Amenah F. Pangandaman emphasizes President Ferdinand R. Marcos Jr.'s focus on agriculture.
       </p>
-      
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
+    {/* Add more content as needed */}
+  </div>
+</div>
   <div className="copyright">
   <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
     <ul className="mb-4 list-unstyled p-small">

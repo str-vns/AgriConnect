@@ -1,6 +1,6 @@
 import React from 'react';
 const Two = () => (
-<>
+  <>
   <meta charSet="utf-8" />
   <meta
     name="viewport"
@@ -78,7 +78,7 @@ const Two = () => (
                </a>
             </li>
             <li>
-               <a className="nav-link page-scroll" href="#details">
+               <a className="nav-link page-scroll" href="/First">
                Details
                </a>
             </li>
@@ -96,56 +96,56 @@ const Two = () => (
   {/* end of header */}
   {/* Basic */}
   <div className="ex-basic-1 py-12">
-    <div className="container px-4 sm:px-8">
-      <img
-        className="inline mt-12 mb-4"
-        src="farmers/images/article-details-large.jpg"
-        alt="alternative"
-      />
-    </div>{" "}
+   
     {/* end of container */}
   </div>{" "}
   {/* end of ex-basic-1 */}
   {/* end of basic */}
   {/* Basic */}
-  <div className="ex-basic-1 pt-4">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-4">
-        {" "}
-        Are you looking for ways to grow the user base for your mobile
-        application? Then you have arrived at the right place. Here you will
-        find a curated collection of landing page HTML templates that will help
-        you build an engaging online presentation for your mobile app and
-        convince visitors to become loyal paying users.
-      </p>
-      <p className="mb-12">
-        {" "}
-        All templates in the roundup are premium which means you need to pay for
-        them but we're talking small amounts of money which won't break your
-        bank account but will help authors make a living. In return you get a
-        high quality, updated item together with high quality and very prompt
-        technical support.
-      </p>
-      <h2 className="mb-4">Advantages of working with this template</h2>
-      <p className="mb-4">
-        Besides buying the template you need some basic web skills in order to
-        customize it. Nothing too fancy HTML/CSS will do just fine and a little
-        bit of image editing. You can always hire a web designer to help with
-        the customization work while you provide the template and the content
-        that is the most important.
-      </p>
-      <p className="mb-6">
-        Riga is a landing page HTML template made with Tailwind CSS to help you
-        showcase your mobile app online and persuade visitors to download it
-        from the app stores. The author used Tailwind CSS to build the template
-        and integrated a nice animated navigation that slides from outside the
-        screen.
+  <div className="container1 px-4 sm:px-8 xl:px-32">
+  <div className="column1">
+    {/* Content for the first column */}
+    <h2 className="mb-4">WHAT IS AGRI-NEGOSYO?</h2>
+    <p className="mb-6">
+    The Agri-Negosyo (ANYO) Loan Program offers loans to finance capital requirements of agri-fishery based micro and small enterprises.
+    </p>
+    {/* Add more content as needed */}
+  </div>
 
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">WHO ARE ELIGIBLE?</h2>
+    <p className="mb-6">
+      If you finished school or training in farming or fishing, you're eligible. This includes college degrees in agriculture, accredited programs, TESDA training, farm schools, and high school courses related to farming or fishing. This is based on the rules in the Sagip Saka Act.
+      <ul>
+    <li>1. Individuals/sole proprietors, partnerships, corporations, and cooperatives.</li>
+    <li>2. Owners or members must be marginalized, small farmers, and fisherfolk (MSFF).</li>
+  </ul>
+    </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">LOANS DETAILS</h2>
+    <p className="mb-6">
+        <ul>
+          <li>1. <b>LOAN AMOUNT: </b>Minumum of 300 Hundred thousad pesos and Maximum of 15 million pesos</li>
+          <li>2. <b>LENDING PARTNERS: </b>Government Financial Institutions (GFIs) and Non-Government Financial Institutions (NGFIs)</li>
+          <li>3. <b>INTEREST FEE: </b>0% interest</li>
+          <li>4. <b>LOAN MATURITY: </b>Depends on the cash flow of the project, but not to exceed five (5) years.</li>
+      </ul>     
+     </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">REQUIREMENTS</h2>
+    <p className="mb-6">
+    Eligible loan applicants shall submit all documents as required by the bank and/or lending conduit.
       </p>
-      
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
+    {/* Add more content as needed */}
+  </div>
+</div>
   <div className="copyright">
   <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
     <ul className="mb-4 list-unstyled p-small">

@@ -53,7 +53,7 @@ const One = () => (
          className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
          href="index.html"
          >
-      <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
+     
       </a>
       <button
          className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
@@ -78,7 +78,7 @@ const One = () => (
                </a>
             </li>
             <li>
-               <a className="nav-link page-scroll" href="#details">
+               <a className="nav-link page-scroll" href="/First">
                Details
                </a>
             </li>
@@ -97,55 +97,59 @@ const One = () => (
   {/* Basic */}
   <div className="ex-basic-1 py-12">
     <div className="container px-4 sm:px-8">
-      <img
-        className="inline mt-12 mb-4"
-        src="farmers/images/article-details-large.jpg"
-        alt="alternative"
-      />
     </div>{" "}
     {/* end of container */}
   </div>{" "}
   {/* end of ex-basic-1 */}
   {/* end of basic */}
   {/* Basic */}
-  <div className="ex-basic-1 pt-4">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-4">
-        {" "}
-        Are you looking for ways to grow the user base for your mobile
-        application? Then you have arrived at the right place. Here you will
-        find a curated collection of landing page HTML templates that will help
-        you build an engaging online presentation for your mobile app and
-        convince visitors to become loyal paying users.
-      </p>
-      <p className="mb-12">
-        {" "}
-        All templates in the roundup are premium which means you need to pay for
-        them but we're talking small amounts of money which won't break your
-        bank account but will help authors make a living. In return you get a
-        high quality, updated item together with high quality and very prompt
-        technical support.
-      </p>
-      <h2 className="mb-4">Advantages of working with this template</h2>
-      <p className="mb-4">
-        Besides buying the template you need some basic web skills in order to
-        customize it. Nothing too fancy HTML/CSS will do just fine and a little
-        bit of image editing. You can always hire a web designer to help with
-        the customization work while you provide the template and the content
-        that is the most important.
-      </p>
-      <p className="mb-6">
-        Riga is a landing page HTML template made with Tailwind CSS to help you
-        showcase your mobile app online and persuade visitors to download it
-        from the app stores. The author used Tailwind CSS to build the template
-        and integrated a nice animated navigation that slides from outside the
-        screen.
+  <div className="container1 px-4 sm:px-8 xl:px-32">
+  <div className="column1">
+    {/* Content for the first column */}
+    <h2 className="mb-4">WHAT IS THE KAPITAL ACCESS FOR YOUNG AGRIPRENEURS?</h2>
+    <p className="mb-6">
+      The Kapital Access for Young Agripreneurs (KAYA) Program offers loans to finance working capital and/or fixed asset acquisition requirements of start-up or existing
+      agri-based projects of young entrepreneurs
+      and agri-fishery graduates.
+    </p>
+    {/* Add more content as needed */}
+  </div>
 
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">WHO ARE ELIGIBLE?</h2>
+    <p className="mb-6">
+      If you finished school or training in farming or fishing, you're eligible. This includes college degrees in agriculture, accredited programs, TESDA training, farm schools, and high school courses related to farming or fishing. This is based on the rules in the Sagip Saka Act.
+    </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">LOANS DETAILS</h2>
+    <p className="mb-6">
+        <ul>
+          <li>1. Up to Php 500,00 per borrower</li>
+          <li>2. Including agriculture and fishery related degrees from higher education institutions</li>
+          <li>3. 0% interest</li>
+          <li>4. Up to 5 years to pay based on project cash flow</li>
+      </ul>     
+     </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">REQUIREMENTS</h2>
+    <p className="mb-6">
+      <ul>
+          <li>1. One (1) government-issued ID with picture</li>
+          <li>2. Loan application form</li>
+          <li>3. Simple business plan</li>
+        
+      </ul> 
       </p>
-      
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
+    {/* Add more content as needed */}
+  </div>
+</div>
   <div className="copyright">
   <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
     <ul className="mb-4 list-unstyled p-small">

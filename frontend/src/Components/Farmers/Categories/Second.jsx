@@ -88,13 +88,12 @@ const Second = () => (
             <img src="farmers/images/features-icon-1.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Kapital Access for Young Agripreneurs (KAYA)</h5>
+            <h5 className="card-title">National Crop Programs:</h5>
             <p className="mb-4">
-            KAYA program is part of the programs of the Department of Agriculture for the youth. It will help in financing the capital requirement of a start-up and even existing agri-based projects of young entrepreneurs and agri-fishery graduates.
-
+            The National Rice Program (NRP) and National Corn Program aim to boost rice and corn production, respectively, supporting Filipino farmers and increasing food security. Additionally, the National High-Value Crops Development Program focuses on promoting the production, processing, and distribution of high-value crops.
             </p>
           </div>
-          <a className="btn-outline-reg" href="/one">
+          <a className="btn-outline-reg" href="/secondo">
             Details
           </a>
         </div>
@@ -106,13 +105,11 @@ const Second = () => (
             <img src="farmers/images/features-icon-2.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Agri-Negosyo Program (ANYO)</h5>
+            <h5 className="card-title">43B Alloted for 2023 Agriculture Priority Programs</h5>
             <p className="mb-4">
-            The loan program of ANYO provides loans to Agriculture MSEs that may be used in the financing of their capital requirement, operations or fixed asset acquisition. Iit also provides capacity building where borrowers may have technical assistance and training in improving their business.
-
-            </p>
+            A budgetary allocation amounting to 43 billion pesos has been designated for the Agriculture Priority Programs in the fiscal year 2023. </p>
           </div>
-          <a className="btn-outline-reg" href="/two">
+          <a className="btn-outline-reg" href="/secondt">
             Details
           </a>
         </div>
@@ -124,14 +121,11 @@ const Second = () => (
             <img src="farmers/images/features-icon-3.svg" alt="alternative" />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Agrarian Production Credit Program (APCP)</h5>
+            <h5 className="card-title">SIKAT SAKA PROGRAM (SSP)</h5>
             <p className="mb-4">
-            The Agrarian Production Credit Program (APCP) is a joint effort by the Department of Agriculture, 
-            the Department of Agrarian Reform, and LandBank of the Philippines. It assists Agrarian Reform Beneficiaries (ARBs) whose groups are not yet eligible for LandBank loans.
-          
-            </p>
+            The Sikat Saka Program (SSP) is a collaborative initiative between the Department of Agriculture (DA) and the Land Bank of the Philippines (LANDBANK), aligning with the Foods Staples Sufficiency Program             </p>
           </div>
-          <a className="btn-outline-reg" href="/three">
+          <a className="btn-outline-reg" href="/secondh">
             Details
           </a>
         </div>

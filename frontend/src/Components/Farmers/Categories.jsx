@@ -144,7 +144,7 @@ const Government = () => (
       {/* end of col */}
       <div className="lg:col-span-5">
          <div className="xl:mt-12">
-            <h2 className="mb-6">2. Credit and loan Programs </h2>
+            <h2 className="mb-6">2. Agricultural and Rural Development Programs</h2>
             <ul className="list mb-7 space-y-2">
                <li className="flex">
                   <i className="fas fa-chevron-right" />

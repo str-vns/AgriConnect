@@ -53,7 +53,7 @@ const SecondO = () => (
          className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
          href="index.html"
          >
-      <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
+     
       </a>
       <button
          className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
@@ -78,7 +78,7 @@ const SecondO = () => (
                </a>
             </li>
             <li>
-               <a className="nav-link page-scroll" href="#details">
+               <a className="nav-link page-scroll" href="/First">
                Details
                </a>
             </li>
@@ -97,55 +97,46 @@ const SecondO = () => (
   {/* Basic */}
   <div className="ex-basic-1 py-12">
     <div className="container px-4 sm:px-8">
-      <img
-        className="inline mt-12 mb-4"
-        src="farmers/images/article-details-large.jpg"
-        alt="alternative"
-      />
     </div>{" "}
     {/* end of container */}
   </div>{" "}
   {/* end of ex-basic-1 */}
   {/* end of basic */}
   {/* Basic */}
-  <div className="ex-basic-1 pt-4">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-4">
-        {" "}
-        Are you looking for ways to grow the user base for your mobile
-        application? Then you have arrived at the right place. Here you will
-        find a curated collection of landing page HTML templates that will help
-        you build an engaging online presentation for your mobile app and
-        convince visitors to become loyal paying users.
-      </p>
-      <p className="mb-12">
-        {" "}
-        All templates in the roundup are premium which means you need to pay for
-        them but we're talking small amounts of money which won't break your
-        bank account but will help authors make a living. In return you get a
-        high quality, updated item together with high quality and very prompt
-        technical support.
-      </p>
-      <h2 className="mb-4">Advantages of working with this template</h2>
-      <p className="mb-4">
-        Besides buying the template you need some basic web skills in order to
-        customize it. Nothing too fancy HTML/CSS will do just fine and a little
-        bit of image editing. You can always hire a web designer to help with
-        the customization work while you provide the template and the content
-        that is the most important.
-      </p>
-      <p className="mb-6">
-        Riga is a landing page HTML template made with Tailwind CSS to help you
-        showcase your mobile app online and persuade visitors to download it
-        from the app stores. The author used Tailwind CSS to build the template
-        and integrated a nice animated navigation that slides from outside the
-        screen.
+  <div className="container1 px-4 sm:px-8 xl:px-32">
+  <div className="column1">
+    {/* Content for the first column */}
+    <h2 className="mb-4">WHAT IS THE NRP?</h2>
+    <p className="mb-6">
+    The National Rice Program (NRP) in the Philippines is a government initiative aimed at improving rice farming, increasing productivity, and ensuring food security. The 2023 national budget allocates doubled funding for the NRP to enhance the lives of Filipino rice farmers and strengthen the overall contribution of the rice sector to the country's agriculture and economy.
+    </p>
+    {/* Add more content as needed */}
+  </div>
 
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">WHAT IS IT ABOUT?</h2>
+    <p className="mb-6">
+    The article discusses the allocation of P43 billion for 2023 Agriculture Priority Programs by the Department of Budget and Management (DBM) under the Marcos Jr. administration. The funding is aimed at invigorating agriculture, making it a key driver for growth and employment.    </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4">When does the allocation take place?</h2>
+    <p className="mb-6">
+    The allocation is part of the 2023 General Appropriations Act (GAA) and reflects the commitment of the Marcos Jr. administration to prioritize agriculture.
+     </p>
+    {/* Add more content as needed */}
+  </div>
+  <div className="column1">
+    {/* Content for the second column */}
+    <h2 className="mb-4"> Who is involved in implementing the programs? </h2>
+    <p className="mb-6">
+    The Department of Agriculture (DA) is implementing the programs, including the National Rice Program, National Corn Program, National Livestock Program, National High-Value Crops Development Program, Promotion and Development of Organic Agriculture Program, and National Urban and Peri-Urban Agriculture Program. DBM Secretary Amenah F. Pangandaman emphasizes President Ferdinand R. Marcos Jr.'s focus on agriculture.
       </p>
-      
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
+    {/* Add more content as needed */}
+  </div>
+</div>
   <div className="copyright">
   <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
     <ul className="mb-4 list-unstyled p-small">

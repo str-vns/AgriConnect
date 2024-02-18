@@ -29,7 +29,20 @@ Colors:
 /**************************/
 /*     General Styles     */
 /**************************/
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 
+  .column1 {
+    width: 42%; /* Adjust the width as needed */
+    margin-bottom: 40px;
+    margin-right: 1%; 
+    margin-left: 1%; 
+    text-align: justify;
+
+  }
 body,
 p {
     color: #2c3a07dc;
