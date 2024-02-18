@@ -62,7 +62,7 @@ const Fourth = () => (
              </a>
           </li>
           <li>
-             <a className="nav-link page-scroll" href="#features">
+             <a className="nav-link page-scroll" href="/categories">
              Categories
              </a>
           </li>
@@ -85,14 +85,12 @@ const Fourth = () => (
       <div className="container px-4 sm:px-8 xl:px-4">
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-1.svg" alt="alternative" />
+            <img src="farmers/images/icon-4-1.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Sustainable Agriculture Program</h5>
+            <h5 className="card-title">Community-Based Forest Management</h5>
             <p className="mb-4">
-            The Sustainable Agriculture Program (SAP) advocates for the implementation of sustainable 
-            agricultural methods, including organic farming, integrated pest management, and soil conservation. 
-            It offers farmers technical guidance and monetary aid to implement these methods.
+            An approach to forest management where local communities, including farmers, have the legal right and responsibility to sustainably manage forest resources within their defined territory. 
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourthone">
@@ -103,15 +101,12 @@ const Fourth = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-2.svg" alt="alternative" />
+            <img src="farmers/images/icon-4-2.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
-            <h5 className="card-title">National Greening Program</h5>
+            <h5 className="card-title">Soil and Water Conservation Programs</h5>
             <p className="mb-4">
-            The National Greening Program (NGP) seeks to enhance the forested area of the Philippines 
-            through the cultivation of trees on both public and private lands. Farmers have the option 
-            to engage in the program either by planting trees on their own property or by participating 
-            in community-led tree-planting initiatives.
+            Initiatives aimed at protecting and improving soil health and managing water resources sustainably in agricultural landscapes. 
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourthtwo">
@@ -122,15 +117,12 @@ const Fourth = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-3.svg" alt="alternative" />
+            <img src="farmers/images/icon-4-3.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
-            <h5 className="card-title">Climate-Smart Agriculture Project</h5>
+            <h5 className="card-title">Agroforestry Programs</h5>
             <p className="mb-4">
-            The Climate-Smart Agriculture Project (CSAP), which is financed by the World Bank, 
-            assists farmers in adjusting to climate change and reducing its effects. 
-            It offers them instruction and materials on cultivating crops and implementing 
-            farming techniques that are resistant to climate change.
+            The integration of trees and shrubs into agricultural landscapes alongside crops or livestock. 
             </p>
           </div>
           <a className="btn-outline-reg" href="/fourththree">

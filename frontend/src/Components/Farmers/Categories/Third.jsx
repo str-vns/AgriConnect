@@ -62,7 +62,7 @@ const Third = () => (
              </a>
           </li>
           <li>
-             <a className="nav-link page-scroll" href="#features">
+             <a className="nav-link page-scroll" href="/categories">
              Categories
              </a>
           </li>
@@ -85,7 +85,7 @@ const Third = () => (
       <div className="container px-4 sm:px-8 xl:px-4">
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-1.svg" alt="alternative" />
+           <img src="farmers/images/icon-3-1.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
             <h5 className="card-title">Agricultural Productivity Competitiveness Enhancement Fund</h5>
@@ -103,7 +103,7 @@ const Third = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-2.svg" alt="alternative" />
+            <img src="farmers/images/icon-3-2.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
             <h5 className="card-title">Farmers Scientist Training Program</h5>
@@ -122,7 +122,7 @@ const Third = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-3.svg" alt="alternative" />
+            <img src="farmers/images/icon-3-3.png" alt="alternative" style={{ width: '150px', height: '150px' }} />
           </div>
           <div className="card-body">
             <h5 className="card-title">Climate-Smart Agriculture (CSA) Learning Platform</h5>
