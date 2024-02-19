@@ -62,7 +62,7 @@ const Second = () => (
                </a>
             </li>
             <li>
-               <a className="nav-link page-scroll" href="#features">
+               <a className="nav-link page-scroll" href="/categories">
                Categories
                </a>
             </li>
@@ -85,7 +85,7 @@ const Second = () => (
       <div className="container px-4 sm:px-8 xl:px-4">
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-1.svg" alt="alternative" />
+            <img src="farmers/images/icon-2-1.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">National Crop Programs:</h5>
@@ -102,7 +102,7 @@ const Second = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-2.svg" alt="alternative" />
+            <img src="farmers/images/icon-2-2.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">43B Alloted for 2023 Agriculture Priority Programs</h5>
@@ -118,7 +118,7 @@ const Second = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-3.svg" alt="alternative" />
+            <img src="farmers/images/icon-2-3.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">SIKAT SAKA PROGRAM (SSP)</h5>
