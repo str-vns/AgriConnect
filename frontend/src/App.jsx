@@ -18,6 +18,7 @@ import ListReviews from './Components/Review/ListReviews';
 
 import Dashboard2 from './Components/Admin/Dashboard2';
 import UserDashboard from './Components/User/UserDashboard';
+import UserProfile from './Components/User/UserProfile';
 
 import UpdatePassword from "./Components/User/UpdatePassword";
 import ForgotPassword from "./Components/User/ForgotPassword";
@@ -72,6 +73,7 @@ function App() {
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><Dashboard2/></ProtectedRoute>}/>
         <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
+        <Route path='/UserProfile' element={<ProtectedRoute isUser={true}><UserProfile/></ProtectedRoute>}/>
 
 
         <Route path="/government" element={<Government />} />
