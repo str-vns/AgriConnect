@@ -70,7 +70,7 @@ const Login = () => {
           });
     
           if (data.user.role === 'admin') {
-            authenticate(data, () => navigate("/Dashboard"));
+            authenticate(data, () => navigate("/AdminDashboard"));
           } else if(data.user.role === 'farmer') {
             if(matchingFarmer){
               authenticate(data, () => navigate("/farmerDashboard"));
@@ -80,7 +80,7 @@ const Login = () => {
             }
          
           } else {
-            authenticate(data, () => navigate("/"));
+            authenticate(data, () => navigate("/UserDashboard"));
           }
         });
       } catch (error) {
