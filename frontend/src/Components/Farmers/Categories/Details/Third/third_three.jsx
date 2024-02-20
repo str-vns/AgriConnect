@@ -1,303 +1,169 @@
 import React from 'react';
+
 const THIRDTHREE = () => (
-<>
-  <meta charSet="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
-  {/* OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn */}
-  <meta property="og:site_name" content="" /> {/* website name */}
-  <meta property="og:site" content="" /> {/* website link */}
-  <meta property="og:title" content="" />{" "}
-  {/* title shown in the actual shared post */}
-  <meta property="og:description" content="" />{" "}
-  {/* description shown in the actual shared post */}
-  <meta property="og:image" content="" /> {/* image link, make sure it's jpg */}
-  <meta property="og:url" content="" />{" "}
-  {/* where do you want your post to link to */}
-  <meta name="twitter:card" content="summary_large_image" />{" "}
-  {/* to have large image post format in Twitter */}
-  {/* Webpage Title */}
-  <title>Details</title>
-  {/* Styles */}
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    rel="stylesheet"
-  />
-  <link href="farmers/css/fontawesome-all.css" rel="stylesheet" />
-  <link
-    href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-    rel="stylesheet"
-  />
-  <link href="farmers/css/swiper.css" rel="stylesheet" />
-  <link href="farmers/css/magnific-popup.css" rel="stylesheet" />
-  <link href="farmers/css/styles.css" rel="stylesheet" />
-  {/* Favicon  */}
-  <link rel="icon" href="farmers/images/favicon.png" />
-  {/* Navigation */}
-  <nav className="navbar fixed-top">
-    <div className="container flex flex-wrap items-center justify-between sm:px-4 lg:flex-nowrap lg:px-8">
-      <a
-        className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
-        href="index.html"
-      >
-      </a>
-      <button
-        className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
-        type="button"
-        data-toggle="offcanvas"
-      >
-        <span className="navbar-toggler-icon inline-block w-8 h-8 align-middle" />
-      </button>
-      <div
-        className="navbar-collapse offcanvas-collapse lg:flex lg:flex-grow lg:items-center"
-        id="navbarsExampleDefault"
-      >
-      </div>{" "}
-      {/* end of navbar-collapse */}
-    </div>{" "}
-    {/* end of container */}
-  </nav>{" "}
-  {/* end of navbar */}
-  {/* end of navigation */}
-  {/* Header */}
-  <header className="ex-header bg-gray">
-  <div className="flex justify-center items-center">
-  <h1 className="xl:ml-24">Article Details</h1>
-</div>
-    {/* end of container */}
-  </header>{" "}
-  {/* end of ex-header */}
-  {/* end of header */}
-  {/* Basic */}
-  <div className="ex-basic-1 py-12">
-    <div className="container px-4 sm:px-8">
-      <img
-        className="inline mt-12 mb-4"
-        src="farmers/images/article-details-large.jpg"
-        alt="alternative"
-      />
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
-  {/* end of ex-basic-1 */}
-  {/* end of basic */}
-  {/* Basic */}
-  <div className="ex-basic-1 pt-4">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-4">
-        {" "}
-        Are you looking for ways to grow the user base for your mobile
-        application? Then you have arrived at the right place. Here you will
-        find a curated collection of landing page HTML templates that will help
-        you build an engaging online presentation for your mobile app and
-        convince visitors to become loyal paying users.
-      </p>
-      <p className="mb-12">
-        {" "}
-        All templates in the roundup are premium which means you need to pay for
-        them but we're talking small amounts of money which won't break your
-        bank account but will help authors make a living. In return you get a
-        high quality, updated item together with high quality and very prompt
-        technical support.
-      </p>
-      <h2 className="mb-4">Advantages of working with this template</h2>
-      <p className="mb-4">
-        Besides buying the template you need some basic web skills in order to
-        customize it. Nothing too fancy HTML/CSS will do just fine and a little
-        bit of image editing. You can always hire a web designer to help with
-        the customization work while you provide the template and the content
-        that is the most important.
-      </p>
-      <p className="mb-6">
-        Riga is a landing page HTML template made with Tailwind CSS to help you
-        showcase your mobile app online and persuade visitors to download it
-        from the app stores. The author used Tailwind CSS to build the template
-        and integrated a nice animated navigation that slides from outside the
-        screen.
-      </p>
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
-  {/* end of ex-basic-1 */}
-  {/* end of basic */}
-  {/* Cards */}
-  <div className="ex-cards-1 py-4">
-    <div className="container px-4 sm:px-8">
-      {/* Card */}
-      <div className="card">
-        <ul className="list-unstyled">
-          <li className="flex">
-            <span className="fa-stack">
-              <span className="fas fa-circle fa-stack-2x" />
-              <span className="fa-stack-1x">1</span>
-            </span>
-            <div className="flex-1 ml-3">
-              <h5 className="mt-0.5 mb-1.5">High Quality Service</h5>
-              <p className="mb-4">
-                Features include an eye catching morphtext in the header,
-                details lightbox for more details information
-              </p>
-            </div>
-          </li>
+  <>
+    <meta charSet="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    {/* OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn */}
+    <meta property="og:site_name" content="" /> {/* website name */}
+    <meta property="og:site" content="" /> {/* website link */}
+    <meta property="og:title" content="" />{" "} {/* title shown in the actual shared post */}
+    <meta property="og:description" content="" />{" "} {/* description shown in the actual shared post */}
+    <meta property="og:image" content="" /> {/* image link, make sure it's jpg */}
+    <meta property="og:url" content="" />{" "} {/* where do you want your post to link to */}
+    <meta name="twitter:card" content="summary_large_image" />{" "} {/* to have large image post format in Twitter */}
+    {/* Webpage Title */}
+    <title>Details</title>
+    {/* Styles */}
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link href="farmers/css/fontawesome-all.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link href="farmers/css/swiper.css" rel="stylesheet" />
+    <link href="farmers/css/magnific-popup.css" rel="stylesheet" />
+    <link href="farmers/css/styles.css" rel="stylesheet" />
+    {/* Favicon  */}
+    <link rel="icon" href="farmers/images/favicon.png" />
+    <style>
+      {`
+        body {
+          background: linear-gradient(rgb(241, 221, 128), rgba(255, 255, 255, 1));
+          margin: 0; /* Reset default margin to ensure full coverage */
+        }
+        .row3 {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2rem;
+        }
+        .column3 {
+          width: 48%; /* Adjust the width as needed */
+        }
+        .column3 ul {
+          list-style-type: disc;
+          margin-left: 1.5rem;
+        }
+        .column3 h3 {
+          margin-bottom: 1rem; /* Increase spacing below each heading */
+        }
+        .column3 ul li {
+          margin-bottom: 0.5rem; /* Increase spacing between list items */
+        }
+      `}
+    </style>
+    <nav className="navbar ">
+      <div className="container sm:px-4 lg:px-8 flex flex-wrap items-center justify-between lg:flex-nowrap">
+        <a className="text-gray-800 font-semibold text-3xl leading-4 no-underline page-scroll" href="index.html">AgriConnect</a>
+        <a className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline" href="index.html">
+          <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
+        </a>
+        <button className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400" type="button" data-toggle="offcanvas">
+          <span className="navbar-toggler-icon inline-block w-8 h-8 align-middle" />
+        </button>
+        <div className="navbar-collapse offcanvas-collapse lg:flex lg:flex-grow lg:items-center" id="navbarsExampleDefault">
+          <ul className="pl-0 mt-3 mb-2 ml-auto flex flex-col list-none lg:mt-0 lg:mb-0 lg:flex-row">
+            <li>
+              <a className="nav-link page-scroll active" href="#header">Home <span className="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a className="nav-link page-scroll" href="/categories">Categories</a>
+            </li>
+            <li>
+              <a className="nav-link page-scroll" href="#details">Details</a>
+            </li>
+            <li>
+              <a className="nav-link page-scroll" href="#pricing">Pricing</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {/* ACEF Lending Program Details */}
+    <div className="ex-basic-1 py-12">
+      <div className="container px-4 sm:px-8">
+        <h2>Climate-Smart Agriculture</h2>
+        <div className="row3">
+          <ul>
+          <li>A Climate-Smart Agriculture (CSA) Learning Platform is an online resource designed to educate and empower farmers, agricultural professionals, and stakeholders on adapting and transforming their practices to address climate change. It typically provides a variety of learning materials, tools, and support mechanisms to help users:</li>
+          </ul>
+        </div>
+        <h3>Want to help your farm thrive in a changing climate?</h3>
+        <div className="row3">
+          <ul>
+          <li>Join a Climate-Smart Agriculture (CSA) Learning Platform and unlock the knowledge and tools you need to succeed!</li>
+          </ul>
+        </div>
+        <div className="row3">
+          <div className="column3">
+            <h3>Who can join?</h3>
+            <ul>
+              <li>Farmers of all experience levels and farm sizes</li>
+              <li>Agricultural professionals (extension workers, researchers, etc.)</li>
+              <li>Anyone interested in sustainable agriculture</li>
+            </ul>
+          </div>
+          <div className="column3">
+            <h3>What does it involve?</h3>
+              <ul>
+                <li><span style={{ fontWeight: 'bold' }}>The basics of CSA:</span> Understand climate change impacts, CSA principles, and benefits.</li>
+                <li><span style={{ fontWeight: 'bold' }}>Smart farming practices: </span> Explore techniques like water management, drought-resistant crops, and soil health improvement.</li>
+                <li><span style={{ fontWeight: 'bold' }}>Adapting to your region: </span>  Find resources specific to your local climate and agricultural challenges.</li>
+                <li><span style={{ fontWeight: 'bold' }}>Success stories:</span> Learn from real farmers who are implementing CSA and see the results.</li>
+              </ul>
+          </div>
+        </div>
+        <div className="row3">
+          <div className="column3">
+            <h3>How can you benefit?</h3>
+            <ul>
+            <li><span style={{ fontWeight: 'bold' }}>Increased farm productivity:</span> Boost harvests and income</li>
+            <li><span style={{ fontWeight: 'bold' }}>Reduced costs:</span> Learn efficient resource management</li>
+            <li><span style={{ fontWeight: 'bold' }}>Empowerment:</span> Become a "farmer-scientist" and share knowledge with others</li>
+            <li><span style={{ fontWeight: 'bold' }}>Community improvement:</span> Contribute to sustainable agriculture and rural development</li>
+            </ul>
+          </div>
+          <div className="column3">
+            <h3>Ready to get started?</h3>
+            <ul>
+              <li>Find a platform that matches your needs and interests.</li>
+              <li>Start with beginner courses or modules to build your foundation.</li>
+              <li>Explore more advanced topics as you gain confidence.</li>
+              <li>Connect with mentors and join online communities for support.</li>
+            </ul>
+            <h3>Remember:</h3>
+            <ul>
+              <li>Learning is a continuous process, so keep exploring and experimenting.</li>
+              <li>There's no one-size-fits-all approach, so adapt CSA practices to your specific farm and context.</li>
+              <li>Every action counts, no matter how small, towards a more sustainable and climate-resilient future for agriculture.</li>
+            </ul>
+          </div>
+        </div>
+        <div className="row3"><ul><h3>Start your CSA journey today and grow a brighter future for yourself and your land!</h3></ul></div>
+        <a className="btn-outline-reg" href="/third"> Back </a>
+      </div>
+    </div>
+    {/* end of ACEF Lending Program Details */}
+    <div className="copyright">
+      <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
+        <ul className="mb-4 list-unstyled p-small">
+          <li className="mb-2"><a href="details.html">Details</a></li>
+          <li className="mb-2"><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li className="mb-2"><a href="privacy.html">Privacy Policy</a></li>
         </ul>
-      </div>{" "}
-      {/* end of card */}
-      {/* end of card */}
-      {/* Card */}
-      <div className="card">
-        <ul className="list-unstyled">
-          <li className="flex">
-            <span className="fa-stack">
-              <span className="fas fa-circle fa-stack-2x" />
-              <span className="fa-stack-1x">2</span>
-            </span>
-            <div className="flex-1 ml-3">
-              <h5 className="mt-0.5 mb-1.5">Prompt Timely Delivery</h5>
-              <p className="mb-4">
-                Statistics numbers for important values, card slider for
-                testimonials, image slider for customer logos
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>{" "}
-      {/* end of card */}
-      {/* end of card */}
-      {/* Card */}
-      <div className="card">
-        <ul className="list-unstyled">
-          <li className="flex">
-            <span className="fa-stack">
-              <span className="fas fa-circle fa-stack-2x" />
-              <span className="fa-stack-1x">3</span>
-            </span>
-            <div className="flex-1 ml-3">
-              <h5 className="mt-0.5 mb-1.5">Skilled Team Involved</h5>
-              <p className="mb-4">
-                Some useful extra pages are bundled with the template lik
-                article details, terms conditions and privacy policy
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>{" "}
-      {/* end of card */}
-      {/* end of card */}
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
-  {/* end of ex-cards-1 */}
-  {/* end of cards */}
-  {/* Basic */}
-  <div className="ex-basic-1 pt-6 pb-12">
-    <div className="container px-4 sm:px-8 xl:px-32">
-      <p className="mb-12">
-        {" "}
-        Features include an eye catching morphtext in the header, details
-        lightbox for more details information, statistics numbers for important
-        values, card slider for testimonials, image slider for customer logos
-        and working forms that will enable your landing page to provide leads in
-        order to achieve your marketing goals.
-      </p>
-      <h2 className="mb-6">New elements added to the package</h2>
-      <img
-        className="inline mb-12"
-        src="images/article-details-small.jpg"
-        alt="alternative"
-      />
-      <p className="mb-4">
-        {" "}
-        Some useful extra pages are bundled with the template lik article
-        details, terms conditions and privacy policy which can be customized as
-        per your requirements. Riga has an impactful dark style design combined
-        with warm colors and angular background shapes with the unique goal of
-        making your mobile app stand out.{" "}
-      </p>
-      <p className="mb-12">
-        {" "}
-        Leon is an easy to customize landing page HTML template built with
-        Tailwind CSS for promoting mobile apps to the online audience and making
-        visitors download them from app stores. This template is built with HTML
-        and Tailwind CSS to ensure the highest flexibility for all users.
-      </p>
-      <div className="text-box mb-12">
-        <h3 className="mb-2">
-          Visitors love a beautiful and efficient website
-        </h3>
-        <p className="mb-4">
-          {" "}
-          All designers, developers and tech-savvy people will be able to
-          customize this template with basic web coding skills. Among the
-          features you will find details lightbox for more details information,
-          tabbed content for feature details, video lightbox, card slider for
-          testimonials, statistics numbers, image slider for customer logos,
-          dropdown navigation and useful extra pages for article details, terms.
-        </p>
-      </div>{" "}
-      {/* end of text-box */}
-      <p className="mb-6">
-        {" "}
-        Together with touches of call to action green, the overall landing page
-        design will showcase your app beautifully and will help with convincing
-        visitors to download it from the app stores. Orange and gray hues with
-        one color backgrounds to maximize the impact of your content image
-        slider for customer logos and working forms.
-      </p>
-      <ul className="list-unstyled mb-12 space-y-2">
-        <li className="flex">
-          <i className="fas fa-square" />
-          <div className="flex-1 ml-2">
-            <strong>Card slider</strong> for testimonials, statistics numbers
-            for important values image slider for logos
-          </div>
-        </li>
-        <li className="flex">
-          <i className="fas fa-square" />
-          <div className="flex-1 ml-2">
-            <strong>Dropdown navigation</strong> and useful extra pages for
-            article details, terms conditions and privacy policy
-          </div>
-        </li>
-        <li className="flex">
-          <i className="fas fa-square" />
-          <div className="flex-1 ml-2">
-            <strong>Clean light design</strong> mixing purple, orange and gray
-            hues with one color backgrounds to maximize
-          </div>
-        </li>
-        <li className="flex">
-          <i className="fas fa-square" />
-          <div className="flex-1 ml-2">
-            <strong>Together with</strong> touches of call to action green, the
-            overall landing page design will showcase your app
-          </div>
-        </li>
-        <li className="flex">
-          <i className="fas fa-square" />
-          <div className="flex-1 ml-2">
-            <strong>This template</strong> is built with HTML and Tailwind CSS
-            to ensure the highest flexibility for all users
-          </div>
-        </li>
-      </ul>
-      <a className="btn-solid-reg mb-12" href="/third">
-        Back
-      </a>
-    </div>{" "}
-    {/* end of container */}
-  </div>{" "}
-  {/* end of ex-basic-1 */}
-  {/* end of basic */}
-  {/* Scripts */}
-  {/* jQuery for JavaScript plugins */}
-  {/* jQuery Easing for smooth scrolling between anchors */}
-  {/* Swiper for image and text sliders */}
-  {/* Magnific Popup for lightboxes */}
-  {/* Custom scripts */}
-</>
+        <p className="pb- p-small statement">© {new Date().getFullYear()} <a href="#your-link" className="no-underline">AgriConnect</a></p>
+        <p className="pb-2 p-small statement">Designed and Developed by AgriConnect</p>
+      </div>
+      {/* end of container */}
+    </div>
+  </>
 );
 
 export default THIRDTHREE;

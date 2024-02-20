@@ -24,13 +24,68 @@ const First = () => (
     <link href="farmers/css/styles.css" rel="stylesheet" />
     <link rel="icon" href="farmers/images/favicon.png" />
  
+    <style>
+      {`
+        body {
+            background: linear-gradient(rgb(241, 221, 128), rgba(255, 255, 255, 1));
+          margin: 0; /* Reset default margin to ensure full coverage */
+        }
+        
+      `}
+    </style>
+    <nav className="navbar ">
+   <div className="container sm:px-4 lg:px-8 flex flex-wrap items-center justify-between lg:flex-nowrap">
+      <a
+         className="text-gray-800 font-semibold text-3xl leading-4 no-underline page-scroll"
+         href="index.html">AgriConnect</a>
+      <a
+         className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
+         href="index.html"
+         >
+      <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
+      </a>
+      <button
+         className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
+         type="button"
+         data-toggle="offcanvas"
+         >
+      <span className="navbar-toggler-icon inline-block w-8 h-8 align-middle" />
+      </button>
+      <div
+         className="navbar-collapse offcanvas-collapse lg:flex lg:flex-grow lg:items-center"
+         id="navbarsExampleDefault"
+         >
+         <ul className="pl-0 mt-3 mb-2 ml-auto flex flex-col list-none lg:mt-0 lg:mb-0 lg:flex-row">
+            <li>
+               <a className="nav-link page-scroll active" href="/government">
+               Home 
+               </a>
+            </li>
+            <li>
+               <a className="nav-link page-scroll" href="/categories">
+               Categories
+               </a>
+            </li>
+            <li>
+               <a className="nav-link page-scroll" href="#details">
+               Details
+               </a>
+            </li>
+            <li>
+               <a className="nav-link page-scroll" href="#pricing">
+               Pricing
+               </a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</nav>
 
- 
     <div id="features" className="cards-1">
       <div className="container px-4 sm:px-8 xl:px-4">
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-1.svg" alt="alternative" />
+            <img src="farmers/images/icon-1-1.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">Kapital Access for Young Agripreneurs (KAYA)</h5>
@@ -48,7 +103,7 @@ const First = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-2.svg" alt="alternative" />
+            <img src="farmers/images/icon-1-2.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">Agri-Negosyo Program (ANYO)</h5>
@@ -66,7 +121,7 @@ const First = () => (
         {/* Card */}
         <div className="card">
           <div className="card-image">
-            <img src="farmers/images/features-icon-3.svg" alt="alternative" />
+            <img src="farmers/images/icon-1-3.png" alt="alternative" />
           </div>
           <div className="card-body">
             <h5 className="card-title">Agrarian Production Credit Program (APCP)</h5>
@@ -80,6 +135,9 @@ const First = () => (
             Details
           </a>
         </div>
+        <a className="btn-outline-reg" href="/categories">
+        Back
+        </a>
         {/* end of card */}
 
       </div>{" "}
@@ -87,7 +145,29 @@ const First = () => (
     </div>{" "}
     {/* end of cards-1 */}
     {/* end of features */}
+{/* Copyright */}
+<div className="copyright">
+  <div className="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
+    <ul className="mb-4 list-unstyled p-small">
+      <li className="mb-2"><a href="details.html">Details</a></li>
+      <li className="mb-2"><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li className="mb-2"><a href="privacy.html">Privacy Policy</a></li>
+    </ul>
+    <p className="pb-2 p-small statement">
+      © {new Date().getFullYear()} <a href="#your-link" className="no-underline">AgriConnect</a>
+    </p>
+    <p className="pb-2 p-small statement">Designed and Developed by AgriConnect
+    </p>
+  </div>
+  {/* end of container */}
+</div>
+
+
+{" "}
+{/* end of copyright */}
+{/* end of copyright */}
   </>
+  
 );
 
 export default First;

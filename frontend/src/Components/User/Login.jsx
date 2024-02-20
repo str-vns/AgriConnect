@@ -70,7 +70,7 @@ const Login = () => {
           });
     
           if (data.user.role === 'admin') {
-            authenticate(data, () => navigate("/Dashboard"));
+            authenticate(data, () => navigate("/AdminDashboard"));
           } else if(data.user.role === 'farmer') {
             if(matchingFarmer){
               authenticate(data, () => navigate("/farmerDashboard"));
@@ -80,7 +80,7 @@ const Login = () => {
             }
          
           } else {
-            authenticate(data, () => navigate("/"));
+            authenticate(data, () => navigate("/UserDashboard"));
           }
         });
       } catch (error) {
@@ -117,10 +117,10 @@ const Login = () => {
           <Metadata title={"Login"} />
 
           <div className="flex bg-white h-screen">
-        <div className="w-full md:w-1/6">
+          <div className="w-full md:w-1/6 md:w-auto">
+  <Header />
+</div>
 
-        <Header />
-      </div>
       {loading ? (
         <Loader />
       ) : (
@@ -128,7 +128,7 @@ const Login = () => {
           <Metadata title={"Login"} />
 
           <section className="flex flex-wrap  lg:h-screen lg:items-center justify-center bg-white w-full md:w-6/6">
-  <div className="w-full px-4 py-10 sm:px-6 sm:py-16 lg:w-2/4 lg:px-8 lg:py-24">
+          <div className="w-full px-4 py-10 sm:px-0 sm:py-16 lg:w-2/4 lg:px-0 lg:py-24">
     <div className=" text-center">
       <h1 className="text-2xl font-bold sm:text-3xl text-black">
                   Welcome To AgriConnect! Please Login{" "}

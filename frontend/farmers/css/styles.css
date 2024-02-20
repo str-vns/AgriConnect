@@ -29,7 +29,20 @@ Colors:
 /**************************/
 /*     General Styles     */
 /**************************/
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 
+  .column1 {
+    width: 42%; /* Adjust the width as needed */
+    margin-bottom: 40px;
+    margin-right: 1%; 
+    margin-left: 1%; 
+    text-align: justify;
+
+  }
 body,
 p {
     color: #2c3a07dc;
@@ -39,7 +52,7 @@ p {
 h1 {
     color: #354703;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 4.5rem;
     line-height: 3.125rem;
     letter-spacing: -0.5px;
 }
@@ -88,7 +101,7 @@ h6 {
 }
 
 .p-large {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     line-height: 1.75rem;
 }
 
@@ -419,7 +432,7 @@ input[type="checkbox"] {
 
 .navbar {
     position: relative;
-    background-color: #f1f9fc;
+    background-color: #77afc4;
     padding: 0.5rem 1rem;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -430,13 +443,16 @@ input[type="checkbox"] {
     transition: all 0.2s ease;
 }
 
+
 .fixed-top {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     z-index: 1030;
+
 }
+
 
 .navbar-toggler-icon {
     content: "";
@@ -479,6 +495,7 @@ input[type="checkbox"] {
     color: #6b747b;
     text-decoration: none;
     line-height: 0.875rem;
+    
     transition: all 0.2s ease;
 }
 
@@ -609,6 +626,7 @@ input[type="checkbox"] {
 
 .cards-1 .card-body {
     padding: 0;
+    height: 350px;
 }
 
 .cards-1 .card-title {
@@ -884,7 +902,7 @@ input[type="checkbox"] {
 .footer {
     padding-top: 6rem;
     padding-bottom: 3rem;
-    background: linear-gradient(rgba(255, 255, 255, 1), rgba(197, 234, 249, 1));
+    background: linear-gradient rgba(255, 255, 255, 1),(rgb(241, 221, 128));
     text-align: center;
 }
 
@@ -922,7 +940,7 @@ input[type="checkbox"] {
 /*********************/
 .copyright {
     padding-top: 1.5rem;
-    background-color: #c5eaf9;
+    background-color: rgb(241, 221, 128), rgba(255, 255, 255, 1);
     text-align: center;
 }
 
@@ -1019,6 +1037,7 @@ a:hover.back-to-top {
         padding-left: 0;
         padding-right: 0;
         padding-top: 1.75rem;
+        background-color: rgb(241, 221, 128);
     }
 
     .navbar-collapse {

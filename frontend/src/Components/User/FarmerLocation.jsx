@@ -148,12 +148,11 @@ const createFarm = async (formData) => {
                 <Header />
                 <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
            
-                <section className="relative flex flex-col h-full items-center bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6 bg-black">
-                <h1 className="text-2xl font-bold p-4  ">Your location</h1>
-            <Mapa className="h-full w-full object-cover opacity-80">
-               
-            </Mapa>
-        </section>
+                <section className="relative flex flex-col h-full items-center bg-blue-500 lg:col-span-5 lg:h-full xl:col-span-6">
+                  <h1 className="text-2xl font-bold p-4">Input your location</h1>
+                  <Mapa className="h-full w-full object-cover opacity-80"></Mapa>
+              </section>
+
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">
           

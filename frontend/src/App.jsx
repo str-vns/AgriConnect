@@ -15,12 +15,18 @@ import Test from './Test';
 import Dashboard from './Components/Farmers/Dashboard';
 import FarmerInfo from './Components/Farmers/FarmerInfo';
 import ListReviews from './Components/Review/ListReviews';
+
+import Dashboard2 from './Components/Admin/Dashboard2';
+import UserDashboard from './Components/User/UserDashboard';
+import UserProfile from './Components/User/UserProfile';
+
 import UpdatePassword from "./Components/User/UpdatePassword";
 import ForgotPassword from "./Components/User/ForgotPassword";
 import NewPassword from "./Components/User/NewPassword";
 
 import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
+import Categories from './Components/Farmers/Categories';
 
 import First from './Components/Farmers/Categories/First';
 import Second from './Components/Farmers/Categories/Second';
@@ -63,11 +69,17 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/farmerInfo" element={<FarmerInfo/>}/>
         <Route path='/reviewfarmer' element={<ListReviews/>} />
+
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
+        <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><Dashboard2/></ProtectedRoute>}/>
+        <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
+        <Route path="/user/:id" element={<UserProfile />} />
+
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
-      
+        <Route path="/categories" element={<Categories />} />
+
         <Route path="/first" element={<First />} />
         <Route path="/second" element={<Second />} />
         <Route path="/third" element={<Third />} />
