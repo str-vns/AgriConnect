@@ -73,7 +73,7 @@ function App() {
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><Dashboard2/></ProtectedRoute>}/>
         <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
-        <Route path='/UserProfile' element={<ProtectedRoute isUser={true}><UserProfile/></ProtectedRoute>}/>
+        <Route path="/user/:id" element={<UserProfile />} />
 
 
         <Route path="/government" element={<Government />} />

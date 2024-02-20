@@ -1,8 +1,17 @@
 
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { getUser } from "../../Utilitys/helpers";
 
-const Dashboard = () => (
+const Dashboard = () => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+   setUser(getUser())
+   
+  }, []); 
+  console.log(user._id)
+  return (
+  
   
 <>
   <meta charSet="utf-8" />
@@ -42,19 +51,20 @@ const Dashboard = () => (
           className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
         >
           <i className="ri-home-2-line mr-3 text-lg" />
-          <span className="text-sm">Dashboard</span>
+          <span className="text-sm">Home</span>
         </a>
       </li>
       <li className="mb-1 group">
+      <Link to ={`/user/${user._id}`}>
         <a
-          href="/UserProfile"
+          
           className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle"
         >
           <i className="bx bx-user mr-3 text-lg" />
           <span className="text-sm">Profile</span>
 
         </a>
-     
+        </Link>
       </li>
 
 
@@ -101,5 +111,5 @@ const Dashboard = () => (
   <main className="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 min-h-screen transition-all main" style={{background: '#F8FFA2'}}>
   </main>
 </>
-);
+)};
 export default Dashboard;
