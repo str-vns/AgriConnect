@@ -54,6 +54,9 @@ import Design from './Design';
 import Messenger from './Components/Chatime/messenger/Messenger';
 // import BankCreate from './Components/Admin/BankCreate';
 import BankMap from './Components/Mapps/BankMap';
+import BankCreate from './Components/Admin/BankCreate';
+import BankList from './Components/Admin/BankList';
+import BankUpdate from './Components/Admin/BankUpdate';
 // import One from './Components/Farmers/Categories/Details/One';
 
 function App() {
@@ -85,12 +88,11 @@ function App() {
           exact="true"
         />
 
-
-        {/* <Route path='/banking' element={<BankCreate/>}/> */}
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
-        {/* <Route path="/bankCreate" element={<BankCreate/>}/> */}
-
+        <Route path="/bankCreate" element={<ProtectedRoute isAdmin={true}><BankCreate/></ProtectedRoute>} exact="true"/>
+        <Route path="/banklist" element={<ProtectedRoute isAdmin={true}><BankList/></ProtectedRoute>} exact="true"/>
+        <Route path='/bankupdate/:id' element={<ProtectedRoute isAdmin={true}><BankUpdate/></ProtectedRoute>} exact="true" />
 
         <Route path="/categories" element={<Categories />} />
 

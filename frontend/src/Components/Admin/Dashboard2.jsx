@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 const Dashboard = () => (
 <>
   <meta charSet="utf-8" />
@@ -68,6 +69,7 @@ const Dashboard = () => (
       </li>
 
       <li className="mb-1 group">
+        <Link to="/banklist">
         <a
           href=""
           className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
@@ -75,6 +77,7 @@ const Dashboard = () => (
           <i className="bx bx-list-ul mr-3 text-lg" />
           <span className="text-sm">Bank</span>
         </a>
+        </Link>
       </li>
       <span className="text-gray-400 font-bold">PERSONAL</span>
       <li className="mb-1 group">

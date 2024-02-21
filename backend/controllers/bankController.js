@@ -6,60 +6,68 @@ const Bank = require('../models/bank')
 //create
 exports.newBank = async (req, res, next) => {
 
-    let images = []
-      if (typeof req.body.images === 'string') {
-          images.push(req.body.images)
-      } else {
-          images = req.body.images
-      }
-  
-      let imagesLinks = [];
-  
+  try {
+    let images = [];
+    if (typeof req.body.images === 'string') {
+      images.push(req.body.images);
+    } else {
+      images = req.body.images;
+    }
+
+    let imagesLinks = [];
+
+    if (images && Array.isArray(images)) {
       for (let i = 0; i < images.length; i++) {
-          let imageDataUri = images[i]
-          try {
-              const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
-                  folder: 'banks',
-                  width: 150,
-                  crop: "scale",
-              });
-  
-              imagesLinks.push({
-                  public_id: result.public_id,
-                  url: result.secure_url
-              })
-  
-          } catch (error) {
-              console.log(error)
-          }
-  
+        let imageDataUri = images[i];
+        try {
+          const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+            folder: 'images',
+            width: 150,
+            crop: "scale",
+          });
+
+          imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url
+          });
+
+        } catch (error) {
+          console.log(error);
+          return res.status(500).json({
+            success: false,
+            message: 'Error uploading images to Cloudinary'
+          });
+        }
       }
-  
-      req.body.images = imagesLinks
-      req.body.user = req.user.id;
-    const { bankName, city, postalCode, address, location, coordinates } = req.body;
-      const bank = await Bank.create({
-        bankName,
-        city,
-        postalCode,
-        address,
-        location,
-        coordinates,
-        images: {
-          public_id: result.public_id,
-          url: result.secure_url,
-        },
+    } else {
+      console.log("images is undefined or not an array");
+      return res.status(400).json({
+        success: false,
+        message: 'Images must be provided in an array format'
       });
-      if (!bank)
-          return res.status(400).json({
-              success: false,
-              message: 'Bank not created'
-          })
-      res.status(201).json({
-          success: true,
-          bank
-      })
+    }
+
+    req.body.images = imagesLinks;
+
+    const bank = await Bank.create(req.body);
+    if (!bank)
+      return res.status(400).json({
+        success: false,
+        message: 'Bank not created'
+      });
+    
+    return res.status(201).json({
+      success: true,
+      bank
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
   }
+};
 
 //READ
 exports.getBank = async (req, res, next) => {
@@ -156,4 +164,21 @@ exports.deleteBank = async (req,res,next)=>
         success: true,
         message: "The Bank Has been Delete",
     })
+}
+
+//DETAIL Bank
+exports.GetOneBank = async (req, res, next ) => {
+  const bank = await Bank.findById(req.params.id);
+  if(!bank)
+  {
+      return res.status(404).json
+      ({
+          success: false,
+          message: "The bank doesn't Exist ",
+      })
+  }
+  res.status(200).json({
+      success: true,
+      bank
+  })
 }
