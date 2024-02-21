@@ -58,47 +58,47 @@ exports.getUser = async (req, res, next) => {
 
 exports.getUpdateUser = async (req, res, next) => {
  
-  try {
-  if (req.body.avatar && req.body.avatar !== '') {
-    const user = await User.findById(req.user.id);
-    const image_id = user.avatar.public_id;
-    await cloudinary.v2.uploader.destroy(image_id);
+ 
+    try {
+        if (req.body.avatar && req.body.avatar !== '') {
+            const user = await User.findById(req.user.id);
+            const image_id = user.avatar.public_id;
+            await cloudinary.v2.uploader.destroy(image_id);
+            
+        }
     
-}
+        const results = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: "scale"
+        });
+    
+        const { name } = req.body;
+        
+        const user = await User.findByIdAndUpdate(req.user.id, {
+            name,
+            avatar: {
+                public_id: results.public_id,
+                url: results.secure_url
+            },
+        }, {
+            new: true, 
+            runValidators: true,
+        });
 
-const results = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: 'avatars',
-    width: 150,
-    crop: "scale"
-});
-    const UpdateDataUser =
-    {
-        name: req.body.name,
-        email: req.body.email,
-        avatar: {
-          public_id: results.public_id,
-          url: results.secure_url
-      },
-    }
-
-    const user = await User.findByIdAndUpdate(req.params.id, UpdateDataUser,
-        {
-            new: true,
-            runValidators:true,
-        })
-
-        return res.status(200).json({
-            success:true,
-user
-        })
-
-         } catch (error) {
+    
+        res.status(200).json({
+            success: true,
+            user: user,
+        });
+    } catch (error) {
         console.log('Error:', error);
         res.status(500).json({
             success: false,
             error: 'An error occurred while updating the profile.',
         });
     }
+
 }
 
 //DELETE
@@ -164,6 +164,44 @@ exports.UserProfile = async (req, res, next) => {
     res.status(200).json({
         success: true,
         user
+    })
+}
+
+exports.updateProfile = async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    // Update avatar
+    if (req.body.avatar !== '') {
+        const user = await User.findById(req.user.id)
+
+        const image_id = user.avatar.public_id;
+        const res = await cloudinary.v2.uploader.destroy(image_id);
+
+        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: "scale"
+        })
+
+        newUserData.avatar = {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+    })
+    if (!user) {
+        return res.status(401).json({ message: 'User Not Updated' })
+    }
+
+    res.status(200).json({
+        success: true
     })
 }
 

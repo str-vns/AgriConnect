@@ -19,6 +19,7 @@ import ListReviews from './Components/Review/ListReviews';
 import Dashboard2 from './Components/Admin/Dashboard2';
 import UserDashboard from './Components/User/UserDashboard';
 import UserProfile from './Components/User/UserProfile';
+import UpdateProfile from "./Components/User/UpdateProfile";
 
 import UpdatePassword from "./Components/User/UpdatePassword";
 import ForgotPassword from "./Components/User/ForgotPassword";
@@ -51,7 +52,7 @@ import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_t
 import ProtectedRoute from './Components/Route/ProtectedRoute';
 import Design from './Design';
 import Messenger from './Components/Chatime/messenger/Messenger';
-import BankCreate from './Components/Admin/BankCreate';
+// import BankCreate from './Components/Admin/BankCreate';
 import BankMap from './Components/Mapps/BankMap';
 // import One from './Components/Farmers/Categories/Details/One';
 
@@ -76,13 +77,19 @@ function App() {
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><Dashboard2/></ProtectedRoute>}/>
         <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
+        
         <Route path="/user/:id" element={<UserProfile />} />
+        <Route
+          path="/profile/update"
+          element={<UpdateProfile />}
+          exact="true"
+        />
 
 
-        <Route path='/banking' element={<BankCreate/>}/>
+        {/* <Route path='/banking' element={<BankCreate/>}/> */}
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
-        <Route path="/bankCreate" element={<BankCreate/>}/>
+        {/* <Route path="/bankCreate" element={<BankCreate/>}/> */}
 
 
         <Route path="/categories" element={<Categories />} />

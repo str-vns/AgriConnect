@@ -57,13 +57,12 @@ const UserProfile = ({ match }) => {
     rel="stylesheet"
   />
     {/*sidenav */}
-      <div className="fixed left-0 top-0 w-64 h-full p-4 z-50 sidebar-menu transition-transform" style={{ background:'#F8FFA2'}}>
-<a href="#" className="flex items-center pb-4 border-b border-b-gray-800">
+    <div className="fixed left-0 top-0 w-64 h-full p-4 z-50 sidebar-menu transition-transform" style={{ background:'#F8FFA2'}}>
+    <a href="#" className="flex items-center pb-4 border-b border-b-gray-800">
 <h2 className="font-bold text-2xl">
   <img src="/images/logo.png" alt="AgriConnect" className="mr-2" />
 </h2>
 </a>
-
 
     <ul className="mt-4">
       <span className="text-black-400 font-bold">USER</span>
@@ -73,7 +72,7 @@ const UserProfile = ({ match }) => {
           className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
         >
           <i className="ri-home-2-line mr-3 text-lg" />
-          <span className="text-sm">Home</span>
+          <span className="text-sm">Dashboard</span>
         </a>
       </li>
       <li className="mb-1 group">
@@ -130,40 +129,53 @@ const UserProfile = ({ match }) => {
   <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay" />
   {/* end sidenav */}
   <div className="h-full bg-[#F8FFA2] p-8 ml-64">
-  <div className="bg-white rounded-lg shadow-xl pb-8 relative">
-  <div className="w-full h-[250px]">
-    <img
-      src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
-      className="w-full h-full rounded-tl-lg rounded-tr-lg"
-    />
-  </div>
-  <div className="flex flex-col items-center -mt-20">
+    <div className="bg-white rounded-lg shadow-xl pb-8">
+      <div className="w-full h-[250px]">
+        <img
+          src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
+          className="w-full h-full rounded-tl-lg rounded-tr-lg"
+        />
+      </div>
+      <div className="flex flex-col items-center -mt-20">
+  {user.avatar && user.avatar.url ? (
     <img
       src={user.avatar.url}
       alt={user.name}
-      className="h-24 w-24 rounded-full object-cover shadow-sm"
+      className="w-40 h-40 border-4 border-white rounded-full"
     />
-
-    <div className="flex items-center space-x-2 mt-2">
-      <p className="text-2xl">{user.name}</p>
-      <span className="bg-blue-500 rounded-full p-1" title="Verified">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="text-gray-100 h-2.5 w-2.5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
-        </svg>
-      </span>
-      {/* Edit Text */}
-      <span className="text-gray-500 cursor-pointer">Edit</span>
+  ) : (
+    <div className="w-40 h-40 border-4 border-white rounded-full bg-gray-300 rounded-full">
+      {/* Placeholder or default image when user.avatar.url is undefined or null */}
     </div>
-    <p className="text-gray-700">{user.email}</p>
+  )}
+
+  <div className="flex items-center space-x-2 mt-2">
+    <p className="text-2xl">{user.name}</p>
+    <span className="bg-blue-500 rounded-full p-1" title="Verified">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="text-gray-100 h-2.5 w-2.5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={4}
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+    </span>
+  
   </div>
+  <p className="text-gray-700">{user.email}</p>
+  <p className="text-sm text-gray-500">Taguig,Philippines</p>
+  <a href="/profile/update" className="text-gray-500 cursor-pointer">Edit</a>
+  
 </div>
 
+    </div>
     <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
       <div className="w-full flex flex-col 2xl:w-1/3">
         <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
@@ -173,9 +185,15 @@ const UserProfile = ({ match }) => {
               <span className="font-bold w-24">Full name:</span>
               <span className="text-gray-700">{user.name}</span>
             </li>
+            
             <li className="flex border-b py-2">
               <span className="font-bold w-24">Email:</span>
               <span className="text-gray-700">{user.email}</span>
+            </li>
+          
+            <li className="flex border-b py-2">
+              <span className="font-bold w-24">Languages:</span>
+              <span className="text-gray-700">English, Tagalog</span>
             </li>
             <li className="flex items-center border-b py-2 space-x-2">
               <span className="font-bold w-24">Elsewhere:</span>
@@ -257,7 +275,108 @@ const UserProfile = ({ match }) => {
             </li>
           </ul>
         </div>
- 
+        <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
+          <h4 className="text-xl text-gray-900 font-bold">Activity log</h4>
+          <div className="relative px-4">
+            <div className="absolute h-full border border-dashed border-opacity-20 border-secondary" />
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">Profile informations changed.</p>
+                <p className="text-xs text-gray-500">3 min ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">
+                  Connected with{" "}
+                  <a href="#" className="text-blue-600 font-bold">
+                    Colby Covington
+                  </a>
+                  .
+                </p>
+                <p className="text-xs text-gray-500">15 min ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">
+                  Invoice{" "}
+                  <a href="#" className="text-blue-600 font-bold">
+                    #4563
+                  </a>{" "}
+                  was created.
+                </p>
+                <p className="text-xs text-gray-500">57 min ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">
+                  Message received from{" "}
+                  <a href="#" className="text-blue-600 font-bold">
+                    Cecilia Hendric
+                  </a>
+                  .
+                </p>
+                <p className="text-xs text-gray-500">1 hour ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">
+                  New order received{" "}
+                  <a href="#" className="text-blue-600 font-bold">
+                    #OR9653
+                  </a>
+                  .
+                </p>
+                <p className="text-xs text-gray-500">2 hours ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+            {/* start::Timeline item */}
+            <div className="flex items-center w-full my-6 -ml-1.5">
+              <div className="w-1/12 z-10">
+                <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />
+              </div>
+              <div className="w-11/12">
+                <p className="text-sm">
+                  Message received from{" "}
+                  <a href="#" className="text-blue-600 font-bold">
+                    Jane Stillman
+                  </a>
+                  .
+                </p>
+                <p className="text-xs text-gray-500">2 hours ago</p>
+              </div>
+            </div>
+            {/* end::Timeline item */}
+          </div>
+        </div>
       </div>
       
     </div>
