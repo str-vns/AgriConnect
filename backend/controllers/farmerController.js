@@ -63,6 +63,24 @@ exports.getFarmer = async (req, res, next) => {
   });
 };
 
+
+exports.getSingleFarmer = async (req, res)=>
+{
+    const farmersloc = await Farmer.findById(req.params.id)
+
+    if(!farmersloc)
+    {
+        return res.status(404).json
+        ({
+            success: false,
+            message: "The Farmer doesn't Exist ",
+        })
+    }
+    res.status(200).json({
+        success: true,
+        farmersloc
+    })
+}
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
   try {

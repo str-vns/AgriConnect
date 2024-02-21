@@ -66,6 +66,16 @@ const Dashboard = () => (
           <span className="text-sm">Analytics</span>
         </a>
       </li>
+
+      <li className="mb-1 group">
+        <a
+          href=""
+          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+        >
+          <i className="bx bx-list-ul mr-3 text-lg" />
+          <span className="text-sm">Bank</span>
+        </a>
+      </li>
       <span className="text-gray-400 font-bold">PERSONAL</span>
       <li className="mb-1 group">
         <a

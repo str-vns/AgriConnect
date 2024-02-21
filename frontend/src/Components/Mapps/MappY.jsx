@@ -13,6 +13,7 @@ const Mappy = () => {
   const handleMarkerClick = (location) => {
 
     setPopupInfo({
+      _id: location._id,
       longitude: location.longitude,
       latitude: location.latitude,
       farmName: location.farmName,
@@ -104,9 +105,7 @@ const Mappy = () => {
     <div className="control-panel">
     <h1>{popupInfo.farmName}</h1>
 
-
       <p> Address: {popupInfo.address}, {popupInfo.city}, {popupInfo.postalCode}</p>
-
       <p>
         Map showing top 20 most populated cities of the United States. Click on a marker to learn
         more.
@@ -118,7 +117,7 @@ const Mappy = () => {
         </a>
       </p>
       <div className="source-link">
-        <Link to="/farmerInfo">
+        <Link to={`/farmerInfo/${popupInfo._id}`}>
         <a
           href="https://github.com/visgl/react-map-gl/tree/7.1-release/examples/controls"
           target="_new"

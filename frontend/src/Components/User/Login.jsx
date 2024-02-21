@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Loader from "../Layout/Loader";
 import Metadata from "../Layout/MetaData";
@@ -8,6 +8,7 @@ import axios from "axios";
 import { authenticate } from "../../Utilitys/helpers";
 import { getUser } from "../../Utilitys/helpers";
 import Header  from "../Layout/Header";
+import {io} from "socket.io-client"
 
 const Login = () => {
   const [farms, setFarms] = useState([])
@@ -24,11 +25,28 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const navigate = useNavigate();
   let matchingFarmer = null;
   let location = useLocation();
+  const socket = useRef();
     const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : ''
-
+   
+    useEffect(() =>
+    {
+      socket.current = io("ws://localhost:8900")
+      socket.current.emit("addUser", user._id);
+      socket.current.on("getUsers", (users) => {
+  
+        const onlineUsers = users.filter(user => user.isOnline);
+        
+        setOnlineUsers(onlineUsers);
+      });
+      
+      return () => {
+        socket.current.off("getUsers");
+      };
+    },[user._id]);
 
     const login = async (email, password) => {
       try {
@@ -37,18 +55,19 @@ const Login = () => {
             "Content-Type": "application/json",
           },
         };
-    
+
         const { data } = await axios.post(
           `http://localhost:4000/api/v1/login`,
           { email, password },
           config
         );
-    
+        socket.current.emit("addUser", data.user._id);
+
         const { data: farmerData } = await axios.get(`http://localhost:4000/api/v1/farmer/allfarmer`, config);
     
 
         setFarms(farmerData.farmers);
-    
+       
         if (farmerData && farmerData.farmers && farmerData.farmers.length > 0) {
           setFarms(farmerData.farmers);
       
@@ -60,6 +79,7 @@ const Login = () => {
                   break;
               }
           }
+       
       } else {
           console.log("No farmers found in the response.");
       }
@@ -74,13 +94,15 @@ const Login = () => {
           } else if(data.user.role === 'farmer') {
             if(matchingFarmer){
               authenticate(data, () => navigate("/farmerDashboard"));
+              
             } else
             {
               authenticate(data, () => navigate("/farmerLocation"));
+              
             }
          
           } else {
-            authenticate(data, () => navigate("/UserDashboard"));
+            authenticate(data, () => navigate("/"));
           }
         });
       } catch (error) {

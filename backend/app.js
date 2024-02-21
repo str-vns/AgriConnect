@@ -6,6 +6,8 @@ const users = require('./routes/userAuth');
 const farmers = require('./routes/farmerAuth');
 const product = require('./routes/product')
 const bank = require('./routes/bank')
+const conv = require('./routes/ChatFeat.js/conversations')
+const mess = require('./routes/ChatFeat.js/message')
 app.use(cors());
   
 
@@ -17,5 +19,8 @@ app.use('/api/v1/', users)
 app.use('/api/v1/farmer/', farmers)
 app.use('/api/v1/', product)
 app.use('/api/v1/', bank)
+app.use('/api/v1/', conv)
+app.use('/api/v1/', mess)
+
 
 module.exports = app;

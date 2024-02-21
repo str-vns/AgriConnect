@@ -31,10 +31,15 @@ const bankSchema = new mongoose.Schema(
                 enum: ['Point'],
                 default: 'Point',
             },
-            coordinates:
+            latitude:
             {
-                type: [Number],
-                index: '2dsphere',
+                type: String,
+                required: true
+            },
+            longitude:
+            {
+                type: String,
+                required: true
             },
             images: [
                 {

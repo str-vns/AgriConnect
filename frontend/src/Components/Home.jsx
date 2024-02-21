@@ -12,7 +12,7 @@ const Home = () => {
 
     <Header />
 
-  <div className="w-full ">
+  <div className=" w-full">
    <Mappy />
 
   </div>

@@ -106,7 +106,7 @@ const UserRegister = () => {
       setLoading(false);
       setUser(data.user);
       toast.success("Registration successful");
-      navigate("/");
+      navigate("/login");
       window.location.reload()
     } catch (error) {
       setError(error.message || "An error occurred during registration");

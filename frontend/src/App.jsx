@@ -49,6 +49,10 @@ import FOURTHONE from './Components/Farmers/Categories/Details/Fourth/fourth_one
 import FOURTHTWO from './Components/Farmers/Categories/Details/Fourth/fourth_two';
 import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_three';
 import ProtectedRoute from './Components/Route/ProtectedRoute';
+import Design from './Design';
+import Messenger from './Components/Chatime/messenger/Messenger';
+import BankCreate from './Components/Admin/BankCreate';
+import BankMap from './Components/Mapps/BankMap';
 // import One from './Components/Farmers/Categories/Details/One';
 
 function App() {
@@ -66,8 +70,7 @@ function App() {
         <Route path="/userRegister" element={<UserRegister />} />
         <Route path="/farmerRegister" element={<FarmRegister/>} />
         <Route path="/farmerLocation" element={<FarmerLocation />} />
-        <Route path="/test" element={<Test/>}/>
-        <Route path="/farmerInfo" element={<FarmerInfo/>}/>
+        <Route path="/farmerInfo/:id" element={<FarmerInfo/>}/>
         <Route path='/reviewfarmer' element={<ListReviews/>} />
 
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
@@ -76,8 +79,12 @@ function App() {
         <Route path="/user/:id" element={<UserProfile />} />
 
 
+        <Route path='/banking' element={<BankCreate/>}/>
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
+        <Route path="/bankCreate" element={<BankCreate/>}/>
+
+
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/first" element={<First />} />
@@ -100,8 +107,15 @@ function App() {
         <Route path="/fourthone" element={<FOURTHONE />} />
         <Route path="/fourthtwo" element={<FOURTHTWO />} />
         <Route path="/fourththree" element={<FOURTHTHREE />} />
+
+        <Route path="/messenger" element={<Messenger/>}/>
+        <Route path="/test" element={<Test/>}/>
+        <Route path="/design" element={<Design/>}/>
+        <Route path="/Banky" element={<BankMap/>}/>
       </Routes>
     </Router>
+
+    
   );
 }
 

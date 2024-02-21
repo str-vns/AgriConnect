@@ -1,16 +1,109 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef, useState} from 'react'
 import MetaData from '../Layout/MetaData'
 import Header from '../Layout/Header'
 import ListReviews from '../Review/ListReviews'
+import axios from 'axios'
+import { getUser, logout } from '../../Utilitys/helpers';
 import Footer from '../Layout/Footer'
+import {io} from "socket.io-client"
+import { useNavigate, useParams } from 'react-router-dom'
 function FarmerInfo() {
-return (
-<Fragment>
-   <MetaData title={"Farmer Information"} />
+   const [userly, setUserly] = useState({});
+   const [farmerloc, setFarmerLoc] = useState({});
+   const [conversations, setConversations] = useState([]);
+   const [newconver, setNewConver] = useState({})
+   const navigate = useNavigate();
+   let { id } = useParams();
+   const socket = useRef();
+   useEffect(() => {
+     const fetchUser = () => {
+       setUserly(getUser());
+     };
+     fetchUser();
+   }, []);
+ 
+   useEffect(() =>{
+     socket.current = io("ws://localhost:8900")
+   
+     socket.current.on("getMessage", (data) => {
+       setArriveMessage({
+         sender: data.senderId,
+         text: data.text,
+         createdAt: Date.now(),
+       });
+     })
+   },[]);
+   
+   
+ 
+ useEffect(()=>{
+     const FarmerLc = async (id) => {
+       let link = `http://localhost:4000/api/v1/farmer/farmers/${id}`;
+       try {
+         let res = await axios.get(link);
+         setFarmerLoc(res.data);
+         console.log(res.data)
+       } catch (err) {
+         console.log(err);
+       }
+     };
+     FarmerLc(id)
+ }, [id])
+ 
+ console.log(farmerloc?.farmersloc?.user)
+   useEffect(() => {
+     const fetchConversations = async () => {
+       try {
+         const config = { headers: { Authorization: `Bearer ${getToken()}` } };
+         const res = await axios.get(`http://localhost:4000/api/v1/conversation/${userly._id}`, config);
+         setConversations(res.data);
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     if (userly._id) {
+       fetchConversations();
+     }
+   }, [userly._id]);
+ 
+   const handleSubmit = async (e) => {
+      if (userly._id && farmerloc && farmerloc.farmersloc && farmerloc.farmersloc.user) {
+        const existingConversation = conversations.find(conversation =>
+          conversation.members.includes(userly._id) && conversation.members.includes(farmerloc.farmersloc.user)
+        );
+    
+        if (existingConversation) {
+          navigate('/Messenger', { state: { conversation: existingConversation } });
+        } else {
+          const newconvo = {
+            members: [userly._id, farmerloc.farmersloc.user]
+          };
+    
+          try {
+            const res = await axios.post('http://localhost:4000/api/v1/conversation', newconvo);
+            setNewConver(res.data);
+            navigate('/Messenger', { state: { conversation: res.data } });
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+    };
+ 
+   useEffect(() => {
+     handleSubmit();
+   }, [userly._id, farmerloc.user]);
+  return (
+ <Fragment>
+    <MetaData title={"Farmer Information"} />
+   
+   <section className="flex  bg-white h-screen">
+       
+   <Header />
  
    <section className="flex bg-white min-h-screen overflow-x-hidden"> {/* Add overflow-x-hidden */}
 
-      <Header />
+   
       <div className="lg:grid  flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen ">
          <div class=" py-8   flex flex-wrap items-center  justify-center  ">
             <div class="container rounded-lg lg:w-5/6 xl:w-2/7 sm:w-full md:w-2/3    bg-white  shadow-lg    transform   duration-200 easy-in-out">
@@ -144,17 +237,22 @@ return (
                   <ListReviews/>
                   <hr class="mt-6" />
                   <div class="flex  bg-gray-50 ">
-                     <div class="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-                        <p><span class="font-semibold">2.5 k </span> Followers</p>
+                        <p>
+                           <span class="font-semibold">2.5 k </span> Followers</p>
                      </div>
                   </div>
                </div>
+                        <div class="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"  onClick={handleSubmit}>
             </div>
-         </div>
-         <Footer />
-      </div>
-   </section>
-</Fragment>
-)
+        </div>
+       
+        </div>
+        
+        
+        </section>
+    </section>
+  </Fragment>
+  
+  )
 }
 export default FarmerInfo
