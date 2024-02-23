@@ -8,6 +8,13 @@ import Register from './Components/User/Register';
 import FarmRegister from './Components/User/FarmRegister';
 import UserRegister from './Components/User/UserRegister';
 import { ToastContainer } from 'react-toastify';
+
+//new
+import UpdatePassword from "./Components/User/UpdatePassword";
+import ForgotPassword from "./Components/User/ForgotPassword";
+import NewPassword from "./Components/User/NewPassword";
+//end
+
 import "react-toastify/dist/ReactToastify.css";
 import FarmerLocation from './Components/User/FarmerLocation';
 import { useState } from 'react';
@@ -21,9 +28,6 @@ import UserDashboard from './Components/User/UserDashboard';
 import UserProfile from './Components/User/UserProfile';
 import UpdateProfile from "./Components/User/UpdateProfile";
 
-import UpdatePassword from "./Components/User/UpdatePassword";
-import ForgotPassword from "./Components/User/ForgotPassword";
-import NewPassword from "./Components/User/NewPassword";
 
 import Government from './Components/Farmers/Government';
 import Information from './Components/Farmers/Information';
@@ -68,11 +72,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} exact="true"/>
         <Route path="/register" element={<Register />} />
+        
+        
         <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
-        <Route path="/password/reset/:token" element={<NewPassword />} exact="true"/>
+        <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
         <Route path="/password/update" element={<UpdatePassword />} exact="true"/>
+
         <Route path="/userRegister" element={<UserRegister />} />
         <Route path="/farmerRegister" element={<FarmRegister/>} />
+        
         <Route path="/farmerLocation" element={<FarmerLocation />} />
         <Route path="/farmerInfo/:id" element={<FarmerInfo/>}/>
         <Route path='/reviewfarmer' element={<ListReviews/>} />
@@ -121,6 +129,7 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/design" element={<Design/>}/>
         <Route path="/Banky" element={<BankMap/>}/>
+        
       </Routes>
     </Router>
 
