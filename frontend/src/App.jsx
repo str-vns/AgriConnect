@@ -23,7 +23,12 @@ import Dashboard from './Components/Farmers/Dashboard';
 import FarmerInfo from './Components/Farmers/FarmerInfo';
 import ListReviews from './Components/Review/ListReviews';
 
-import Dashboard2 from './Components/Admin/Dashboard2';
+import AdminDashboard from './Components/Admin/AdminDashboard';
+import FarmerList from './Components/Admin/FarmerList';
+import UserList from './Components/Admin/UserList';
+import AdminProfile from './Components/Admin/AdminProfile';
+import UpdateProfileAdmin from './Components/Admin/UpdateProfileAdmin';
+
 import UserDashboard from './Components/User/UserDashboard';
 import UserProfile from './Components/User/UserProfile';
 import UpdateProfile from "./Components/User/UpdateProfile";
@@ -61,6 +66,7 @@ import BankMap from './Components/Mapps/BankMap';
 import BankCreate from './Components/Admin/BankCreate';
 import BankList from './Components/Admin/BankList';
 import BankUpdate from './Components/Admin/BankUpdate';
+
 // import One from './Components/Farmers/Categories/Details/One';
 
 function App() {
@@ -86,7 +92,17 @@ function App() {
         <Route path='/reviewfarmer' element={<ListReviews/>} />
 
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
-        <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><Dashboard2/></ProtectedRoute>}/>
+        <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><AdminDashboard/></ProtectedRoute>}/>
+        <Route path="/user/:id" element={<AdminProfile />} />
+          <Route
+            path="/profile/update"
+            element={<UpdateProfileAdmin />}
+            exact="true"
+          />
+        <Route path='/farmerlist' element={<FarmerList/>} />
+        <Route path='/userlist' element={<UserList/>} />
+
+
         <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
         
         <Route path="/user/:id" element={<UserProfile />} />
