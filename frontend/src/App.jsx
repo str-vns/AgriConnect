@@ -69,6 +69,10 @@ import BankUpdate from './Components/Admin/BankUpdate';
 import ReviewList from './Components/Farmers/ReviewLog'
 // import One from './Components/Farmers/Categories/Details/One';
 
+//Accounts
+import Accountslist from "./Components/Admin/Accountslist";
+import AccountUpdate from "./Components/Admin/AccountUpdate";
+
 function App() {
   
   return (
@@ -108,10 +112,14 @@ function App() {
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
+
         <Route path="/bankCreate" element={<ProtectedRoute isAdmin={true}><BankCreate/></ProtectedRoute>} exact="true"/>
         <Route path="/banklist" element={<ProtectedRoute isAdmin={true}><BankList/></ProtectedRoute>} exact="true"/>
         <Route path='/bankupdate/:id' element={<ProtectedRoute isAdmin={true}><BankUpdate/></ProtectedRoute>} exact="true" />
-
+       
+        <Route path="/AccountList" element={<ProtectedRoute isAdmin={true}><Accountslist /></ProtectedRoute>} exact="true" />
+        <Route path="/AccountUpdate/:id" element={<ProtectedRoute isAdmin={true}><AccountUpdate /></ProtectedRoute>} exact="true" />
+        
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/first" element={<First />} />
@@ -139,6 +147,7 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/design" element={<Design/>}/>
         <Route path="/Banky" element={<BankMap/>}/>
+
         
       </Routes>
     </Router>

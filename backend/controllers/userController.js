@@ -305,3 +305,58 @@ exports.updatePassword = async (req, res, next) => {
     sendToken(user, 200, res)
 
 }
+
+exports.allUsers = async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        success: true,
+        users
+    })
+}
+
+exports.removeUser = async(req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return res.status(401).json({ message: `User does not found : ${req.params.id}` })
+    }
+
+    // Remove avatar from cloudinary
+    const image_id = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(image_id);
+    await User.findByIdAndDelete(req.params.id);
+    return res.status(200).json({
+        success: true,
+    })
+}
+
+exports.updateUser = async (req,res,next) => 
+{
+    const UpdateDataUser = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, UpdateDataUser, {
+        new: true,
+        runValidators: true,
+    })
+
+    return res.status(200).json({
+        success: true
+    })
+}
+
+exports.getUserDetails = async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return res.status(400).json({ message: `User does not found with id: ${req.params.id}` })
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+}
