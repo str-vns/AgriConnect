@@ -14,4 +14,5 @@ router.post('/login', UserLogin)
 router.get('/logout', UserLogout)
 router.get('/profile', isAuthenticatedUser, UserProfile)
 router.get('/editProfile', isAuthenticatedUser, updateProfile)
+router.get('/user/:id', getterProfile)
 module.exports = router;
