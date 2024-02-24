@@ -66,7 +66,7 @@ import BankMap from './Components/Mapps/BankMap';
 import BankCreate from './Components/Admin/BankCreate';
 import BankList from './Components/Admin/BankList';
 import BankUpdate from './Components/Admin/BankUpdate';
-
+import ReviewList from './Components/Farmers/ReviewLog'
 // import One from './Components/Farmers/Categories/Details/One';
 
 function App() {
@@ -93,15 +93,9 @@ function App() {
 
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><AdminDashboard/></ProtectedRoute>}/>
-        <Route path="/user/:id" element={<AdminProfile />} />
-          <Route
-            path="/profile/update"
-            element={<UpdateProfileAdmin />}
-            exact="true"
-          />
         <Route path='/farmerlist' element={<FarmerList/>} />
         <Route path='/userlist' element={<UserList/>} />
-
+         <Route path='/reviewLog' element={<ReviewList/>}/>
 
         <Route path='/UserDashboard' element={<ProtectedRoute isUser={true}><UserDashboard/></ProtectedRoute>}/>
         

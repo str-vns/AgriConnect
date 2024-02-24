@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getToken } from '../../Utilitys/helpers';
 import { toast } from 'react-toastify';
 import Metadata from '../Layout/MetaData';
+import Header from '../Layout/Header';
 
 const UpdateProfile = () => {
   const [name, setName] = useState('');
@@ -55,7 +56,7 @@ const updateProfile = async (userData) => {
             position: 'top-right'
         });
         
-        navigate('/UserDashboard', { replace: true })
+        navigate(`/user/${user._id}`, { replace: true })
     } catch (error) {
         
         if(avatar == '')
@@ -110,8 +111,12 @@ console.log(user)
   return (
     <Fragment>
       <Metadata title={'Update Profile'} />
-  
-      <div className="px-4 py-40 sm:px-6 lg:px-8 bg-white">
+      <div className='flex h-screen'>
+      <div className=" bg-white ">
+        <Header />
+      </div>
+      <div className="px-4 py-40 sm:px-6 lg:px-8 bg-white w-full overflow-y-scroll">
+   
         <div className="mx-auto max-w-lg text-center border-2 p-10 border-black">
           <form onSubmit={submitHandler} encType="multipart/form-data">
             <h1 className="text-2xl font-bold sm:text-3xl text-black">Update Profile</h1>
@@ -172,6 +177,7 @@ console.log(user)
             </button>
           </form>
         </div>
+      </div>
       </div>
     </Fragment>
   );
