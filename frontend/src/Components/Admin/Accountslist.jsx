@@ -7,6 +7,7 @@ import Loader from '../Layout/Loader'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getToken } from '../../Utilitys/helpers';
+import Header from '../Layout/Header'
 
 const Accountslist = () => {
     const [loading, setLoading] = useState(true)
@@ -117,11 +118,11 @@ const Accountslist = () => {
                 role: user.role,
                 actions: 
                 <Fragment>
-    <Link to={`/AccountUpdate/${user._id}`} className="btn btn-primary py-1 px-2">
+    <Link to={`/AccountUpdate/${user._id}`} className="btn bg-blue-500 py-1 px-2 hover:bg-blue-700 ">
         Edit
     </Link>
     <button
-        className="btn btn-danger py-1 px-2 ml-2"
+        className="bg-red-500 btn py-1 px-2 ml-2 hover:bg-red-700"
         onClick={() => showDeleteConfirmation(user._id)}
     >
         Delete
@@ -133,43 +134,43 @@ const Accountslist = () => {
         })
         return data;
     }
-  return (
-    <Fragment>
-    <MetaData title={"All Accounts"} />
-    <div className="flex bg-white">
-      <div className="w-full md:w-1/6 h-full">
-      
-      </div>
 
-      <div className="w-full md:w-5/6">
-        <div className="flex flex-col items-center bg-white">
-          <h1 className="my-14 font-bold text-lg text-black mr-32">
-          All Accounts
-          </h1>
-      
-          <div className="flex w-full justify-center container pb-10 mr-40">
-            <Fragment>
-              {loading ? (
-                <Loader />
-              ) : (
-                <MDBDataTable
-                  data={accountlist()}
-                  className="table border-2  border-black shadow-lg py-10 text-black"
-                  bordered
-                  striped
-                  hover
-                  entriesOptions={[10, 20, 30]}
-                  entries={10}
-                  noBottomColumns
-                />
-              )}
-            </Fragment>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Fragment>
-  )
+    return (
+        <Fragment>
+            <MetaData title={"All Farmers"} />
+            <div className="flex justify-center items-center h-screen">
+            <div className="bg-white">
+                    <Header />
+                </div>
+                <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
+            <div className="flex flex-col items-center bg-white">
+                <h1 className="my-14 font-bold text-lg text-black mr-32">
+                All Accounts
+                </h1>
+            
+                <div className="flex w-full justify-center container pb-10 mr-40">
+                <Fragment>
+                    {loading ? (
+                    <Loader />
+                    ) : (
+                    <MDBDataTable
+                        data={accountlist()}
+                        className="table border-2  border-black shadow-lg py-10 text-black"
+                        bordered
+                        striped
+                        hover
+                        entriesOptions={[10, 20, 30]}
+                        entries={10}
+                        noBottomColumns
+                    />
+                    )}
+                </Fragment>
+                </div>
+            </div>
+            </div>
+            </div>
+        </Fragment>
+    );
 }
 
 export default Accountslist

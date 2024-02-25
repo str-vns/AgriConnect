@@ -55,7 +55,7 @@ const updateProfile = async (userData) => {
             position: 'top-right'
         });
         
-        navigate('/AdminDashboard', { replace: true })
+        navigate('/AdminProfile', { replace: true })
     } catch (error) {
         
         if(avatar == '')

@@ -7,10 +7,12 @@ import { getToken } from "../../Utilitys/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "../Layout/Header";
 import "./bank.css";
+import { getUser } from '../../Utilitys/helpers';
+import Header from "../Layout/Header";
 
 const BankList = () => {
+  const user = getUser();
   const [banks, setBanks] = useState([]);
   const [error, setError] = useState("");
   const [deleteError, setDeleteError] = useState("");
@@ -161,46 +163,44 @@ const BankList = () => {
   };
   return (
     <Fragment>
-    <MetaData title={"All Products"} />
-    <section className="flex  bg-white h-screen">
-        <Header />
-        <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
-   
-     
-
-      
-        <div className="flex flex-col items-center bg-white ">
-          <h1 className="my-14 font-bold text-lg text-black ">
-            All Banks
-          </h1>
-          <div className="">
-            <button className="inline-block rounded-lg bg-black ml-[900px] px-5 py-3 mb-5 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2">
-              <Link to="/bankCreate">Add Bank </Link>
-            </button>
+          <MetaData title={"All Farmers"} />
+          <div className="flex justify-center items-center h-screen">
+          <div className="bg-white">
+                  <Header />
+              </div>
+              <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
+            <div className="flex flex-col items-center bg-white ">
+              <h1 className="my-14 font-bold text-lg text-black ">
+                All Banks
+              </h1>
+              <div className="">
+                <button className="inline-block rounded-lg bg-black ml-[900px] px-5 py-3 mb-5 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2">
+                  <Link to="/bankCreate">Add Bank </Link>
+                </button>
+              </div>
+              <div className="w-[1080px] overflow-x-auto">
+                <Fragment>
+                  {loading ? (
+                    <Loader />
+                  ) : (
+                    <MDBDataTable
+                      data={bankList()}
+                      className="table border-2  border-black  shadow-lg p-10 text-black"
+                      bordered
+                      striped
+                      hover
+                      entriesOptions={[10, 20, 30]}
+                      entries={10}
+                      pagination
+                      noBottomColumns
+                    />
+                  )}
+                </Fragment>
+              </div>
+            </div>
           </div>
-          <div className="w-[1080px] overflow-x-auto">
-            <Fragment>
-              {loading ? (
-                <Loader />
-              ) : (
-                <MDBDataTable
-                  data={bankList()}
-                  className="table border-2  border-black  shadow-lg p-10 text-black"
-                  bordered
-                  striped
-                  hover
-                  entriesOptions={[10, 20, 30]}
-                  entries={10}
-                  pagination
-                  noBottomColumns
-                />
-              )}
-            </Fragment>
           </div>
-        </div>
-      </div>
-    </section>
-  </Fragment>
+      </Fragment>
 
   )
 }

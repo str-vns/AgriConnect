@@ -8,7 +8,7 @@ const Dashboard = () => {
    
     <section className="flex  bg-white h-screen">
       
-         <Header />
+        <Header />
   
       <div className="lg:grid flex overflow-y-scroll flex-grow justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
         

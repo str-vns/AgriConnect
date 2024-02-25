@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getToken } from "../../Utilitys/helpers";
 import { toast } from "react-toastify";
+import Header from '../Layout/Header';
 
 const AdminProfile = ({ match }) => {
   const [loading, setLoading] = useState(true);
@@ -35,15 +36,8 @@ const AdminProfile = ({ match }) => {
   }, []);
 
   return (
-    <>
-  <meta charSet="utf-8" />
-  <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
-  <meta charSet="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="preconnect" href="https://fonts.bunny.net" />
+    <div className="flex  h-screen ">
+
   <link
     href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
     rel="stylesheet"
@@ -56,79 +50,11 @@ const AdminProfile = ({ match }) => {
     href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
     rel="stylesheet"
   />
-    {/*sidenav */}
-    <div className="fixed left-0 top-0 w-64 h-full p-4 z-50 sidebar-menu transition-transform" style={{ background:'#F8FFA2'}}>
-    <a href="#" className="flex items-center pb-4 border-b border-b-gray-800">
-<h2 className="font-bold text-2xl">
-  <img src="/images/logo.png" alt="AgriConnect" className="mr-2" />
-</h2>
-</a>
 
-    <ul className="mt-4">
-      <span className="text-black-400 font-bold">ADMIN</span>
-      <li className="mb-1 group">
-        <a
-          href="/AdminDashboard"
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-        >
-          <i className="ri-home-2-line mr-3 text-lg" />
-          <span className="text-sm">Dashboard</span>
-        </a>
-      </li>
-      <li className="mb-1 group">
-        <a
-          href="/AdminProfile"
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle"
-        >
-          <i className="bx bx-user mr-3 text-lg" />
-          <span className="text-sm">Profile</span>
-
-        </a>
-     
-      </li>
-
-
-      <li className="mb-1 group">
-        <a
-          href="/farmerlist"
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-        >
-          <i className="bx bx-archive mr-3 text-lg" />
-          <span className="text-sm">Farmer</span>
-        </a>
-      </li>
-      <li className="mb-1 group">
-        <a
-          href=""
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-        >
-          <i className="bx bx-bell mr-3 text-lg" />
-          <span className="text-sm">User</span>
-        </a>
-      </li>
-      <li className="mb-1 group">
-        <a
-          href=""
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-        >
-          <i className="bx bx-envelope mr-3 text-lg" />
-          <span className="text-sm">Analytics</span>
-        </a>
-      </li>
-      <li className="mb-1 group">
-        <a
-          href="/"
-          className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-        >
-          <i className="bx bx-envelope mr-3 text-lg" />
-          <span className="text-sm">Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay" />
-  {/* end sidenav */}
-  <div className="h-full bg-[#F8FFA2] p-8 ml-64">
+      <div className="w-full bg-white md:w-1/6">
+        <Header />
+      </div>
+  <div className="h-full bg-white overflow-y-scroll p-8 over">
     <div className="bg-white rounded-lg shadow-xl pb-8">
       <div className="w-full h-[250px]">
         <img
@@ -381,7 +307,7 @@ const AdminProfile = ({ match }) => {
       
     </div>
   </div>
-</>
+</div>
   );
 };
 

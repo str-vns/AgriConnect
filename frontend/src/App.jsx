@@ -24,7 +24,9 @@ import FarmerInfo from './Components/Farmers/FarmerInfo';
 import ListReviews from './Components/Review/ListReviews';
 
 import AdminDashboard from './Components/Admin/AdminDashboard';
+
 import FarmerList from './Components/Admin/FarmerList';
+import FarmerUpdate from './Components/Admin/FarmerUpdate';
 import UserList from './Components/Admin/UserList';
 import AdminProfile from './Components/Admin/AdminProfile';
 import UpdateProfileAdmin from './Components/Admin/UpdateProfileAdmin';
@@ -97,7 +99,15 @@ function App() {
 
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><AdminDashboard/></ProtectedRoute>}/>
+        <Route path="/AdminProfile" element={<AdminProfile />} />
+          <Route
+            path="/profile/admin/update"
+            element={<UpdateProfileAdmin />}
+            exact="true"
+          />
         <Route path='/farmerlist' element={<FarmerList/>} />
+        <Route path='/farmerupdate/:id' element={<ProtectedRoute isAdmin={true}><FarmerUpdate/></ProtectedRoute>} exact="true" />
+
         <Route path='/userlist' element={<UserList/>} />
          <Route path='/reviewLog' element={<ReviewList/>}/>
 

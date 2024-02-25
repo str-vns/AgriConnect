@@ -314,7 +314,7 @@ const BankUpdate = () => {
               >
                 CREATE
               </button>
-            </form>
+          </form>
           </div>
         </main>
       </div>

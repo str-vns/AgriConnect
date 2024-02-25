@@ -1,21 +1,19 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
-import MetaData from '../Layout/MetaData'
-
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import MetaData from '../Layout/MetaData';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken } from '../../Utilitys/helpers';
 import axios from 'axios';
 import Header from '../Layout/Header';
 
-const AccountUpdate = () => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [role, setRole] = useState('')
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-    const [user, setUser] = useState(true)
-    const [isUpdated, setIsUpdated] = useState(false)
+const FarmerUpdate = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [user, setFarmer] = useState(true);
+    const [isUpdated, setIsUpdated] = useState(false);
     let navigate = useNavigate();
 
     const { id } = useParams();
@@ -24,61 +22,60 @@ const AccountUpdate = () => {
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${getToken()}`
         }
-    }
-    const getUserInfo = async (id) => {
-    
-        try {
-            const { data } = await axios.get(`http://localhost:4000/api/v1/admin/user/${id}`,config)
-            setUser(data.user)
-            setLoading(false)
-            
-        } catch (error) {
-            setError(error.response.data.message)
-        }
-    }
+    };
 
-    const updateUser = async (id, userData) => {
+    // Function to get farmer info
+    const getFarmerInfo = async (id) => {
         try {
-            const { data } = await axios.put(`http://localhost:4000/api/v1/admin/user/${id}`, userData, config)
-            setIsUpdated(data.success)
-            setLoading(false)
-            
+            const { data } = await axios.get(`http://localhost:4000/api/v1/admin/user/${id}`, config);
+            setFarmer(data.user);
+            setLoading(false);
         } catch (error) {
-           setError(error.response.data.message)
+            setError(error.response.data.message);
         }
-    }
+    };
+
+    // Function to update farmer info
+    const updateFarmer = async (id, farmerData) => {
+        try {
+            const { data } = await axios.put(`http://localhost:4000/api/v1/admin/user/${id}`, farmerData, config);
+            setIsUpdated(data.success);
+            setLoading(false);
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
 
     useEffect(() => {
-
+        // Fetch farmer info
         if (user && user._id !== id) {
-            getUserInfo(id)
+            getFarmerInfo(id);
         } else {
             setName(user.name);
             setEmail(user.email);
-            setRole(user.role)
         }
+        
+        // Handle error and update success
         if (error) {
-            errMsg(error);
+            toast.error(error);
             setError('');
         }
+        
         if (isUpdated) {
-            toast.success('User updated successfully',{
-                position:"top-right",
-            });
-
-            navigate('/AccountList')
+            toast.success('Farmer updated successfully', { position: "top-right" });
+            navigate('/farmerlist');
             window.location.reload();
         }
-    }, [error, isUpdated, id, user])
+    }, [error, isUpdated, id, user]);
+
+    // Function to handle form submission
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.set('name', name);
         formData.set('email', email);
-        formData.set('role', role);
-        updateUser(user._id, formData)
-    }
-
+        updateFarmer(user._id, formData);
+    };
     return (
       <Fragment>
       <MetaData title={"New Bank"} />
@@ -90,7 +87,7 @@ const AccountUpdate = () => {
             <div className="max-w-xl lg:max-w-3xl">
             <form onSubmit={submitHandler} encType="multipart/form-data">
                 <h1 className="mb-4 text-2xl font-bold sm:text-3xl text-black">
-                  User Update
+                  Farmer Update
                 </h1>
       
                 <div className="form-group">
@@ -118,21 +115,6 @@ const AccountUpdate = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-      
-                <div className="form-group">
-                  <label htmlFor="role_field">Role</label>
-                  <select
-                    id="role_field"
-                    className="form-control w-72 rounded-lg border-2 text-black border-black p-2 text-sm shadow-sm bg-white"
-                    name='role'
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="user">user</option>
-                    <option value="admin">admin</option>
-                  </select>
-                </div>
-      
                 <button
                   id="login_button"
                   type="submit"
@@ -147,6 +129,6 @@ const AccountUpdate = () => {
       </section>
     </Fragment>
     )
-}
+  }
 
-export default AccountUpdate
+export default FarmerUpdate;
