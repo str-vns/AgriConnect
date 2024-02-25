@@ -19,7 +19,7 @@
   .messageText{
       padding: 10px;
       border-radius: 20px;
-      background-color: #c3c5c7;
+      background-color: #f4f4f5;
       color: rgb(0, 0, 0);
       max-width: 300px;
   }
@@ -37,3 +37,17 @@
       background-color: #0695FF;
       color: black;
   }
+
+  .zoomable-image {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .zoomable-image:hover {
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%) scale(5.5); 
+    z-index: 1000; 
+  }
+  

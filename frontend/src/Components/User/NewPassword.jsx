@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Header from "../Layout/Header";
 
 const NewPassword = () => {
   const [password, setPassword] = useState("");
@@ -101,7 +102,11 @@ const NewPassword = () => {
   return (
     <Fragment>
       <MetaData title={"New Password Reset"} />
-      <div className="px-4 py-40 sm:px-6 lg:px-8 bg-white">
+      <div className="flex  h-screen ">
+      <div className=" bg-white ">
+        <Header />
+      </div>
+      <div className="px-4 py-40 sm:px-6 lg:px-8 w-full bg-white overflow-y-scroll">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl font-bold sm:text-3xl text-black">New Password</h1>
         </div>
@@ -254,6 +259,7 @@ const NewPassword = () => {
             Set Password
           </button>
         </form>
+      </div>
       </div>
     </Fragment>
   );

@@ -6,7 +6,7 @@ const { newMessage, getMessages } = require('../../controllers/messController');
 
 
 // add messages
-router.post("/message", newMessage)
+router.post("/message",  upload.array('images', 10), newMessage)
 //get messages
 router.get("/message/:conversationId", getMessages)
 

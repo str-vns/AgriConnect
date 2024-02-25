@@ -8,6 +8,7 @@ import { getUser, logout, getToken } from '../../../Utilitys/helpers';
 import Conversation from "../conversations/Conversation";
 import Message from "../message/Message";
 import {io} from "socket.io-client"
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Messenger = () => {
   const [user, setUser] = useState({});
@@ -18,9 +19,12 @@ const Messenger = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arriveMessage, setArriveMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [images, setImages] = useState([]);
+  const [imagesPreview, setImagesPreview] = useState([]);
   const scrollRef = useRef();
   const socket = useRef();
 
+   console.log(images)
   useEffect(() =>{
     socket.current = io("ws://localhost:8900")
   
@@ -108,9 +112,12 @@ console.log(onlineUsers)
     const message = {
       sender: user._id,
       text: newMessage,
-      conversationId: currentChat._id
+      conversationId: currentChat._id,
+      images: images
+      
     };
-
+  
+    
     const receiverId = currentChat.members.find(
       (member) => member !== user._id
     );
@@ -125,15 +132,36 @@ console.log(onlineUsers)
       const res = await axios.post('http://localhost:4000/api/v1/message', message);
       setMessages([...messages, res.data]);
       setNewMessage("");
+      setImagesPreview([]);
+      setImages([]);
+      console.log(res.data)
     } catch (error) {
       console.log(error);
     }
   };
 
+  const onChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImagesPreview([]);
+    setImages([]);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagesPreview((oldArray) => [...oldArray, reader.result]);
+          setImages((oldArray) => [...oldArray, reader.result]);
+        }
+      };
+
+      reader.readAsDataURL(file);
+      console.log(reader);
+    });
+  };
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
+  
   return (
     <section className="flex  bg-white h-screen">
       
@@ -144,7 +172,7 @@ console.log(onlineUsers)
     <div className="messenger">
       <div className="chatMenu border-2 border-black  " >
         <div className="chatMenuWrapper">
-          <input placeholder="Search for friends" className="chatMenuInput " />
+          {/* <input placeholder="Search for friends" className="chatMenuInput " /> */}
           {conversations.map((c) => (
             <div key={c._id} onClick={() => setCurrentChat(c)}>
               <Conversation conversation={c} currentUser={user}  onlineUsers={onlineUsers}/>
@@ -170,14 +198,55 @@ console.log(onlineUsers)
                 ))}
               </div>
             
-              <div className="chatBoxBottom border-t-2 ">
+              <div className="chatBoxBottom border-t-2 pl-5">
                 <textarea
-                  className="chatMessageInput mt-2  rounded-lg border border-black align-top shadow-sm sm:text-sm"
+                  className="chatMessageInput mt-2  rounded-lg border border-black align-top shadow-sm sm:text-sm text-black"
                   placeholder="write something..."
                   onChange={(e) => setNewMessage(e.target.value)}
                   value={newMessage}
                 ></textarea>
-                <button className="px-10 mt-3 inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" onClick={handleSubmit}>
+
+                <div className="col-span-6 ">
+                  {/* <label className=" text-mg text-black  text-left flex mb-2">
+                    Images
+                  </label> */}
+                    <div className="custom-file">
+                      <input
+                        type="file"
+                        name="images"
+                        className="custom-file-input hidden"
+                        id="customFile"
+                        onChange={onChange}              
+                        multiple
+                      />
+                   <div className="flex items-center ">
+                    <label
+                      htmlFor="customFile"
+                     
+                    >
+                 <i className="far fa-file-image text-black text-xl text-start pr-32 "></i>
+                    </label>
+
+                
+
+                    </div>
+                  </div>
+                  <div className="flex flex-row ">
+                    {imagesPreview.map((img) => (
+                      <img
+                        src={img}
+                        key={img}
+                        alt="Images Preview"
+                        className=" pt-1 "
+                        width="55"
+                        height="52"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                    
+                <button className=" mt-3 inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" onClick={handleSubmit}>
                   Send
                 </button>
               </div>

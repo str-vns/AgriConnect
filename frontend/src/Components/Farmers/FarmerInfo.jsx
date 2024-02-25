@@ -7,7 +7,7 @@ import axios from 'axios'
 import { getUser, logout, getToken } from '../../Utilitys/helpers';
 import Footer from '../Layout/Footer'
 import {io} from "socket.io-client"
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Rating from "react-rating";
@@ -73,6 +73,7 @@ function FarmerInfo() {
      };
      FarmerLc(id)
  }, [id])
+ 
  console.log("Reviews:", farmerloc?.farmersloc?.reviews);
  console.log(farmerloc?.farmersloc?.user)
    useEffect(() => {
@@ -89,30 +90,33 @@ function FarmerInfo() {
        fetchConversations();
      }
    }, [userly._id]);
- 
-   const handlesSubmit = async (e) => {
-      if (userly._id && farmerloc && farmerloc.farmersloc && farmerloc.farmersloc.user) {
-        const existingConversation = conversations.find(conversation =>
-          conversation.members.includes(userly._id) && conversation.members.includes(farmerloc.farmersloc.user)
-        );
-    
-        if (existingConversation) {
-          navigate('/Messenger', { state: { conversation: existingConversation } });
-        } else {
-          const newconvo = {
-            members: [userly._id, farmerloc.farmersloc.user]
-          };
-    
-          try {
-            const res = await axios.post('http://localhost:4000/api/v1/conversation', newconvo);
-            setNewConver(res.data);
-            navigate('/Messenger', { state: { conversation: res.data } });
-          } catch (error) {
-            console.log(error);
-          }
-        }
+//  console.log(userly._id)
+// console.log(farmerloc?.farmersloc?.user)
+const handleSubmit = async (e) => {
+  if (userly._id && farmerloc && farmerloc?.farmersloc && farmerloc?.farmersloc?.user) {
+    const existingConversation = conversations.find(conversation =>
+      conversation.members.includes(userly._id) && conversation.members.includes(farmerloc?.farmersloc?.user)
+    );
+
+    if (existingConversation) {
+      navigate('/Messenger', { state: { conversation: existingConversation } });
+    } else {
+      const newconvo = {
+        senderId: userly._id,
+        receiverId: farmerloc?.farmersloc?.user
+      };
+         console.log(newconvo)
+      try {
+        const res = await axios.post('http://localhost:4000/api/v1/conversation', newconvo);
+        console.log(res.data)
+        setNewConver(res.data);
+        navigate('/Messenger', { state: { conversation: res.data } });
+      } catch (error) {
+        console.log(error);
       }
-    };
+    }
+  }
+};
 
 
 
@@ -206,6 +210,11 @@ function FarmerInfo() {
      }
    },
  });
+  
+//  useEffect(() => {
+//   handleSubmit();
+// }, [userly._id, farmerloc?.user]);
+
   return (
  <Fragment>
     <MetaData title={"Farmer Information"} />
@@ -330,14 +339,16 @@ function FarmerInfo() {
                 Submit Your Review
               </button>
             ) : (
+              <Link to="/login">
               <div
-                className="inline-block ml-40 mt-5 rounded-lg bg-black px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
+                className="inline-block ml-[600px] mt-5 rounded-lg bg-black px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
                 type="alert"
               >
                 Login to post your review.
               </div>
+              </Link>
             )}
-            <div className="flex items-start mt-2 pb-2 mr-10">
+        <div className="flex items-start mt-2 pb-2 mr-10 overflow-y-auto overscroll-y-auto h-80">
   {farmerloc?.farmersloc?.reviews && farmerloc?.farmersloc?.reviews.length > 0 && (
     <ListReviews reviews={farmerloc?.farmersloc?.reviews} />
   )}
@@ -427,15 +438,23 @@ function FarmerInfo() {
                 </button>
               </div>
             </Modal>
-                  <hr class="mt-6" />
-                  <div class="flex  bg-gray-50 ">
-                        <p>
-                           <span class="font-semibold">2.5 k </span> Followers</p>
-                     </div>
+            {user ? (
+             <button class="text-center mt-5 rounded-xl border-2 border-black text-black  px-32 py-3 hover:bg-black hover:text-white cursor-pointer"  onClick={handleSubmit}>
+                <span >Chat now</span>
+            </button>
+             ) : (
+              <Link to="/login">
+              <button
+                className="text-center mt-5 rounded-xl border-2 border-black text-black  px-32 py-3 hover:bg-black hover:text-white cursor-pointer"
+                type="alert"
+              >
+                Login to Chat 
+              </button>
+              </Link>
+            )}
                   </div>
                </div>
-                        <div class="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"  onClick={handlesSubmit}>
-            </div>
+                 
         </div>
        
         </div>

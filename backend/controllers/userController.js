@@ -219,7 +219,7 @@ exports.forgotPassword = async (req, res, next) => {
         const resetToken = user.getResetPasswordToken();
         await user.save({ validateBeforeSave: false });
 
-        const resetUrl = `https://localhost:5173/password/reset/${resetToken}`;
+        const resetUrl = `http://localhost:5173/password/reset/${resetToken}`;
         const message = `<section class="max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900">
         <header>
            <h1> AgriConnect</h1>     

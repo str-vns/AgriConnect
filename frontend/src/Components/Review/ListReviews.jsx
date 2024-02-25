@@ -4,7 +4,7 @@ function ListReviews({ reviews }) {
   return (
     <div className='bg-white '>
    {reviews && reviews.map(review => (
-   <article className="p-6 lg:w-[800px]  lg:ml-[130px] sm:ml-[120px]  text-base  border-t border-black dark:border-black dark:bg-white ">
+   <article className="p-6 lg:w-[800px]  lg:ml-[130px] sm:ml-[120px]  text-base  border-t border-black dark:border-black dark:bg-white  ">
 
    <React.Fragment key={review._id}>
         <div>
