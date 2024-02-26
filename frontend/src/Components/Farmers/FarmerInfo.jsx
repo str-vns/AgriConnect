@@ -219,11 +219,11 @@ const handleSubmit = async (e) => {
  <Fragment>
     <MetaData title={"Farmer Information"} />
    
-   <section className="flex  bg-white h-screen">
+   <section className="flex  h-screen">
        
    <Header />
  
-   <section className="flex bg-white min-h-screen overflow-x-hidden"> {/* Add overflow-x-hidden */}
+   <section className="flex bg-white min-h-screen overflow-x-hidden"> 
 
    
       <div className="lg:grid  flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen ">

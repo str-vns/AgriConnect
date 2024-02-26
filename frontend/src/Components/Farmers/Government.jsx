@@ -3,18 +3,10 @@ import Header from '../Layout/Header';
 import { Dropdown } from 'react-bootstrap';
 const Government = () => (
   <>
-    <meta charSet="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta property="og:site_name" content="" /> {/* website name */}
-    <meta property="og:site" content="" /> {/* website link */}
-    <meta property="og:title" content="" />{" "}
-    <meta property="og:description" content="" />{" "}
-    <meta property="og:image" content="" /> {/* image link, make sure it's jpg */}
-    <meta property="og:url" content="" />{" "}
-    <meta name="twitter:card" content="summary_large_image" />{" "}
+     <section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full"> 
     <title>AgriConnect</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
@@ -33,7 +25,7 @@ const Government = () => (
       `}
       
     </style>
-    <nav className="navbar ">
+    <nav className="navbar w-full ">
    <div className="container sm:px-4 lg:px-8 flex flex-wrap items-center justify-between lg:flex-nowrap">
       <a
          className="text-gray-800 font-semibold text-3xl leading-4 no-underline page-scroll"
@@ -107,13 +99,10 @@ const Government = () => (
     <p className="pb-2 p-small statement">Designed and Developed by AgriConnect
     </p>
   </div>
-  {/* end of container */}
+
 </div>
-
-
-{" "}
-{/* end of copyright */}
-{/* end of copyright */}
+</section>
+</section>
   </>
 );
 

@@ -3,6 +3,10 @@ import Header from '../Layout/Header';
 import { Dropdown } from 'react-bootstrap';
 const Government = () => (
 <>
+<section className="flex  h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
 <meta charSet="utf-8" />
 <meta
    name="viewport"
@@ -290,7 +294,10 @@ const Government = () => (
 {" "}
 {/* end of copyright */}
 {/* end of copyright */}
+
 </>
+</section>
+</section>
 </>
 );
 export default Government;

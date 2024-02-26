@@ -1,7 +1,12 @@
 import React from 'react';
+import Header from '../../Layout/Header';
 
 const Third = () => (
   <>
+  <section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
   <meta charSet="utf-8" />
   <meta
     name="viewport"
@@ -165,9 +170,9 @@ const Third = () => (
 </div>
 
 
-{" "}
-{/* end of copyright */}
-{/* end of copyright */}
+
+</section>
+</section>
 </>
 
 );

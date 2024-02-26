@@ -1,6 +1,10 @@
 import React from 'react';
 const Information = () => (
 <>
+<section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
   <meta charSet="utf-8" />
   <meta
     name="viewport"
@@ -289,14 +293,8 @@ const Information = () => (
     </div>{" "}
     {/* end of container */}
   </div>{" "}
-  {/* end of ex-basic-1 */}
-  {/* end of basic */}
-  {/* Scripts */}
-  {/* jQuery for JavaScript plugins */}
-  {/* jQuery Easing for smooth scrolling between anchors */}
-  {/* Swiper for image and text sliders */}
-  {/* Magnific Popup for lightboxes */}
-  {/* Custom scripts */}
+</section>
+</section>
 </>
 );
 

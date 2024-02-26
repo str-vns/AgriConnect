@@ -1,6 +1,11 @@
 import React from 'react';
+import Header from '../../../../Layout/Header';
 const SecondT = () => (
 <>
+<section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
   <meta charSet="utf-8" />
   <meta
     name="viewport"
@@ -157,6 +162,8 @@ const SecondT = () => (
   </div>
   {/* end of container */}
 </div>
+</section>
+    </section>
 </>
 );
 export default SecondT;

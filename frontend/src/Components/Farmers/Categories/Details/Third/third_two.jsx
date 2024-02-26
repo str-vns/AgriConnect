@@ -1,7 +1,11 @@
 import React from 'react';
-
+import Header from '../../../../Layout/Header';
 const THIRDTWO = () => (
   <>
+  <section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
     <meta charSet="utf-8" />
     <meta
       name="viewport"
@@ -155,6 +159,8 @@ const THIRDTWO = () => (
       </div>
       {/* end of container */}
     </div>
+    </section>
+    </section>
   </>
 );
 

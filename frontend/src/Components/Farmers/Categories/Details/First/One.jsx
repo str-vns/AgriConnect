@@ -1,6 +1,12 @@
 import React from 'react';
+import Header from '../../../../Layout/Header';
+
 const One = () => (
 <>
+<section className="flex h-screen">
+      
+      <Header />
+      <section className="overflow-y-scroll w-full">
   <meta charSet="utf-8" />
   <meta
     name="viewport"
@@ -165,6 +171,8 @@ const One = () => (
   </div>
   {/* end of container */}
 </div>
+</section>
+</section>
 </>
 );
 
