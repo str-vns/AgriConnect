@@ -90,12 +90,13 @@ const Header = () => {
               </h2>
             </span>
           </div>
-          <div className="border-t border-gray-100">
+          <div className="border-t border-black">
             <div className="px-2 mt-4">
               {user.name ? (
                 <div>
                   {user && user.role === "user" && (
-                    <span className="text-black font-bold">USER</span>
+                    <span className="text-black font-bold mr-6 pb-5">USER</span>
+                    
                   )}
                   {user && user.role === "farmer" && (
                     <span className="text-black font-bold">FARMER</span>
@@ -103,11 +104,24 @@ const Header = () => {
                   {user && user.role === "admin" && (
                     <span className="text-black font-bold">ADMIN</span>
                   )}
+                  <div className="inline-flex p-5 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                <img
+                  alt={user.name}
+                  src={user.avatar && user.avatar.url}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+                <p className="ms-2 hidden text-left text-xs sm:block">
+                  <strong className="block font-medium text-black">
+                    {user.name}
+                  </strong>
+                  <span className="text-gray-500"> {user.email} </span>
+                </p>
+              </div>
                 </div>
               ) : (
                 <span className="text-black font-bold"></span>
               )}
-              <ul className="space-y-1 border-t border-gray-100 pt-4">
+              <ul className="space-y-1 border-t-2 border-gray-200 pt-4">
                 <li className="mb-1 group">
                   <Link
                     to="/"

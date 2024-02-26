@@ -164,7 +164,7 @@ const BankList = () => {
   return (
     <Fragment>
           <MetaData title={"All Farmers"} />
-          <div className="flex justify-center items-center h-screen">
+          <div className="flex justify-center bg-white items-center h-screen">
           <div className="bg-white">
                   <Header />
               </div>
