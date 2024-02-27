@@ -76,59 +76,46 @@ const Header = () => {
         style={{ background: "#F8FFA2" }}
       >
         <div>
-          <div className="inline-flex h-16 w-64 items-center justify-center  border-b-2 border-b-gray-800">
-            <span
-              className="grid h-10 w-40 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600"
-              style={{ background: "#F8FFA2" }}
-            >
-              <h2 className="font-bold text-2xl">
-                <img
-                  src="/images/logo.png"
-                  alt="Description of your image"
-                  className="mr-2"
-                />
-              </h2>
-            </span>
-          </div>
-          <div className="border-t border-black">
+        <div className="inline-flex h-20 w-72 items-center justify-center">
+          <span
+            className="grid h-12 w-48 place-content-center rounded-lg text-xs text-gray-600"
+            style={{ background: "#F8FFA2" }}
+          >
+            <h2 className="font-bold text-3xl">
+              <img
+                src="/images/logo.png"
+                alt="Description of your image"
+                className="mr-2"
+              />
+            </h2>
+          </span>
+        </div>
+
+          <div className="border-t border-black-100">
             <div className="px-2 mt-4">
               {user.name ? (
                 <div>
                   {user && user.role === "user" && (
-                    <span className="text-black font-bold mr-6 pb-5">USER</span>
-                    
+                    <span className="text-black font-bold text-lg">USER</span>
                   )}
                   {user && user.role === "farmer" && (
-                    <span className="text-black font-bold">FARMER</span>
+                    <span className="text-black font-bold text-lg">FARMER</span>
                   )}
                   {user && user.role === "admin" && (
-                    <span className="text-black font-bold">ADMIN</span>
+                    <span className="text-black font-bold text-lg">ADMIN</span>
                   )}
-                  <div className="inline-flex p-5 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
-                <img
-                  alt={user.name}
-                  src={user.avatar && user.avatar.url}
-                  className="h-10 w-10 rounded-full object-cover"
-                />
-                <p className="ms-2 hidden text-left text-xs sm:block">
-                  <strong className="block font-medium text-black">
-                    {user.name}
-                  </strong>
-                  <span className="text-gray-500"> {user.email} </span>
-                </p>
-              </div>
                 </div>
               ) : (
                 <span className="text-black font-bold"></span>
               )}
-              <ul className="space-y-1 border-t-2 border-gray-200 pt-4">
+              <ul className="space-y-1 border-t border-gray-100 pt-4">
                 <li className="mb-1 group">
                   <Link
                     to="/"
                     className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                   >
-                    <i className="ri-home-3-fill mr-3 text-lg" />
-                    <span className=" mr-3 text-sm">Home</span>
+                    <i className="ri-home-3-fill mr-3 text-2xl" />
+                    <span className=" mr-3 text-lg">Home</span>
                   </Link>
                 </li>
                 {user.name && (user.role === "user" || user.role === "farmer" || user.role === "admin") && (
@@ -141,8 +128,8 @@ const Header = () => {
                               href=""
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle"
                             >
-                              <i className="ri-profile-line mr-3 text-lg" />
-                              <span className="text-sm">Profile</span>
+                              <i className="ri-profile-line mr-3 text-2xl" />
+                              <span className="text-lg">Profile</span>
                             </a>
                           </Link>
                         </li>
@@ -151,8 +138,8 @@ const Header = () => {
                             href=""
                             className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                           >
-                            <i className="ri-file-text-line mr-3 text-lg" />
-                            <span className="text-sm">Transactions</span>
+                            <i className="ri-file-text-line mr-3 text-2xl" />
+                            <span className="text-lg">Transactions</span>
                           </a>
                         </li>
                         <li className="mb-1 group">
@@ -160,19 +147,18 @@ const Header = () => {
                             href=""
                             className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                           >
-                            <i className="ri-notification-3-line mr-3 text-lg" />
-                            <span className="text-sm">Notifications</span>
+                            <i className="ri-notification-3-line mr-3 text-2xl" />
+                            <span className="text-lg">Notifications</span>
                           </a>
                         </li>
-                        
                         <li className="mb-1 group">
                           <Link to="/messenger">
                             <a
                               href=""
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                             >
-                              <i className="ri-chat-3-line mr-3 text-lg" />
-                              <span className="text-sm">Messages</span>
+                              <i className="ri-chat-3-line mr-3 text-2xl" />
+                              <span className="text-lg">Messages</span>
                             </a>
                           </Link>
                         </li>
@@ -180,22 +166,16 @@ const Header = () => {
                     )}
                     {user.name && user.role === "farmer" && (
                       <>
-                      <li className="mb-1 group">
-                          <Link to="/productList" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i class="fas fa-box mr-3 text-lg"/>
-                            <span className="text-sm">Product</span>
-                          </Link>
-                        </li>
                         <li className="mb-1 group">
                           <Link to="/reviewLog" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="ri-user-star-fill mr-3 text-lg" />
-                            <span className="text-sm">Reviews</span>
+                            <i className="ri-user-star-fill mr-3 text-2xl" />
+                            <span className="text-lg">Reviews</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="/government" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="ri-government-line mr-3 text-lg" />
-                            <span className="text-sm">Government</span>
+                            <i className="ri-government-line mr-3 text-2xl" />
+                            <span className="text-lg">Government</span>
                           </Link>
                         </li>
                       </>
@@ -204,38 +184,38 @@ const Header = () => {
                       <>
                         <li className="mb-1 group">
                           <Link to="/AdminDashboard" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className=" bx bxs-dashboard mr-3 text-lg" />
-                            <span className="text-sm">Dashboard</span>
+                            <i className=" bx bxs-dashboard mr-3 text-2xl" />
+                            <span className="text-lg">Dashboard</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="/AdminProfile" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
-                            <i className="ri-profile-line mr-3 text-lg" />
-                            <span className="text-sm">Profile</span>
+                            <i className="ri-profile-line mr-3 text-2xl" />
+                            <span className="text-lg">Profile</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="/farmerlist" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="bx bxs-user-badge mr-3 text-lg" />
-                            <span className="text-sm">Farmer</span>
+                            <i className="bx bxs-user-badge mr-3 text-2xl" />
+                            <span className="text-lg">Farmer</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="/AccountList" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="ri-folder-user-line mr-3 text-lg" />
-                            <span className="text-sm">User</span>
+                            <i className="ri-folder-user-line mr-3 text-2xl" />
+                            <span className="text-lg">User</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="/banklist" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="ri-bank-line mr-3 text-lg" />
-                            <span className="text-sm">Bank</span>
+                            <i className="ri-bank-line mr-3 text-2xl" />
+                            <span className="text-lg">Bank</span>
                           </Link>
                         </li>
                         <li className="mb-1 group">
                           <Link to="" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                            <i className="ri-bar-chart-grouped-line mr-3 text-lg" />
-                            <span className="text-sm">Analytics</span>
+                            <i className="ri-bar-chart-grouped-line mr-3 text-2xl" />
+                            <span className="text-lg">Analytics</span>
                           </Link>
                         </li>
                       </>
@@ -247,8 +227,8 @@ const Header = () => {
                           onClick={logoutHandler}
                           className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                         >
-                          <i className="ri-logout-box-line mr-3 text-lg" />
-                          <span className="text-sm">Logout</span>
+                          <i className="ri-logout-box-line mr-3 text-2xl" />
+                          <span className="text-lg">Logout</span>
                         </Link>
                       </li>
                     </section>
@@ -261,8 +241,8 @@ const Header = () => {
                     <li className="mb-1 group">
                       <Link to="/login" id="login_btn">
                         <a className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                          <i className="ri-login-box-line mr-3 text-lg" />
-                          <span className="text-sm">Login</span>
+                          <i className="ri-login-box-line mr-3 text-2xl" />
+                          <span className="text-lg">Login</span>
                         </a>
                       </Link>
                     </li>
@@ -278,4 +258,3 @@ const Header = () => {
 };
 
 export default Header;
-
