@@ -74,6 +74,9 @@ import ReviewList from './Components/Farmers/ReviewLog'
 //Accounts
 import Accountslist from "./Components/Admin/Accountslist";
 import AccountUpdate from "./Components/Admin/AccountUpdate";
+import CreateProduct from './Components/Products/CreateProduct';
+import ProductList from './Components/Products/ProductList';
+import UpdateProducts from './Components/Products/UpdateProducts';
 
 function App() {
   
@@ -158,7 +161,10 @@ function App() {
         <Route path="/design" element={<Design/>}/>
         <Route path="/Banky" element={<BankMap/>}/>
 
-        
+
+        <Route path='/createProduct'element={<CreateProduct/>}/>
+        <Route path='/productList' element={<ProductList/>}/>
+        <Route path="/updateProduct/:id" element={<UpdateProducts/>}/>
       </Routes>
     </Router>
 

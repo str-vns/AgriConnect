@@ -55,8 +55,14 @@ const farmerSchema = new mongoose.Schema(
                 type: String,
                 required: true
             },
-          
-
+            numOfReviews: {
+              type: Number,
+              default: 0,
+            },
+            reviews: {
+              type: Number,
+              default: 0,
+            },
         reviews: [
             {
               user: {
@@ -84,6 +90,7 @@ const farmerSchema = new mongoose.Schema(
                 type: String,
                 required: true,
               },
+              
               images: [
                 {
                   public_id: {

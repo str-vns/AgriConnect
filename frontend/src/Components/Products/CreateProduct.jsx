@@ -1,115 +1,108 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../Layout/MetaData";
-import { getToken } from "../../Utilitys/helpers";
+import { getToken } from '../../Utilitys/helpers'
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Header from "../Layout/Header";
 
 const CreateProduct = () => {
-  const [productData, setProductData] = useState({
-    _id: "",
-    name: "",
-    description: "",
-    user: "",
-    images: [],
-  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [stock, setStock] = useState(0);
+  const [images, setImages] = useState([]);
+  const [imagesPreview, setImagesPreview] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState("");
+  const [product, setProduct] = useState({});
 
-  const categories = [
-    "Battery",
-    "Car Suspension",
-    "Turbo",
-    "Brake",
-    "Chassis",
-    "Air Filter",
-    "Axle",
-    "Shock Absorber",
-    "Hood",
-    "Alternator",
-    "Clutch",
-    "Compressor",
-    "Air suspension",
-    "Brake Caliper",
-    "Suspension",
-    "Nitrous",
-    "Exhaust",
-    "Interior Seats",
-    "Steering Wheel",
-    "Car Rims",
-    "Fluids",
-  ];
   let navigate = useNavigate();
-
-  const submitHandler = async (values) => {
-    try {
-      const formData = new FormData();
-      formData.append("_id", values._id);
-      formData.append("name", values.name);
-      formData.append("description", values.description);
-      formData.append("user", values.user);
-      
-      // Check if values.images is an array before appending to formData
-      if (Array.isArray(values.images)) {
-        values.images.forEach((image) => {
-          formData.append("images", image);
-        });
-      } else {
-        // If values.images is not an array, log a warning
-        console.warn("images is not an array:", values.images);
-      }
+ 
   
+  const submitHandler = () => {
+
+    const formData = new FormData();
+    formData.set("name", name);
+    formData.set("description", description);
+    formData.set("stock", stock);
+
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    newProduct(formData);
+  };
+
+  const onChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImagesPreview([]);
+    setImages([]);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagesPreview((oldArray) => [...oldArray, reader.result]);
+          setImages((oldArray) => [...oldArray, reader.result]);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  };
+  const newProduct = async (formData) => {
+    try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${getToken()}`,
         },
       };
-  
+// console.log(getToken())
       const response = await axios.post(
-        "http://localhost:5173/api/v1/addproduct",
+        "http://localhost:4000/api/v1/addproduct",
         formData,
         config
       );
+      setLoading(false);
       console.log(response.data);
       setSuccess(response.data.success);
-      setProductData({ ...productData, images: response.data.product.images }); // Update images
+      setProduct(response.data.product);
+      toast.success("Create Product Successful", {
+        position: "top-right",
+    });
     } catch (error) {
-      if (error.response) {
-        // If error has response property
-        console.error("Error response:", error.response.data); // Log error response
-        setError(error.response.data.message); // Set error message
-      } else {
-        console.error("Error:", error); // Log error object
-        setError("An unexpected error occurred."); // Set generic error message
-      }
+      setError(error.response.data.message);
     }
   };
+
   const validationSchema = Yup.object({
     name: Yup.string().required("Product name is required"),
     description: Yup.string().required("Description is required"),
-    user: Yup.string().required("User is required"),
-    images: Yup.mixed().required("Images are required"),
+    stock: Yup.number()
+      .required("Stock is required")
+      .min(1, "Stock should be greater than 1")
+      .max(50, "Stock Should not max at 50"),
+    images: Yup.string().required("Images is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      _id: "",
       name: "",
       description: "",
-      user: "",
-      images: [],
+      stock: 0,
+      images: "",
     },
     validationSchema,
     onSubmit: (values) => {
       try {
         submitHandler(values);
-        console.log("Submitting product with values:", values);
+        console.log("Submitting review with values:", values);
       } catch (error) {
-        console.error("Error submitting product:", error);
+        console.error("Error submitting review:", error);
       }
     },
   });
@@ -123,27 +116,24 @@ const CreateProduct = () => {
 
     if (success) {
       navigate("/ProductList");
-      window.location.reload();
+      window.location.reload()
       toast.success("Product created successfully", {
         position: "top-right",
       });
     }
   }, [error, success]);
 
-  const onChange = (e) => {
-    const files = Array.from(e.target.files || []); // Convert FileList to array
-    setProductData({ ...productData, images: files }); // Ensure images is always an array
-  };
-
   return (
     <Fragment>
       <MetaData title={"New Product"} />
-      <div className="flex bg-white items-center justify-center ">
-        <div className="w-72 md:w-1/6">
-          {/* Sidebar */}
-        </div>
+       
+   <div className="flex  h-screen">
+       
+       <Header />
+     
+       <section className="flex bg-white min-h-screen w-full overflow-x-hidden"> 
 
-        <div className="w-72 md:w-5/6">
+        <div className="w-full ">
           <Fragment>
             <div className="wrapper my-5 items-center justify-center flex">
               <form
@@ -167,9 +157,10 @@ const CreateProduct = () => {
                       id="name_field"
                       className="form-control w-72 rounded-lg border-2 text-black border-black p-2 text-sm shadow-sm bg-white"
                       value={formik.values.name}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      name="name"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        formik.setFieldValue("name", e.target.value);
+                      }}
                     />
                     {formik.errors.name && formik.touched.name && (
                       <div className="text-red-500 text-sm ml-3">
@@ -192,9 +183,10 @@ const CreateProduct = () => {
                       id="description_field"
                       rows="8"
                       value={formik.values.description}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      name="description"
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                        formik.setFieldValue("description", e.target.value);
+                      }}
                     ></textarea>
                     {formik.errors.description &&
                       formik.touched.description && (
@@ -207,58 +199,56 @@ const CreateProduct = () => {
 
                 <div className="form-group">
                   <label
-                    htmlFor="user_field"
+                    htmlFor="stock_field"
                     className="text-mg text-black  text-left flex"
                   >
-                    User
+                    Stock
                   </label>
                   <div className="flex items-center">
                     <input
-                      type="text"
-                      id="user_field"
+                      type="number"
+                      id="stock_field"
                       className="form-control w-72 rounded-lg border-2 text-black border-black p-2 text-sm shadow-sm bg-white"
-                      value={formik.values.user}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      name="user"
+                      value={formik.values.stock}
+                      onChange={(e) => {
+                        setStock(e.target.value);
+                        formik.setFieldValue("stock", e.target.value);
+                      }}
                     />
-                    {formik.errors.user && formik.touched.user && (
+                    {formik.errors.stock && formik.touched.stock && (
                       <div className="text-red-500 text-sm ml-3">
-                        {formik.errors.user}
+                        {formik.errors.stock}
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label className=" text-mg text-black  text-left flex mb-2">
-                    Images
-                  </label>
-                  <div className="custom-file">
-                    <input
-                      type="file"
-                      name="images"
-                      className="custom-file-input hidden"
-                      id="customFile"
-                      onChange={(event) => {
-                        onChange(event);
-                        formik.setFieldValue(
-                          "images",
-                          event.currentTarget.files
-                        );
-                        formik.setFieldTouched("images", true, false);
-                      }}
-                      multiple
-                    />
-                    <div className="flex items-center">
-                      <label
-                        htmlFor="customFile"
-                        className="px-4 py-2 border-2  border-black rounded-md cursor-pointer bg-white text-black hover:bg-black hover:text-white"
-                      >
-                        Choose Images
-                      </label>
+                <div className="form-group mt-3">
+                <div className="custom-file">
+                      <input
+                        type="file"
+                        name="images"
+                        className="custom-file-input hidden"
+                        id="customFile"
+                        onChange={(event) => {
+                          onChange(event);
+                          formik.setFieldValue(
+                            "images",
+                            event.currentTarget.files
+                          );
+                          formik.setFieldTouched("images", true, false);
+                        }}
+                        multiple
+                      />
+                   <div className="flex items-center">
+                    <label
+                      htmlFor="customFile"
+                      className="px-4 py-2 border-2  border-black rounded-md cursor-pointer bg-white text-black hover:bg-black hover:text-white"
+                    >
+                      Choose Images
+                    </label>
 
-                      {formik.errors.images && formik.touched.images && (
+                    {formik.errors.images && formik.touched.images && (
                         <div className="text-red-500 text-sm ml-3">
                           {formik.errors.images}
                         </div>
@@ -266,10 +256,10 @@ const CreateProduct = () => {
                     </div>
                   </div>
                   <div className="flex flex-row mb-2">
-                    {productData.images.map((file) => (
+                    {imagesPreview.map((img) => (
                       <img
-                        src={URL.createObjectURL(file)}
-                        key={file.name}
+                        src={img}
+                        key={img}
                         alt="Images Preview"
                         className="my-3 mr-2 "
                         width="55"
@@ -278,6 +268,7 @@ const CreateProduct = () => {
                     ))}
                   </div>
                 </div>
+
 
                 <button
                   id="create_button"
@@ -290,6 +281,7 @@ const CreateProduct = () => {
             </div>
           </Fragment>
         </div>
+        </section>
       </div>
     </Fragment>
   );

@@ -158,3 +158,18 @@ exports.deleteProducts = async (req,res,next)=>
 }
 
 
+exports.GetOneProduct = async (req, res, next ) => {
+  const product = await Product.findById(req.params.id);
+  if(!product)
+  {
+      return res.status(404).json
+      ({
+          success: false,
+          message: "The Product doesn't Exist ",
+      })
+  }
+  res.status(200).json({
+      success: true,
+      product
+  })
+}

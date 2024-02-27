@@ -11,6 +11,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Enter A Discription of a Product"],
   },
+  stock: {
+    type: Number,
+    required: [true, "Enter the quantity of the Product"],
+    maxlength: [4, "Product cant exceed up to 4 digits"],
+    default: 0,
+  },
   images: [
     {
       public_id: {
@@ -29,9 +35,9 @@ const productSchema = new mongoose.Schema({
     maxlength: [4, "Product cant exceed up to 4 digits"],
     default: 0,
   },
-  farmer: {
+  user: {
     type: mongoose.Schema.ObjectId,
-    ref: "Farmer",
+    ref: "User",
     required: true,
   },
   
