@@ -4,7 +4,7 @@ import { getUser } from "../../Utilitys/helpers";
 import MetaData from "../Layout/MetaData";
 import Header from '../Layout/Header';
 import axios from 'axios';
-import Chart from "chart.js/auto";
+// import Chart from "chart.js/auto";
 
 
 const AdminDashboard = () => {

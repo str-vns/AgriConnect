@@ -173,3 +173,20 @@ exports.GetOneProduct = async (req, res, next ) => {
       product
   })
 }
+
+exports.getFarmerProduct = async (req, res, next) => {
+  try {
+      const product = await Product.find({ user: req.params.id });
+
+      res.status(200).json({
+          success: true,
+          product,
+      });
+  } catch (error) {
+      console.log('Error:', error);
+      res.status(500).json({
+          success: false,
+          error: 'An error occurred while fetching the product.',
+      });
+  }
+};

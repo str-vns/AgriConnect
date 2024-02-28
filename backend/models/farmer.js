@@ -59,6 +59,10 @@ const farmerSchema = new mongoose.Schema(
               type: Number,
               default: 0,
             },
+            ratings: {
+              type: Number,
+              default: 0,
+            },
             reviews: {
               type: Number,
               default: 0,

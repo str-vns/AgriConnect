@@ -5,6 +5,8 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import Loader from '../Layout/Loader'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import "./Map.css";
+import Rating from 'react-rating';
 
 const Mappy = () => {
   const [popupInfo, setPopupInfo] = useState(null);
@@ -19,10 +21,13 @@ const Mappy = () => {
       farmName: location.farmName,
       address: location.address,
       city: location.city,
-      postalCode: location.postalCode
+      postalCode: location.postalCode,
+      images: location.images,
+      ratings: location.ratings
     });
   };
 
+  console.log((popupInfo?.ratings / 5) * 5)
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -95,35 +100,36 @@ const Mappy = () => {
           </svg>
         </Marker>
         {popupInfo && (
-   <Popup
-   longitude={popupInfo.longitude}
-   latitude={popupInfo.latitude}
-   closeButton={true}
-   closeOnClick={false}
-   onClose={() => setPopupInfo(null)}
- >
+  <Popup
+    longitude={popupInfo.longitude}
+    latitude={popupInfo.latitude}
+    closeButton={true}
+    closeOnClick={false}
+    onClose={() => setPopupInfo(null)}
+    className="rounded-popup"
+  >
     <div className="control-panel">
-    <h1>{popupInfo.farmName}</h1>
-
-      <p> Address: {popupInfo.address}, {popupInfo.city}, {popupInfo.postalCode}</p>
-      <p>
-        Map showing top 20 most populated cities of the United States. Click on a marker to learn
-        more.
+      <img className="rounded p-3 w-full h-32" src={popupInfo.images[0].url} />
+      <p className="text-black">Farmer</p>
+      <h1 className="text-black">Name: {popupInfo.farmName}</h1>
+      <p className="text-black">
+        Address: {popupInfo.address}, {popupInfo.city}, {popupInfo.postalCode}
       </p>
-      <p>
-        Data source:{' '}
-        <a href="https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population">
-          Wikipedia
-        </a>
-      </p>
-      <div className="source-link">
+      <p className="text-black">Rating: <Rating
+  emptySymbol={<i className="far fa-star" style={{ color: "gray" }} />}
+  fullSymbol={<i className="fas fa-star" style={{ color: "gold" }} />}
+  initialRating={(popupInfo.ratings / 5) * 5} 
+  readonly
+/>
+</p>
+{/* <div className="rating-outer">
+  <div className="rating-inner" style={{ width: `${(popupInfo.ratings / 5) * 100}%` }}></div>
+</div> */}
+      <div className="source-link p-2">
         <Link to={`/farmerInfo/${popupInfo._id}`}>
-        <a
-          href="https://github.com/visgl/react-map-gl/tree/7.1-release/examples/controls"
-          target="_new"
-        >
-          View Code ↗
-        </a>
+          <button className="text-center mt-2 rounded-xl border-2 border-black text-black p-2 hover:bg-black hover:text-white cursor-pointer">
+            View More
+          </button>
         </Link>
       </div>
     </div>

@@ -36,7 +36,7 @@ const transacModel =  mongoose.Schema(
              farmerid:
              {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Farmer',
+                ref: 'User',
                 required: true
              }
          }
