@@ -71,26 +71,15 @@ const Header = () => {
         href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
         rel="stylesheet"
       />
-      <div
-        className="flex h-screen w-64 flex-col justify-between border-e "
-        style={{ background: "#F8FFA2" }}
-      >
-        <div>
-        <div className="inline-flex h-20 w-72 items-center justify-center">
-          <span
-            className="grid h-12 w-48 place-content-center rounded-lg text-xs text-gray-600"
-            style={{ background: "#F8FFA2" }}
-          >
+      <div className="flex h-screen w-64 flex-col justify-between border-e" style={{ background: "#F8FFA2" }}>
+      <div>
+        <div className="flex items-center justify-center h-20">
+          <span className="grid h-12 w-48 place-content-center rounded-lg text-xs text-gray-600" style={{ background: "#F8FFA2" }}>
             <h2 className="font-bold text-3xl">
-              <img
-                src="/images/logo.png"
-                alt="Description of your image"
-                className="mr-2"
-              />
+              <img src="/images/logo.png" alt="Description of your image" className="mr-2" />
             </h2>
           </span>
         </div>
-
           <div className="border-t border-black-100">
             <div className="px-2 mt-4">
               {user.name ? (
