@@ -83,16 +83,7 @@ const Two = () => (
                Categories
                </a>
             </li>
-            <li>
-               <a className="nav-link page-scroll" href="/First">
-               Details
-               </a>
-            </li>
-            <li>
-               <a className="nav-link page-scroll" href="#pricing">
-               Pricing
-               </a>
-            </li>
+           
          </ul>
       </div>
    </div>
