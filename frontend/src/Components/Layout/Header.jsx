@@ -107,6 +107,15 @@ const Header = () => {
                     <span className=" mr-3 text-lg">Home</span>
                   </Link>
                 </li>
+                <li className="mb-1 group">
+                  <Link
+                    to="/info"
+                    className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                  >
+                    <i className="ri-home-3-fill mr-3 text-2xl" />
+                    <span className=" mr-3 text-lg">About</span>
+                  </Link>
+                </li>
                 {user.name && (user.role === "user" || user.role === "farmer" || user.role === "admin") && (
                   <section>
                     {user.name && (user.role === "user" || user.role === "farmer") && (

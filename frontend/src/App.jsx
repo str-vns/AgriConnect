@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import Home from './Components/Home';
+import Info from './Components/Info';
+import Cards from './Components/Cards';
 import Header from './Components/Layout/Header'
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';
@@ -78,6 +80,7 @@ import CreateProduct from './Components/Products/CreateProduct';
 import ProductList from './Components/Products/ProductList';
 import UpdateProducts from './Components/Products/UpdateProducts';
 
+
 function App() {
   
   return (
@@ -85,6 +88,8 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/cards" element={<Cards />} />
         <Route path="/login" element={<Login />} exact="true"/>
         <Route path="/register" element={<Register />} />
         

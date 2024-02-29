@@ -27,15 +27,15 @@ const Government = () => (
     </style>
     <nav className="navbar w-full ">
    <div className="container sm:px-4 lg:px-8 flex flex-wrap items-center justify-between lg:flex-nowrap">
-      <a
+      {/* <a
          className="text-gray-800 font-semibold text-3xl leading-4 no-underline page-scroll"
-         href="/">AgriConnect</a>
-      <a
+         href="/">AgriConnect</a> */}
+      {/* <a
          className="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline"
          href="index.html"
          >
       <img src="farmers/images/logo2.png" alt="alternative" className="h-8" />
-      </a>
+      </a> */}
       <button
          className="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400"
          type="button"
