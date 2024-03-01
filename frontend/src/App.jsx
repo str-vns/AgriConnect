@@ -17,6 +17,7 @@ import ForgotPassword from "./Components/User/ForgotPassword";
 import NewPassword from "./Components/User/NewPassword";
 //end
 
+import Analytics from './Components/Admin/Analytics';
 import "react-toastify/dist/ReactToastify.css";
 import FarmerLocation from './Components/User/FarmerLocation';
 import { useState } from 'react';
@@ -130,7 +131,7 @@ function App() {
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
-
+        <Route path="/Analytics" element={<Analytics />} />
         <Route path="/bankCreate" element={<ProtectedRoute isAdmin={true}><BankCreate/></ProtectedRoute>} exact="true"/>
         <Route path="/banklist" element={<ProtectedRoute isAdmin={true}><BankList/></ProtectedRoute>} exact="true"/>
         <Route path='/bankupdate/:id' element={<ProtectedRoute isAdmin={true}><BankUpdate/></ProtectedRoute>} exact="true" />

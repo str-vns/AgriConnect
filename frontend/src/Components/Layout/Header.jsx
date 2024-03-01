@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser, logout } from "../../Utilitys/helpers";
 import axios from "axios";
+// import './Header.css';
 
 const Header = () => {
   const [user, setUser] = useState({});
@@ -71,8 +72,10 @@ const Header = () => {
         href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
         rel="stylesheet"
       />
-      <div className="flex h-screen w-64 flex-col justify-between border-e" style={{ background: "#F8FFA2" }}>
-      <div>
+ <div className={`flex h-screen w-64 flex-col justify-between border-e ${isOpen ? 'fixed-header' : ''}`} style={{ background: "#F8FFA2" }}>     
+
+ {/* <div className="flex h-screen w-64 flex-col justify-between fixed-header" style={{ background: "#F8FFA2" }}> */}
+  <div>
         <div className="flex items-center justify-center h-20">
           <span className="grid h-12 w-48 place-content-center rounded-lg text-xs text-gray-600" style={{ background: "#F8FFA2" }}>
             <h2 className="font-bold text-3xl">
@@ -217,7 +220,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li className="mb-1 group">
-                          <Link to="" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                          <Link to="/Analytics" className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                             <i className="ri-bar-chart-grouped-line mr-3 text-2xl" />
                             <span className="text-lg">Analytics</span>
                           </Link>
