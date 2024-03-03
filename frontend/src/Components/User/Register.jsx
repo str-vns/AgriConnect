@@ -26,7 +26,7 @@ function Register() {
     <h3 class="text-xl font-medium text-black">User</h3>
 
 <p class="mt-1.5 text-pretty text-xs text-black">
-  Welcome to the User's Register your digital companion in the world of agriculture
+  {/* Welcome to the User's Register your digital companion in the world of agriculture */}
 </p>
      <Link to="/userRegister">
     <div class="flex justify-center">
@@ -55,7 +55,7 @@ function Register() {
   <h3 class="text-xl font-medium text-black">Farmer</h3>
 
 <p class="mt-1.5 text-pretty text-xs text-black">
-Welcome to the Farmer's Register  your digital companion in the world of agriculture
+{/* Welcome to the Farmer's Register  your digital companion in the world of agriculture */}
 </p>
 
     <Link to="/farmerRegister">
