@@ -1,0 +1,26 @@
+.gallery-image {
+    /* Center the image horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery-image img {
+    /* Ensure the image is responsive */
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .gallery-thumbnail {
+    /* Center the thumbnail horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery-thumbnail img {
+    /* Ensure the thumbnail is square and covers the container */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

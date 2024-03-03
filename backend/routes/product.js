@@ -9,4 +9,5 @@ router.get('/products/:id', GetOneProduct)
 router.get('/farmerproducts/:id',isAuthenticatedUser, getProduct)
 router.route('/updatedprod/:id').put( upload.array('images', 10), updateProducts).delete(deleteProducts)
 router.get('/farmerprod/:id', getFarmerProduct)
+router.get('/product/:id', GetOneProduct)
 module.exports = router;

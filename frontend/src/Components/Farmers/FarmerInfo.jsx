@@ -125,6 +125,7 @@ const handleSubmit = async (e) => {
 
 const frdyyId = farmerloc?.farmersloc?.user;
 
+console.log(frdyyId)
 useEffect(() => {
    const getFarmerInfo = async (frdyyId) => {
       try {
@@ -232,6 +233,7 @@ useEffect(() => {
    },
  });
 
+ console.log(frdyyId)
  useEffect(() => {
   const getFarmerProducts = async (frdyyId) => {
     try {

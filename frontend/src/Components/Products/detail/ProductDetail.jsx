@@ -1,22 +1,23 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import Loader from "../Layout/Loader";
-import MetaData from "../Layout/MetaData";
+import Loader from "../../Layout/Loader";
+import MetaData from "../../Layout/MetaData";
 import ReactGall from "react-image-gallery";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getUser, getToken } from "../../Utilitys/helpers";
+import { getUser, getToken } from "../../../Utilitys/helpers";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Rating from "react-rating";
-import ListReviews from "../Review/ListReviews";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import Header from "../../Layout/Header";
+import './product.css'
 Modal.setAppElement("#root");
 
 const ProductDetails = ({ cartProducts, addCart }) => {
+  console.log(cartProducts)
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   const [error, setError] = useState("");
@@ -43,6 +44,7 @@ const ProductDetails = ({ cartProducts, addCart }) => {
     }
   };
 
+  console.log(product);
   const increaseQty = () => {
     if (quantity < product.stock) {
       setQuantity(quantity + 1);
@@ -84,106 +86,112 @@ const ProductDetails = ({ cartProducts, addCart }) => {
   };
 
   let thumb;
-  if (product && product.images) {
+  if (product && product.images && product.images.length > 0) {
     thumb = product.images.map((image) => ({
       original: image.url,
       thumbnail: image.url,
     }));
+  } else {
+    thumb = [{
+      original: "/images/NoImage.jpeg",
+      thumbnail: "/images/NoImage.jpeg",
+    }];
   }
 
-  const handleRatingChange = (value) => {
-    setRating(value);
-  };
 
-  const handleCommentChange = (value) => {
-    setComment(value);
-  };
+  // const handleRatingChange = (value) => {
+  //   setRating(value);
+  // };
+
+  // const handleCommentChange = (value) => {
+  //   setComment(value);
+  // };
   
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-  const onChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImagesPreview([]);
-    setImages([]);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((oldArray) => [...oldArray, reader.result]);
-          setImages((oldArray) => [...oldArray, reader.result]);
-        }
-      };
+  // const onChange = (e) => {
+  //   const files = Array.from(e.target.files);
+  //   setImagesPreview([]);
+  //   setImages([]);
+  //   files.forEach((file) => {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       if (reader.readyState === 2) {
+  //         setImagesPreview((oldArray) => [...oldArray, reader.result]);
+  //         setImages((oldArray) => [...oldArray, reader.result]);
+  //       }
+  //     };
 
-      reader.readAsDataURL(file);
-      console.log(reader);
-    });
-  };
+  //     reader.readAsDataURL(file);
+  //     console.log(reader);
+  //   });
+  // };
 
-  const newReview = async (reviewData) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      };
+  // const newReview = async (reviewData) => {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${getToken()}`,
+  //       },
+  //     };
 
-      const { data } = await axios.put(
-        `http://localhost:4000/api/v1/review`,
-        reviewData,
-        config
-      );
-      console.log(data.success);
-      closeModal();
-      window.location.reload();
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
-  };
+  //     const { data } = await axios.put(
+  //       `http://localhost:4000/api/v1/review`,
+  //       reviewData,
+  //       config
+  //     );
+  //     console.log(data.success);
+  //     closeModal();
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.log(error.response.data.message);
+  //   }
+  // };
 
-  const reviewHandler = () => {
-    const formData = new FormData();
-    formData.set("rating", rating);
-    formData.set("comment", comment);
-    formData.set("productId", id);
+  // const reviewHandler = () => {
+  //   const formData = new FormData();
+  //   formData.set("rating", rating);
+  //   formData.set("comment", comment);
+  //   formData.set("productId", id);
 
-    images.forEach((image) => {
-      formData.append("images", image);
-    });
-    newReview(formData);
-  };
+  //   images.forEach((image) => {
+  //     formData.append("images", image);
+  //   });
+  //   newReview(formData);
+  // };
 
-  const validationSchema = Yup.object({
-    rating: Yup.number()
-    .required('Rating is required')
-    .min(1, 'Rating cannot be zero'),
-    comment: Yup.string().required("Comment is required"),
-  });
+  // const validationSchema = Yup.object({
+  //   rating: Yup.number()
+  //   .required('Rating is required')
+  //   .min(1, 'Rating cannot be zero'),
+  //   comment: Yup.string().required("Comment is required"),
+  // });
 
-  const formik = useFormik({
-    initialValues: {
-      rating: 0,
-      comment: "",
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log("Submitting review with values:", values);
+  // const formik = useFormik({
+  //   initialValues: {
+  //     rating: 0,
+  //     comment: "",
+  //   },
+  //   validationSchema,
+  //   onSubmit: (values) => {
+  //     console.log("Submitting review with values:", values);
   
-      try {
-        reviewHandler(values);
-        closeModal();
-        toast.success("Review Success");
-      } catch (error) {
-        console.error("Error submitting review:", error);
-      }
-    },
-  });
+  //     try {
+  //       reviewHandler(values);
+  //       closeModal();
+  //       toast.success("Review Success");
+  //     } catch (error) {
+  //       console.error("Error submitting review:", error);
+  //     }
+  //   },
+  // });
   
   useEffect(() => {
     productDetails(id);
@@ -203,6 +211,11 @@ const ProductDetails = ({ cartProducts, addCart }) => {
 
   return (
     <Fragment>
+         <div className="flex  h-screen">
+       
+       <Header />
+     
+       <section className="flex bg-white min-h-screen w-full overflow-x-hidden"> 
       {loading ? (
         <Loader />
       ) : (
@@ -230,23 +243,17 @@ const ProductDetails = ({ cartProducts, addCart }) => {
                   <p id="product_id" className="text-black">
                     Product # {product._id}
                   </p>
-                  <hr />
-                  <div className="ml-3 text-sm text-gray-400">
+                  {/* <hr /> */}
+                  {/* <div className="ml-3 text-sm text-gray-400">
                     <div
                       className="rating-inner"
                       style={{ width: `${(product.ratings / 5) * 100}%` }}
                     ></div>
-                  </div>
-                  <span id="no_of_reviews">
+                  </div> */}
+                  {/* <span id="no_of_reviews">
                     ({product.numOfReviews} Reviews)
-                  </span>
+                  </span> */}
                   <hr />
-                  <p
-                    id="product_price"
-                    className="mt-4 text-4xl font-bold text-violet-900"
-                  >
-                    ${product.price}
-                  </p>
                   <div className="flex flex-row items-center justify-center stockCounter">
                     <button
                       className="minus h-8 w-8 mx-2 cursor-pointer items-center justify-center border-2 border-red-400 bg-red-400 duration-100 text-black hover:bg-red-600 hover:border-2 hover:border-red-600"
@@ -296,7 +303,7 @@ const ProductDetails = ({ cartProducts, addCart }) => {
                     {product.description}
                   </p>
                   <hr />
-                  <p
+                  {/* <p
                     className="pt-5 text-sm leading-5 text-black"
                     id="product_seller mb-3"
                   >
@@ -304,121 +311,17 @@ const ProductDetails = ({ cartProducts, addCart }) => {
                     <strong className="pt-5 text-sm leading-5 text-gray-500">
                       {product.seller}
                     </strong>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </section>
 
-            {user ? (
-              <button
-                id="review_btn"
-                type="button"
-                className="inline-block ml-40 mt-5 rounded-lg bg-black px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
-                onClick={openModal}
-              >
-                Submit Your Review
-              </button>
-            ) : (
-              <div
-                className="inline-block ml-40 mt-5 rounded-lg bg-black px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
-                type="alert"
-              >
-                Login to post your review.
-              </div>
-            )}
-            <div className="container justify-center items-center flex mt-2 pb-2">
-              {product.reviews && product.reviews.length > 0 && (
-                <ListReviews reviews={product.reviews} />
-              )}
-            </div>
-            <Modal
-              isOpen={isModalOpen}
-              onRequestClose={closeModal}
-              className="Modal p-5 max-w-4xl mx-auto bg-white rounded-md"
-              overlayClassName="Overlay fixed inset-0 bg-black flex items-center justify-center"
-            >
-              <div className="mt-2 mb-5">
-                <h5 className="text-xl font-bold mb-3 text-black ">Submit Review</h5>
-                <p className="text-black text-sm">Your Rating: {rating}</p>
-
-                <Rating
-  emptySymbol={<i className="far fa-star" style={{ color: "gray" }} />}
-  fullSymbol={<i className="fas fa-star" style={{ color: "gold" }} />}
-  initialRating={formik.values.rating}
-  onChange={(value) => {
-    handleRatingChange(value);
-    formik.setFieldValue("rating", value);
-  }}
-  stop={5}
-/>
-{formik.touched.rating && formik.errors.rating ? (
-  <div className="text-red-500 text-sm" >{formik.errors.rating}</div>
-) : null}
-                <div>
-                  <div className="form-group">
-                    <label className="text-black text-sm" >Images</label>
-                  </div>
-                  <div className="custom-file py-5 ">
-                    <input
-                      type="file"
-                      name="images"
-                      className="hidden"
-                      id="customFile"
-                      onChange={onChange}
-                      multiple
-                    />
-                    <label
-                      className="custom-file-label px-4 py-2 border-2 border-black rounded-md cursor-pointer bg-white text-black hover:bg-black hover:text-white"
-                      htmlFor="customFile"
-                    >
-                      Choose Images
-                    </label>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    {imagesPreview.map((imageUrl, index) => (
-                      <img
-                        key={index}
-                        src={imageUrl}
-                        alt={`Selected ${index}`}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          margin: "5px",
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                {formik.errors.comment && formik.touched.comment && (
-                  <div className="text-red-500 text-sm">{formik.errors.comment}</div>
-                )}
-                <textarea
-                  name="comment"
-                  id="comment"
-                  className="w-full h-32 mt-3 p-2 border rounded-md"
-                  value={formik.values.comment}
-                  onChange={(e) => {
-                    handleCommentChange(e.target.value);
-                    formik.setFieldValue('comment', e.target.value);
-                  }}
-                ></textarea>
-                <button
-                  className="inline-block rounded-lg bg-black px-5 py-3 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
-                  onClick={formik.handleSubmit}
-                >
-                  Submit
-                </button>
-              </div>
-            </Modal>
+          
           </div>
         </Fragment>
       )}
+      </section>
+      </div>
     </Fragment>
   );
 };

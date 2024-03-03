@@ -132,7 +132,12 @@ const Login = () => {
     }
   }, [error, isAuthenticated]);
 
-
+  useEffect(() => {
+    if (getUser() && redirect === "confirm") {
+      navigate(`/${redirect}`);
+    }
+    
+  }, []);
   return (
   
         <Fragment>

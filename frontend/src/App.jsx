@@ -10,7 +10,8 @@ import Register from './Components/User/Register';
 import FarmRegister from './Components/User/FarmRegister';
 import UserRegister from './Components/User/UserRegister';
 import { ToastContainer } from 'react-toastify';
-
+import { toast } from "react-toastify";
+import axios from 'axios';
 //new
 import UpdatePassword from "./Components/User/UpdatePassword";
 import ForgotPassword from "./Components/User/ForgotPassword";
@@ -80,10 +81,73 @@ import AccountUpdate from "./Components/Admin/AccountUpdate";
 import CreateProduct from './Components/Products/CreateProduct';
 import ProductList from './Components/Products/ProductList';
 import UpdateProducts from './Components/Products/UpdateProducts';
+import ProductDetails from './Components/Products/detail/ProductDetail';
+import Carts from './Components/Cart/Carts';
+import ConfirmOrder from './Components/Cart/ConfirmOrder';
 
 
 function App() {
   
+
+  const [state, setState] = useState({
+    cartProducts:
+      localStorage.getItem("cartProducts") &&
+      localStorage.getItem("cartProducts") !== "undefined"
+        ? JSON.parse(localStorage.getItem("cartProducts"))
+        : [],
+  });
+
+  const addCart = async (id, quantity) => {
+    console.log(id, quantity);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/api/v1/product/${id}`
+      );
+      const item = {
+        product: data.product._id,
+        name: data.product.name,
+        image: data.product.images[0].url,
+        stock: data.product.stock,
+        quantity: quantity,
+        farmerid: data.product.user
+      };
+      const ifItem = state.cartProducts.find((i) => i.product === item.product);
+      console.log(ifItem, state);
+      if (ifItem) {
+        setState({
+          ...state,
+          cartProducts: state.cartProducts.map((i) =>
+            i.product === ifItem.product ? item : i
+          ),
+        });
+      } else {
+        setState({
+          ...state,
+          cartProducts: [...state.cartProducts, item],
+        });
+      }
+
+      toast.success("Item Added", {
+        position: "top-right",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Item Not Added", {
+        position: "top-right",
+      });
+    }
+  };
+
+
+
+  const removeCart = async (id) => {
+    setState({
+      ...state,
+      cartProducts: state.cartProducts.filter((i) => i.product !== id),
+    });
+  };
+
+
   return (
     <Router>
       <ToastContainer />
@@ -171,6 +235,10 @@ function App() {
         <Route path='/createProduct'element={<CreateProduct/>}/>
         <Route path='/productList' element={<ProductList/>}/>
         <Route path="/updateProduct/:id" element={<UpdateProducts/>}/>
+        <Route path="/product/:id" element={<ProductDetails cartProducts={state.cartProducts} addCart={addCart}/>} exact="true" />
+
+        <Route path="/cart" element={<Carts cartProducts={state.cartProducts} addCart={addCart} removeCart={removeCart}/> } exact="true" />
+        <Route path="/confirm" element={<ConfirmOrder cartProducts={state.cartProducts}/>} exact="true"/>
       </Routes>
     </Router>
 

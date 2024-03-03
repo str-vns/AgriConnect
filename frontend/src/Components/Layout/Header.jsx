@@ -4,7 +4,7 @@ import { getUser, logout } from "../../Utilitys/helpers";
 import axios from "axios";
 // import './Header.css';
 
-const Header = () => {
+const Header = ({ cartProducts }) => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
@@ -109,6 +109,7 @@ const Header = () => {
                     <i className="ri-home-3-fill mr-3 text-2xl" />
                     <span className=" mr-3 text-lg">Home</span>
                   </Link>
+                  
                 </li>
                 <li className="mb-1 group">
                   <Link
@@ -141,6 +142,7 @@ const Header = () => {
                           >
                             <i className="ri-file-text-line mr-3 text-2xl" />
                             <span className="text-lg">Transactions</span>
+                            <span className="ml-2 text-black" id="cart_count">{cartProducts}</span>
                           </a>
                         </li>
                         <li className="mb-1 group">
@@ -152,6 +154,7 @@ const Header = () => {
                             <span className="text-lg">Notifications</span>
                           </a>
                         </li>
+                        
                         <li className="mb-1 group">
                           <Link to="/messenger">
                             <a

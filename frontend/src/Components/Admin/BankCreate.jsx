@@ -92,7 +92,6 @@ const BankCreate = () => {
     address: Yup.string().required("Address Required"),
     images: Yup.string().required("Images is Required"),
     postalCode: Yup.string().required("Postal Code is Required"),
-    postalCode: Yup.string().required("Postal Code is Required"),
   });
 
   const formik = useFormik({

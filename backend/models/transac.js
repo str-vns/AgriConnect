@@ -33,6 +33,11 @@ const transacModel =  mongoose.Schema(
                  ref: 'Product',
                  required: true
              },
+             orderConfirmation: {
+                type: String,
+                required: true,
+                default: 'NotConfirm'
+            },
              farmerid:
              {
                 type: mongoose.Schema.Types.ObjectId,
