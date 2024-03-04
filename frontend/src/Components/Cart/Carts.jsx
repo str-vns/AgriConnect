@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import MetaData from '../Layout/MetaData'
 import { useParams, useNavigate } from 'react-router-dom'
+import Header from '../Layout/Header'
 
 function Carts({ addCart, cartProducts, removeCart }) {
     const navigate = useNavigate()
@@ -28,7 +29,10 @@ function Carts({ addCart, cartProducts, removeCart }) {
 
     return (
         <Fragment>
-      <section className='bg-white p-10 '>
+       
+            <section className="flex  bg-white h-screen">
+          
+          <Header />
         <div className="mx-auto max-w-3xl ">
           <header className="text-center">
             <h1 className="text-xl font-bold text-gray-900 sm:text-3x ">Your Cart</h1>
@@ -114,10 +118,7 @@ function Carts({ addCart, cartProducts, removeCart }) {
               <dd>{cartProducts.reduce((acc, item) => acc + Number(item.quantity), 0)} (Units)</dd>
               </div>
            
-              <div className='flex justify-between !text-base font-medium'>
-              <dt> Est. total:</dt>
-              <dd>${cartProducts.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</dd>
-              </div>
+             
               </div>
  </dl>
               <hr />

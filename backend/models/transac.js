@@ -38,6 +38,11 @@ const transacModel =  mongoose.Schema(
                 required: true,
                 default: 'NotConfirm'
             },
+            orderStatus: {
+                type: String,
+                required: true,
+                default: 'Processing'
+            },
              farmerid:
              {
                 type: mongoose.Schema.Types.ObjectId,

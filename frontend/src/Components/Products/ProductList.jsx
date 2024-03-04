@@ -172,7 +172,7 @@ const getFarmerProducts = async () => {
     <Fragment>
       <MetaData title={"All Products"} />
       <div className="flex justify-center bg-white items-center h-screen">
-          <div className="bg-white">
+          <div className="bg-white w-full bg-white md:w-1/6">
                   <Header />
               </div>
               <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">

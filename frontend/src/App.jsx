@@ -85,7 +85,10 @@ import ProductDetails from './Components/Products/detail/ProductDetail';
 import Carts from './Components/Cart/Carts';
 import ConfirmOrder from './Components/Cart/ConfirmOrder';
 
-
+import TransactionFarmerList from './Components/Transaction/TransactionFarmerList';
+import TransactionDetails from './Components/Transaction/TransactionDetails'
+import TransactionUserList from './Components/Transaction/TransactionUserList';
+import TransactionDetailsUser from './Components/Transaction/TranasctionDetailsUser'
 function App() {
   
 
@@ -239,7 +242,11 @@ function App() {
 
         <Route path="/cart" element={<Carts cartProducts={state.cartProducts} addCart={addCart} removeCart={removeCart}/> } exact="true" />
         <Route path="/confirm" element={<ConfirmOrder cartProducts={state.cartProducts}/>} exact="true"/>
-      </Routes>
+        <Route path="/orders" element={<TransactionFarmerList/>}/>
+        <Route path="/OrderProcess/:id" element={<TransactionDetails />}/>
+        <Route path="/orderList" element={<TransactionUserList/>}/>
+        <Route path="/SingleOrder/:id" element={<TransactionDetailsUser/>}/>
+       </Routes>
     </Router>
 
     

@@ -4,6 +4,7 @@ import MetaData from '../Layout/MetaData'
 import { getUser, getToken } from '../../Utilitys/helpers'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Header from '../Layout/Header'
 function ConfirmOrder({cartProducts}) {
   const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(getUser() ? getUser() : {})
@@ -57,15 +58,18 @@ function ConfirmOrder({cartProducts}) {
         return (
           <Fragment>
             <MetaData title={'Confirm Order'} />
-
-            <div className="w-full ">
+            <div className="justify-center bg-white items-center h-screen">
+          <div className="bg-white  flex">
+            <Header />
+            <div className="  w-full ">
+            
               <div className="flex flex-col items-center bg-white">
+                
                 <div className="w-screen max-w-lg space-y-4">
                   <div className="col-12 col-lg-7 order-details">
-                    <h4 className="mb-4 border-t-2 text-black">Shipping Info</h4>
+                    <h4 className="mb-4 text-black mt-10">Confirm Order</h4>
                     {user && <p className='text-black'><b>Name:</b> {user.name}</p>}
-                    <p className='text-black'><b>Phone:</b> {locations.phoneNo}</p>
-                    <p className='text-black'><b>Address:</b> {`${locations.address}, ${locations.city}, ${locations.postalCode}, ${locations.country}`}</p>
+                  
       
                     <h4 className="my-4 text-black">Order Items:</h4>
       
@@ -105,43 +109,21 @@ function ConfirmOrder({cartProducts}) {
                 </div>
                 <div className=" flex justify-end border-t border-gray-100 pt-8">
           <div className="w-screen max-w-lg space-y-4 ">
-                 <dl className="space-y-0.5 text-sm text-gray-700  ">
-            <div id="order_summary">
-              <h4>Order Summary</h4>
-             
-              
-              <div className='flex justify-between !text-base font-medium'>
-              <dt>Subtotal:</dt>
-              <dd>${itemsPrice.toFixed(2)}</dd>
-              </div>
-           
-              <div className='flex justify-between !text-base font-medium'>
-              <dt>Shipping:</dt>
-              <dd>${shippingPrice}</dd>
-              </div>
+               
+      
 
-              <div className='flex justify-between !text-base font-medium'>
-              <dt>Tax:</dt>
-              <dd>${taxPrice}</dd>
-              </div>
-
-              <div className='flex justify-between !text-base font-medium'>
-              <dt>Total:</dt>
-              <dd>${totalPrice}</dd>
-              </div>
-
-              </div>
- </dl>
             
-              <div className="flex justify-end border-t-2 border-black pt-10">
+              <div className="flex justify-end  border-black ">
                 <button onClick={submitHandler} type="submit" className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600" >
                   Update Status
                 </button>
                 </div>
           </div>
-          </div>a
+          </div>
          
               </div>
+            </div>
+            </div>
             </div>
           </Fragment>
         );

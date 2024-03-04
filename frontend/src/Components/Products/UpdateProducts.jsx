@@ -147,7 +147,7 @@
         <MetaData title={"New Product"} />
         <div className="flex bg-white items-center justify-center ">
           <div className="w-72 md:w-1/6">
-        
+        <Header/>
           </div>
   
           <div className="w-72 md:w-5/6">

@@ -4,21 +4,14 @@ import axios from "axios";
 import Header from "./Layout/Header";
 import Mappy from "./Mapps/MappY"
 
-const Home = () => {
-  
-  const [state, setState] = useState({
-    cartProducts:
-      localStorage.getItem("cartProducts") &&
-      localStorage.getItem("cartProducts") !== "undefined"
-        ? JSON.parse(localStorage.getItem("cartProducts"))
-        : [],
-  });
+const Home = ({cartProducts}) => {
+ 
   
   return (
     
     <div className="flex">
 
-    <Header />
+    <Header cartProducts/>
 
   <div className=" w-full">
    <Mappy />
