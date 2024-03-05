@@ -169,9 +169,10 @@ const FarmerList = () => {
               </div>
               <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
             <div className="flex flex-col items-center bg-white ">
-              <h1 className="my-14 font-bold text-lg text-black ">
+              <h1 className="my-6 font-bold text-lg text-black mr-32 ">
                 All Farmers
               </h1>
+              {/* <div className="flex w-full justify-center container pb-10 mr-100"> */}
               <div className="w-[1080px] overflow-x-auto">
                 <Fragment>
                   {loading ? (
@@ -184,7 +185,7 @@ const FarmerList = () => {
                       striped
                       hover
                       entriesOptions={[10, 20, 30]}
-                      entries={10}
+                      entries={3}
                       pagination
                       noBottomColumns
                     />

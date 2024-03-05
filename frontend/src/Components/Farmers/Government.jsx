@@ -64,7 +64,7 @@ const Government = () => (
    </div>
 </nav>
 
-        <header id="header" class="header py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32">
+        {/* <header id="header" class="header py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32"> */}
             <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
                 <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
                     <h1 class="h1-large mb-5">AGRICULTURAL PROGRAM FOR FARMERS</h1>
@@ -74,7 +74,7 @@ const Government = () => (
                     <img class="inline" src="farmers/images/cp1.png" alt="alternative" />
                 </div>
             </div> 
-        </header> 
+        {/* </header>  */}
    
  {/* Copyright */}
 <div className="copyright">

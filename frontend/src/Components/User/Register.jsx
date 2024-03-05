@@ -11,7 +11,7 @@ function Register() {
       </div>
 
      
-      <div className=" mx-7 w-full mt-24 md:w-2/6 grid-cols-2 ">
+      <div className="ml-auto md:mx-24 w-full mt-24 md:w-2/6 grid-cols-2">      
       <a href="#" class="group relative block">
   <div class="relative h-[450px] sm:h-[450px] ">
     <img

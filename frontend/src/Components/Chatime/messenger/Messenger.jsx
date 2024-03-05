@@ -170,8 +170,11 @@ console.log(onlineUsers)
  <div className="lg:grid flex overflow-y-scroll flex-grow ">
    
     <div className="messenger">
-      <div className="chatMenu border-2 border-black  " >
+      
+    <div className="chatMenu border-2 border-black text-center p-4">
+  <h2 className="chatMenuHeader text-lg font-semibold mb-1">Active Chat List</h2>
         <div className="chatMenuWrapper">
+          
           {/* <input placeholder="Search for friends" className="chatMenuInput " /> */}
           {conversations.map((c) => (
             <div key={c._id} onClick={() => setCurrentChat(c)}>
@@ -181,7 +184,7 @@ console.log(onlineUsers)
         </div>
       </div>
 
-      <div className="chatBox  border-y-2 border-black">
+      <div className="chatBox border-t-2 border-r-2 border-b-2 border-black">
         <div className="chatBoxWrapper">
           {currentChat ? (
             <>
@@ -227,8 +230,6 @@ console.log(onlineUsers)
                  <i className="far fa-file-image text-black text-xl text-start pr-32 "></i>
                     </label>
 
-                
-
                     </div>
                   </div>
                   <div className="flex flex-row ">
@@ -244,8 +245,6 @@ console.log(onlineUsers)
                     ))}
                   </div>
                 </div>
-
-                    
                 <button className=" mt-3 inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500" onClick={handleSubmit}>
                   Send
                 </button>

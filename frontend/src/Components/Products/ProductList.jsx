@@ -178,7 +178,7 @@ const getFarmerProducts = async () => {
               <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
             <div className="flex flex-col items-center bg-white ">
               <h1 className="my-14 font-bold text-lg text-black ">
-                All FARMER Product
+                All Product
               </h1>
               <div className="">
                 <button className="inline-block rounded-lg bg-black ml-[900px] px-5 py-3 mb-5 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2">

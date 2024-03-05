@@ -67,7 +67,7 @@ import FOURTHTHREE from './Components/Farmers/Categories/Details/Fourth/fourth_t
 import ProtectedRoute from './Components/Route/ProtectedRoute';
 import Design from './Design';
 import Messenger from './Components/Chatime/messenger/Messenger';
-// import BankCreate from './Components/Admin/BankCreate';
+
 import BankMap from './Components/Mapps/BankMap';
 import BankCreate from './Components/Admin/BankCreate';
 import BankList from './Components/Admin/BankList';

@@ -102,7 +102,7 @@ const AdminDashboard = () => {
                   <a href className="text-[#f84525] font-medium text-lg hover:text-red-800">View Blogs</a>
                 </div>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
+              {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
                 <div className="p-10 relative flex flex-col min-w-0 mb-8 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
                   <div className="rounded-t mb-0 px-0 border-0">
                     <div className="flex flex-wrap items-center px-6 py-4">
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* End Content */}
           </main>

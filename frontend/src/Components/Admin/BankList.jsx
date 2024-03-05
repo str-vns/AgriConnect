@@ -170,7 +170,7 @@ const BankList = () => {
               </div>
               <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
             <div className="flex flex-col items-center bg-white ">
-              <h1 className="my-14 font-bold text-lg text-black ">
+              <h1 className="my-1 font-bold text-lg text-black ">
                 All Banks
               </h1>
               <div className="">
@@ -190,7 +190,7 @@ const BankList = () => {
                       striped
                       hover
                       entriesOptions={[10, 20, 30]}
-                      entries={10}
+                      entries={3}
                       pagination
                       noBottomColumns
                     />

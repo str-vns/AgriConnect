@@ -156,11 +156,15 @@ const Login = () => {
 
           <section className="flex flex-wrap  lg:h-screen lg:items-center justify-center bg-white w-full md:w-6/6">
           <div className="w-full px-4 py-10 sm:px-0 sm:py-16 lg:w-2/4 lg:px-0 lg:py-24">
-    <div className=" text-center">
-      <h1 className="text-2xl font-bold sm:text-3xl text-black">
-                  Welcome To AgriConnect! Please Login{" "}
-                </h1>
-              </div>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold sm:text-3xl text-black">
+              Welcome To AgriConnect!
+            </h1>
+            <br />
+            <h1 className="text-2xl font-bold sm:text-3xl text-black">
+              Please Login
+            </h1>
+          </div>
               <form
                 className="mx-auto mb-0 mt-8 max-w-md space-y-4"
                 onSubmit={submitHandler}

@@ -166,7 +166,7 @@ const UserRegister = () => {
    
       <section className="flex  bg-white h-screen">
           
-      <Header />
+      {/* <Header /> */}
     
         <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
           <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
