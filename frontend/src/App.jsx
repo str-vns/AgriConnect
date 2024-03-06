@@ -16,6 +16,7 @@ import axios from 'axios';
 import UpdatePassword from "./Components/User/UpdatePassword";
 import ForgotPassword from "./Components/User/ForgotPassword";
 import NewPassword from "./Components/User/NewPassword";
+import ProCard from "./Components/Farmers/ProCard";
 //end
 
 import Analytics from './Components/Admin/Analytics';
@@ -198,6 +199,7 @@ function App() {
 
         <Route path="/government" element={<Government />} />
         <Route path="/information" element={<Information />} />
+        <Route path="/Card" element={<ProCard />} />
         <Route path="/Analytics" element={<Analytics />} />
         <Route path="/bankCreate" element={<ProtectedRoute isAdmin={true}><BankCreate/></ProtectedRoute>} exact="true"/>
         <Route path="/banklist" element={<ProtectedRoute isAdmin={true}><BankList/></ProtectedRoute>} exact="true"/>
