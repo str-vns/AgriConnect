@@ -39,6 +39,7 @@ a{
   z-index:-1;
  
 }
+
 .header:before {
     content: "";
     width: 100%;
@@ -132,7 +133,7 @@ a{
 }
 .content {
     
-        margin-top: 0.5rem; 
+    margin-top: 0.5rem; 
     overflow-y: auto;
     height: 60vh;
     padding: 5% 10%;

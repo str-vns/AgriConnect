@@ -285,3 +285,40 @@ exports.myOrders = async (req, res, next) => {
         orders
     })
 }
+
+exports.upProcessOrder = async (req, res ) =>
+{
+    try {
+        const order = await Transac.findById(req.params.id);
+        const user = await User.findById(order.user);
+    
+        const itemsToUpdate = [];
+        for (let i = 0; i < order.orderItems.length; i++) {
+            const item = order.orderItems[i];
+            if (item.farmerid.toString() === req.user._id.toString()) {
+                itemsToUpdate.push(i);
+            }
+        }
+        for (const index of itemsToUpdate) {
+            if (order.orderItems[index].orderStatus === 'Delivered') {
+                return res.status(404).json({ message: `You have already delivered this order` })
+            }
+            
+            order.orderItems[index].orderStatus = req.body.status;
+
+            if(order.orderItems[index].orderStatus === 'Delivered') {
+                order.deliveredAt = Date.now()
+            }
+        }
+
+        await order.save();
+        // await ConfirmMailSend(user, order);
+
+        res.status(200).json({
+            success: true,
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}

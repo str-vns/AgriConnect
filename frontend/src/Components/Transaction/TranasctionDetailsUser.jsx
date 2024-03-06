@@ -54,6 +54,7 @@ const TranasctionDetailsUser = () => {
         dateOrder(id, formData)
     }
     const processingStatus = order.orderItems && order.orderItems.some(orderItem => orderItem.orderStatus === 'Processing');
+    const shippedStatus = order.orderItems && order.orderItems.some(orderItem => orderItem.orderStatus === 'Shipped');
 console.log
     return (
         <Fragment>
@@ -73,13 +74,11 @@ console.log
 
                 
 
-
                           <div className="flex items-center my-4">
-  <h4 className='text-black'>Order Status:</h4>
- 
-<p className={`ml-2 ${processingStatus ? "text-blue-600" : "text-green-600"}`}>
-    <b>{processingStatus ? "Processing" : "Delivered"}</b>
-</p>
+    <h4 className='text-black'>Order Status:</h4>
+    <p className={`ml-2 ${processingStatus ? "text-blue-600" : (shippedStatus ? "text-yellow-500" : "text-green-600")}`}>
+        <b>{processingStatus ? "Processing" : (shippedStatus ? "Shipped" : "Delivered")}</b>
+    </p>
 </div>
 
 

@@ -43,6 +43,9 @@ const transacModel =  mongoose.Schema(
                 required: true,
                 default: 'Processing'
             },
+            deliveredAt: {
+                type: Date
+            },
              farmerid:
              {
                 type: mongoose.Schema.Types.ObjectId,
