@@ -177,7 +177,7 @@ const confirmOrderHandler = async (id,userData) => {
                   striped
                   hover
                   entriesOptions={[10, 20, 30]}
-                  entries={10}
+                  entries={3}
                   noBottomColumns
                 />
               )}
