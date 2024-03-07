@@ -29,11 +29,10 @@ function Carts({ addCart, cartProducts, removeCart }) {
 
   return (
     <Fragment>
-      <div className="flex justify-start items-center bg-white h-screen">
-        <div className="bg-white">
-          <Header />
-        </div>
-        <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen"></div>
+         <section className="flex h-screen">
+    <Header className="fixed-header" />
+    <section className="overflow-y-scroll w-full mt-0">
+
         <div className="container mt-10 mx-auto">
           <div className="w-full bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
@@ -47,61 +46,63 @@ function Carts({ addCart, cartProducts, removeCart }) {
                 Items
               </h2>
             </div>
-            <div className="flex mt-10 mb-5">
-              <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
-                Product Details
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Quantity
-              </h3>
-            </div>
-            {cartProducts.map((item) => (
-              <div
-                className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
-                key={item.product}
-              >
-                <div className="flex w-2/5">
-                  <div className="w-20">
-                    <img className="h-24" src={item.image} alt="" />
-                  </div>
-                  <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-sm">{item.name}</span>
-                    <span className="text-red-500 text-xs">{item.brand}</span>
-                    <a
-                      href="#"
-                      className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                      onClick={() => removeCartItemHandler(item.product)}
-                    >
-                      Remove
-                    </a>
-                  </div>
-                </div>
-                <div className="stockCounter flex items-center gap-2">
-                  <button
-                    className="w-12 h-12 leading-12 text-black-600 font-bold transition hover:opacity-75"
-                    onClick={() => decreaseQty(item.product, item.quantity)}
-                  >
-                    -
-                  </button>
+            <div className="flex mt-10 mb-5 justify-center">
+  <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
+    Product Details
+  </h3>
+  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+    Quantity
+  </h3>
+</div>
 
-                  <input
-                    type="number"
-                    className="form-control count h-8 w-16 rounded border-black-200 bg-gray-50 p-0 text-center text-xs text-black-600 font-bold focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                    value={item.quantity}
-                    readOnly
-                  />
+{cartProducts.map((item) => (
+  <div
+    className="flex items-center justify-center hover:bg-gray-100 -mx-8 px-6 py-5"
+    key={item.product}
+  >
+    <div className="flex w-2/5">
+      <div className="w-20">
+        <img className="h-24" src={item.image} alt="" />
+      </div>
+      <div className="flex flex-col justify-between ml-4 flex-grow">
+        <span className="font-bold text-sm">{item.name}</span>
+        <span className="text-red-500 text-xs">{item.brand}</span>
+        <a
+          href="#"
+          className="font-semibold hover:text-red-500 text-gray-500 text-xs"
+          onClick={() => removeCartItemHandler(item.product)}
+        >
+          Remove
+        </a>
+      </div>
+    </div>
+    <div className="stockCounter flex items-center gap-2">
+      <button
+        className="w-12 h-12 leading-12 text-black-600 font-bold transition hover:opacity-75"
+        onClick={() => decreaseQty(item.product, item.quantity)}
+      >
+        -
+      </button>
 
-                  <button
-                    className="w-12 h-12 leading-12 text-black-600 font-bold transition hover:opacity-100"
-                    onClick={() =>
-                      increaseQty(item.product, item.quantity, item.stock)
-                    }
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            ))}
+      <input
+        type="number"
+        className="form-control count h-8 w-16 rounded border-black-200 bg-gray-50 p-0 text-center text-xs text-black-600 font-bold focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+        value={item.quantity}
+        readOnly
+      />
+
+      <button
+        className="w-12 h-12 leading-12 text-black-600 font-bold transition hover:opacity-100"
+        onClick={() =>
+          increaseQty(item.product, item.quantity, item.stock)
+        }
+      >
+        +
+      </button>
+    </div>
+  </div>
+))}
+
             <div className="border-t mt-8">
               <button
                 style={{
@@ -118,12 +119,14 @@ function Carts({ addCart, cartProducts, removeCart }) {
               >
                 Checkout
               </button>
-            </div>
+              </div>
           </div>
         </div>
-      </div>
-    </Fragment>
-  );
+      </section>
+    </section>
+  </Fragment>
+);
+ 
 }
 
 export default Carts;

@@ -63,14 +63,17 @@ function ConfirmOrder({ cartProducts }) {
   };
   return (
     <Fragment>
-      <MetaData title={"Confirm Order"} />
-      <div className="flex justify-center bg-white items-center h-screen">
-        <div className="bg-white">
-          <Header />
-        </div>
+
+         <section className="flex h-screen">
+    <Header className="fixed-header" />
+    <section className="overflow-y-scroll w-full mt-0">
+
         <div className="lg:grid lg:grid-cols-12 lg:gap-4 flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen">
-          <div className="wrapper">
-            <h1 className="confirm-order-heading">Confirm Order Form</h1>
+          <div className="wrapperO">
+          <h1 className="confirm-order-heading" style={{ paddingTop: '100px'}}>
+  Confirm Order Form
+</h1>
+
             <div className="group">
               <table>
                 <tbody>
@@ -107,7 +110,8 @@ function ConfirmOrder({ cartProducts }) {
             </div>
           </div>
         </div>
-      </div>
+        </section>
+    </section>
     </Fragment>
   );
 }

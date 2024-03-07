@@ -1,10 +1,10 @@
-.wrapper {
+.wrapperO {
   width: 1200px;
   min-height: 10px;
   background-color: #fff;
   padding: 0 30px;
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 100px;
   padding-left: 300px;
   padding-right: 400px;
   font-weight: 500;
@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+} 
 .confirm-order-heading {
   text-align: center;
   font-size: 2rem; /* You can adjust the font size as needed */
