@@ -52,7 +52,6 @@ exports.registerFarmer = async (req, res, next) => {
 	})
 };
 
-
   //READ
 exports.getFarmer = async (req, res, next) => {
   const farmers = await Farmer.find();
@@ -62,7 +61,6 @@ exports.getFarmer = async (req, res, next) => {
     farmers,
   });
 };
-
 
 exports.getSingleFarmer = async (req, res)=>
 {
@@ -81,6 +79,7 @@ exports.getSingleFarmer = async (req, res)=>
         farmersloc
     })
 }
+
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
   try {
@@ -281,3 +280,59 @@ exports.getFarmerFarm = async (req, res) => {
         });
     }
 };
+
+exports.getTopRatedFarmerReviews = async (req, res) => {
+  try {
+    const topRatedFarmers = await Farmer.aggregate([
+      {
+        $match: { ratings: { $gte: 0 } } // Match farmers with ratings greater than or equal to zero
+      },
+      {
+        $sort: { ratings: -1 } // Sort by ratings in descending order
+      },
+      {
+        $limit: 7 // Limit to the top 7 rated farmers
+      },
+      {
+        $lookup: {
+          from: 'users', // Assuming the collection name for users is 'users'
+          localField: 'user',
+          foreignField: '_id',
+          as: 'user'
+        }
+      },
+      {
+        $unwind: '$reviews' // Unwind the reviews array
+      },
+      {
+        $lookup: {
+          from: 'users', // Assuming the collection name for users is 'users'
+          localField: 'reviews.user',
+          foreignField: '_id',
+          as: 'reviews.user'
+        }
+      },
+      {
+        $project: {
+          farmName: 1,
+          ratings: 1,
+          reviews: {
+            user: {
+              $arrayElemAt: ['$reviews.user', 0]
+            },
+            rating: '$reviews.rating',
+            comment: '$reviews.comment'
+          }
+        }
+      }
+    ]);
+
+    res.status(200).json({ topRatedFarmers });
+  } catch (error) {
+    console.error('Error fetching top rated farmer reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+

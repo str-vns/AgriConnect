@@ -322,3 +322,111 @@ exports.upProcessOrder = async (req, res ) =>
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
+
+exports.productStocky = async (req, res, next) => {
+    try {
+      const monthlyQuantities = await Transac.aggregate([
+        {
+          $project: {
+            month: { $month: '$createdAt' }, // Extract month from createdAt field
+            year: { $year: '$createdAt' }, // Extract year from createdAt field
+            orderItems: 1 // Include orderItems in the projection
+          }
+        },
+        {
+          $unwind: '$orderItems' 
+        },
+        {
+          $group: {
+            _id: {
+              month: '$month',
+              year: '$year',
+              product: '$orderItems.product', 
+              name: '$orderItems.name',
+            },
+            totalQuantity: { $sum: '$orderItems.quantity' } 
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            month: '$_id.month',
+            year: '$_id.year',
+            name: '$_id.name',
+            product: '$_id.product',
+            totalQuantity: 1
+          }
+        }
+      ]);
+  
+      res.status(200).json({
+        success: true,
+        monthlyQuantities
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  };
+
+  exports.productSpecific = async (req, res, next) => {
+    try {
+        const farmerId = req.user._id; // Assuming farmerId is known or passed in the request
+
+        console.log("Farmer ID:", farmerId);
+
+        const monthlyQuantities = await Transac.aggregate([
+            {
+                $match: {
+                    'orderItems.farmerid': farmerId
+                }
+            },
+            {
+                $unwind: '$orderItems'
+            },
+            {
+                $match: {
+                    'orderItems.farmerid': farmerId // Filter order items by farmerId
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        month: { $month: '$createdAt' },
+                        year: { $year: '$createdAt' },
+                        product: '$orderItems.product',
+                        name: '$orderItems.name', // Include product name in the grouping
+                        farmerid: '$orderItems.farmerid', // Include farmerid in the grouping
+                    },
+                    totalQuantity: { $sum: '$orderItems.quantity' }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    month: '$_id.month',
+                    year: '$_id.year',
+                    product: '$_id.product',
+                    name: '$_id.name',
+                    farmerid: '$_id.farmerid', // Extract farmerid from _id
+                    totalQuantity: 1
+                }
+            }
+        ]);
+        
+        console.log("Monthly Quantities:", monthlyQuantities);
+        
+        res.status(200).json({
+            success: true,
+            monthlyQuantities
+        });
+    } catch (error) {
+        console.error("Error in productSpecific:", error);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+};

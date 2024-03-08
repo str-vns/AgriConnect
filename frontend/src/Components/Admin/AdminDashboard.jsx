@@ -4,6 +4,8 @@ import { getUser } from "../../Utilitys/helpers";
 import MetaData from "../Layout/MetaData";
 import Header from '../Layout/Header';
 import axios from 'axios';
+import DMonthlyProductsAdmin from './Analytics/DMonthlyProductsAdmin';
+import MostRatedFarmer from './Analytics/MostRatedFarmer';
 // import Chart from "chart.js/auto";
 
 
@@ -32,13 +34,7 @@ const AdminDashboard = () => {
   return (
     <Fragment>
       <MetaData title={"ADMIN DASHBOARD"} />
-      <meta charSet="utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link href="https://cdn.tailwindcss.com" rel="stylesheet" />
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+      
 
       <link rel="preconnect" href="https://fonts.bunny.net" />
       <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -48,12 +44,12 @@ const AdminDashboard = () => {
       <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
       <script src="https://cdn.tailwindcss.com"></script>
 
-      <div className="flex">
+      <div className="flex overflow-y-scroll">
           <Header />
-          <main className="w-full bg-gray-200 min-h-screen transition-all main" style={{ background: '#F8FFA2' }}>
+          <main className="w-full  overflow-y-auto bg-gray-200 min-h-screen transition-all main" style={{ background: '#F8FFA2' }}>
             {/* Content */}
             <div className="p-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+              <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
                 <div className="bg-white rounded-md border border-gray-100 p-8 shadow-md shadow-black/5">
                   <div className="flex justify-between mb-8">
                     <div>
@@ -137,8 +133,11 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div> */}
+               <DMonthlyProductsAdmin/>
+               <MostRatedFarmer/>
             </div>
             {/* End Content */}
+           
           </main>
 
       </div>
