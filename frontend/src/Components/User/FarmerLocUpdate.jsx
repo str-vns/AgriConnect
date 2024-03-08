@@ -1,70 +1,54 @@
-import axios from 'axios';
-import Header from '../Layout/Header';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Fragment } from 'react';
+import React, { Fragment, useState, useEffect  } from 'react'
 import MetaData from '../Layout/MetaData';
+import Header from '../Layout/Header';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useFormik } from "formik"
-import {getToken} from '../../Utilitys/helpers'
-import Mapa from '../Mapps/miniMap'
-const FarmerLocation = ({ farmCollection }) => {
+import {getToken, getUser} from '../../Utilitys/helpers'
+import axios from 'axios';
+
+
+const FarmerLocUpdate = ()=> {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
     const [farmname, setFarmname] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [postalCode, setPostalCode] = useState("");
-    const [location, setLocation] = useState(null);
-    const [longitude, setLongitude] = useState()
-    const [latitude, setLatitude] = useState(null)
+    const [loading, setLoading] = useState(false);
+    const [oldImages, setOldImages] = useState([]);
     const navigate = useNavigate();
- 
-    useEffect(() => {
-        const watchId = navigator.geolocation.watchPosition(
-            position => {
-                setLocation({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                });
-            },
-            error => {
-                console.error("Error getting geolocation:", error);
+    const { id } = useParams();
+  
+
+    const getLocationFarmer = async () => {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
             }
-        );
-        return () => {
-            navigator.geolocation.clearWatch(watchId);
-        };
-    }, []); 
-
-const validationSchema = Yup.object({
-    farmname: Yup.string().required("Farm name Is Required"),
-    address: Yup.string().required("Address Is Required"),
-    city: Yup.string().required("City is required"),
-    postalCode: Yup.string().required("Postal Code is required"),
-    images: Yup.string().required("Images are required")
-})
-
-const formik = useFormik({
-   initialValues: {
-    farmname: "",
-    address: "",
-    city: "",
-    postalCode: "",
-    images: ""
-   }, 
-   validationSchema,
-   onSubmit: (values) => {
-    try {
-      submitHandler(values);
-      console.log("Submitting review with values:", values);
-    } catch (error) {
-      console.error("Error submitting review:", error);
+        }
+        try {
+            const { data } = await axios.get(`http://localhost:4000/api/v1/farmer/farmer/update`, config)
+            // console.log(data.farmer.images[0].url)
+            setFarmname(data.farmer.farmName);
+            setAddress(data.farmer.address)
+            setCity(data.farmer.city)
+            setPostalCode(data.farmer.postalCode)
+            setImagesPreview(data.farmer.images.map(image => image.url));
+            setLoading(false)
+        } catch (error) {
+           console.log(error)
+        }
     }
-  },
-})
+
+    useEffect(() => {
+        getLocationFarmer()
+    
+    }, [])
+
+
 const onChange = (e) => {
   const files = Array.from(e.target.files);
   setImagesPreview([]);
@@ -81,76 +65,85 @@ const onChange = (e) => {
     reader.readAsDataURL(file);
   });
 };
-    
-  const submitHandler = async (e) => {
-    document.querySelector("#register_button").disabled = true;
 
-    if (!location) {
-        toast.error("Location information is missing.", {
-            position: "top-right",
-        });
-        return;
+
+
+const formik = useFormik({
+   initialValues: {
+    farmname: farmname,
+    address: address,
+    city: city,
+    postalCode: postalCode,
+
+   }, 
+
+   onSubmit: (values) => {
+    try {
+      submitHandler(values);
+      console.log("Submitting review with values:", values);
+    } catch (error) {
+      console.error("Error submitting review:", error);
     }
+  },
+})
+
+
+const submitHandler = async (e) => {
+
+
+    document.querySelector("#update_button").disabled = true;
 
     const formData = new FormData();
-
 
     formData.set('farmName', farmname);
     formData.set('address', address);
     formData.set('city', city);
     formData.set('postalCode', postalCode);
-    formData.set('latitude', location.latitude);
-    formData.set('longitude', location.longitude);
     
     images.forEach((image, index) => {
         formData.append(`images`, image);
     });
-console.log(images)
-    createFarm(formData);
-    console.log(farmCollection);
+
+    updateFarmer(formData); // Call the function to update the farmer
 };
 
-const createFarm = async (formData) => {
-  try {
-      const config = {
-          headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${getToken()}`,
-          }
-      }
+const updateFarmer = async (formData) => {
+    try {
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${getToken()}`,
+            }
+        }
 
-      const response = await axios.post(`http://localhost:4000/api/v1/farmer/register`, formData, config);
-      console.log("Response from server:", response);
+        const response = await axios.put(`http://localhost:4000/api/v1/farmer/farmerLocation/update`, formData, config); // Use PUT method to update the farmer
+        console.log("Response from server:", response);
 
-      navigate("/farmerDashboard");
-      window.location.reload();
-      toast.success("Registration Successful", {
-          position: "top-right",
-      });
-  } catch (error) {
-      let message = "An error occurred. Please try again.";
-      if (error.response && error.response.data && error.response.data.message) {
-          message = error.response.data.message;
-      }
-      console.error("Error creating farm:", error);
-      toast.error(message, {
-          position: "top-right",
-      });
-  }
+        navigate(`/user/${getUser()._id}`, { replace: true })
+        window.location.reload();
+        toast.success("Update Successful", {
+            position: "top-right",
+        });
+    } catch (error) {
+        let message = "An error occurred. Please try again.";
+        if (error.response && error.response.data && error.response.data.message) {
+            message = error.response.data.message;
+        }
+        console.error("Error updating farmer:", error);
+        toast.error(message, {
+            position: "top-right",
+        });
+    }
 };
 
 
-    return(
-        <Fragment>
-            <MetaData title={"Register Location"} />
+  return (
+    <Fragment>
+            <MetaData title={"Register Location Update"} />
             <section className="flex  bg-white h-screen">
                 <Header />
-                <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
+                <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen  ">
            
-                <section className="relative flex flex-col h-full items-center bg-blue-500 lg:col-span-5 lg:h-full xl:col-span-6">
-                  <h1 className="text-2xl font-bold p-4">Input your location</h1>
-                  <Mapa className="h-full w-full object-cover opacity-80"></Mapa>
-              </section>
 
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">
@@ -160,7 +153,7 @@ const createFarm = async (formData) => {
                             encType="multipart/form-data"
                         >
                             <h1 className="text-3xl font-bold text-black col-span-6">
-                                Location Registration
+                                Location Registration Update
                             </h1>
                             <div className="form-group col-span-6">
                                 <label
@@ -174,7 +167,7 @@ const createFarm = async (formData) => {
                                     id="farmname_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="farmname"
-                                    value={formik.values.farmname}
+                                    value={farmname}
                                     onChange={(e) => {
                                         setFarmname(e.target.value);
                                         formik.setFieldValue("farmname", e.target.value);
@@ -200,7 +193,7 @@ const createFarm = async (formData) => {
                                     id="address_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="address"
-                                    value={formik.values.address}
+                                    value={address}
                                     onChange = {(e) => {
                                         setAddress(e.target.value);
                                         formik.setFieldValue("address", e.target.value);
@@ -225,7 +218,7 @@ const createFarm = async (formData) => {
                                     id="city_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="city"
-                                    value={formik.values.city}
+                                    value={city}
                                     onChange = {(e) => {
                                         setCity(e.target.value);
                                         formik.setFieldValue("city", e.target.value);
@@ -249,7 +242,7 @@ const createFarm = async (formData) => {
                                     id="postalCode_field"
                                     className="mt-1 p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
                                     name="postalCode"
-                                    value={formik.values.postalCode}
+                                    value={postalCode}
                                     onChange = {(e) => {
                                         setPostalCode(e.target.value);
                                         formik.setFieldValue("postalCode", e.target.value);
@@ -272,14 +265,7 @@ const createFarm = async (formData) => {
                         name="images"
                         className="custom-file-input hidden"
                         id="customFile"
-                        onChange={(event) => {
-                            onChange(event);
-                            formik.setFieldValue(
-                              "images",
-                              event.currentTarget.files
-                            );
-                            formik.setFieldTouched("images", true, false);
-                          }}
+                        onChange={onChange}
                         multiple
                       />
                    <div className="flex items-center">
@@ -313,46 +299,17 @@ const createFarm = async (formData) => {
                 </div>
 
                     <div>
-                                
-                           
-    {location ? (
-        
-      <div>
-         <input
-                                    type="text"
-                                    id="latitude_field"
-                                    className="mt-1 p-4 hidden lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
-                                    name="latitude"
-                                    value={location.latitude}
-                                    onChange={(e) => setLatitude(e.target.value)}
-                                />
+  </div>
+                    
 
-<input
-                                    type="text"
-                                    id="longitude_field"
-                                    className="mt-1 hidden p-4 lg:w-full md:w-full sm:w-full rounded-md border-2 h-10 border-black bg-white text-sm text-gray-700 shadow-sm"
-                                    name="longitude"
-                                    value={location.longitude}
-                                    onChange={(e) => setLongitude(e.target.value)}
-                                />
-                                
-      </div>
-    ) : (
-        
-      <div className='hidden'>Loading...</div>
-    )}
-  </div>
-                            <div className="w-full ">
-                            <Mapa/>
-  </div>
                          
                             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                 <button
-                                    id="register_button"
+                                    id="update_button"
                                     type="submit"
                                     className="inline-block rounded-lg bg-black px-5 py-3 w-[150px] text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
                                 >
-                                   REGISTER
+                                   Update
                                 </button>
                             </div>
                         </form>
@@ -361,7 +318,7 @@ const createFarm = async (formData) => {
                 </div>
             </section>
         </Fragment>
-    );
-};
+  )
+}
 
-export default FarmerLocation;
+export default FarmerLocUpdate

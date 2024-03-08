@@ -3,10 +3,31 @@ import axios from 'axios';
 import { getToken } from "../../Utilitys/helpers";
 import { toast } from "react-toastify";
 import Header from '../Layout/Header';
+import { Link } from 'react-router-dom';
 
 const UserProfile = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [farmer,setFarmer] = useState({})
+  const getLocationFarmer = async () => {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        }
+    }
+    try {
+        const { data } = await axios.get(`http://localhost:4000/api/v1/farmer/farmer/update`, config)
+        setFarmer(data.farmer)
+        setLoading(false)
+    } catch (error) {
+       console.log(error)
+    }
+}
+
+useEffect(() => {
+    getLocationFarmer()
+
+}, [])
 
   const getProfile = async () => {
     const config = {
@@ -54,7 +75,7 @@ const UserProfile = ({ match }) => {
       <div className="w-full bg-white md:w-1/6">
         <Header />
       </div>
-  <div className="h-full bg-white overflow-y-scroll p-8 over">
+  <div className="h-full w-full bg-white overflow-y-scroll p-8 over">
     <div className="bg-white rounded-lg shadow-xl pb-8">
       <div className="w-full h-[250px]">
         <img
@@ -205,6 +226,28 @@ const UserProfile = ({ match }) => {
       </div>
       
     </div>
+    {user && user.role === "farmer" && (
+  <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+    <div className="w-full flex flex-col 2xl:w-1/3">
+      <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
+        <h4 className="text-xl text-gray-900 font-bold">Personal Farm Info Location</h4>
+        <Link to={`/farmerLocUpdate/${user._id}`} className="text-gray-500 cursor-pointer"><p>Edit</p></Link>
+
+        <ul className="mt-2 text-gray-700">
+          <li className="flex border-y py-2">
+            <span className="font-bold w-24">Farm Name:</span>
+            <span className="text-gray-700">{farmer.farmName}</span>
+          </li>
+          
+          <li className="flex border-b py-2">
+            <span className="font-bold w-24">Address:</span>
+            <span className="text-gray-700">{farmer.address}, {farmer.city}, {farmer.postalCode} </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+)}
   </div>
 </div>
   );

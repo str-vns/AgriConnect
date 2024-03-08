@@ -84,41 +84,64 @@ exports.getSingleFarmer = async (req, res)=>
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
   try {
-      if (req.body.farmerInfo.avatar && req.body.farmerInfo.avatar !== '') {
-          const farmer = await Farmer.findById(req.farmer.id);
-          const image_id = farmer.farmerInfo.avatar.public_id;
-          await cloudinary.v2.uploader.destroy(image_id);
+      const newUpdata = {
+          farmName: req.body.farmName,
+          address: req.body.address,
+          city: req.body.city,
+          postalCode: req.body.postalCode
       }
 
-      const results = await cloudinary.v2.uploader.upload(req.body.farmerInfo.avatar, {
-          folder: 'avatars',
-          width: 150,
-          crop: "scale"
-      });
+      if (Array.isArray(req.body.images) && req.body.images.length > 0) {
+          const farmer = await Farmer.findOne({ user: req.user.id });
 
-      const farmer = await Farmer.findByIdAndUpdate(req.params.id, {
-          $set: {
-              'farmerInfo.name': req.body.farmerInfo.name,
-              'farmerInfo.email': req.body.farmerInfo.email,
-              'farmerInfo.avatar.public_id': results.public_id,
-              'farmerInfo.avatar.url': results.secure_url,
+          // Check if the farmer has any images before trying to destroy
+          if (farmer.images && farmer.images.public_id) {
+              const image_id = farmer.images.public_id;
+              await cloudinary.v2.uploader.destroy(image_id);
           }
-      }, {
+
+          // Upload each image in the array
+          const uploadResults = await Promise.all(req.body.images.map(async (image) => {
+              const result = await cloudinary.v2.uploader.upload(image, {
+                  folder: 'images',
+                  width: 150,
+                  crop: "scale"
+              });
+              return {
+                  public_id: result.public_id,
+                  url: result.secure_url
+              };
+          }));
+
+          newUpdata.images = uploadResults;
+      }
+
+      const farmer = await Farmer.findOneAndUpdate({ user: req.user.id }, newUpdata, {
           new: true,
           runValidators: true,
       });
+      if (!farmer) {
+          return res.status(401).json({ message: 'Farmer Location Not Updated' });
+      }
 
-      return res.status(200).json({
-          success: true,
-          farmer
+      res.status(200).json({
+          success: true
       });
   } catch (error) {
-      console.log('Error:', error);
-      res.status(500).json({
-          success: false,
-          error: 'An error occurred while updating the profile.',
-      });
+      console.error(error);
+      res.status(500).json({ message: 'Server Error' });
   }
+}
+
+//GetLocFarmer
+exports.getLocFarmer = async (req, res, next) =>
+{  const farmer = await Farmer.findOne({user: req.user.id})
+
+  
+res.status(200).json({
+  success: true,
+  farmer
+})
 }
 
 //DELETE

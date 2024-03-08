@@ -90,6 +90,7 @@ import TransactionFarmerList from './Components/Transaction/TransactionFarmerLis
 import TransactionDetails from './Components/Transaction/TransactionDetails'
 import TransactionUserList from './Components/Transaction/TransactionUserList';
 import TransactionDetailsUser from './Components/Transaction/TranasctionDetailsUser'
+import FarmerLocUpdate from './Components/User/FarmerLocUpdate';
 function App() {
   
 
@@ -173,7 +174,7 @@ function App() {
         <Route path="/farmerLocation" element={<FarmerLocation />} />
         <Route path="/farmerInfo/:id" element={<FarmerInfo/>}/>
         <Route path='/reviewfarmer' element={<ListReviews/>} />
-
+        <Route path='/farmerLocUpdate/:id' element={<FarmerLocUpdate/>}/>
         <Route path='/farmerDashboard' element={<ProtectedRoute isFarmer={true}><Dashboard/></ProtectedRoute>}/>
         <Route path='/AdminDashboard' element={<ProtectedRoute isAdmin={true}><AdminDashboard/></ProtectedRoute>}/>
         <Route path="/AdminProfile" element={<AdminProfile />} />
