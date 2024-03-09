@@ -70,7 +70,10 @@ const DMonthlyProducts = () => {
 
 
     return (
+        
         <div>
+              <h6 className="main-heading ml-20 text-black text-center font-bold">Product Revenue</h6>
+
             <div
                 style={{
                     backgroundColor: "white",
@@ -109,6 +112,7 @@ const DMonthlyProducts = () => {
             >
                 Download PDF
             </button>
+            
         </div>
     );
 }

@@ -103,25 +103,7 @@ const Header = ({ cartProducts }) => {
                 <span className="text-black font-bold"></span>
               )}
               <ul className="space-y-1 border-t border-gray-100 pt-4">
-                {user.name && user.role === "user" && (
-                  <li className="mb-1 group">
-                      <Link
-                      to="/"
-                      className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-                    >
-                      <i className="ri-home-3-fill mr-3 text-1xl" />
-                      <span className=" mr-3 text-lg">Home</span>
-                    </Link>
-                    <Link
-                      to="/cart"
-                      className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-                    >
-                      <i className="ri-home-3-fill mr-3 text-1xl" />
-                      <span className=" mr-3 text-lg">Cart</span>
-                    </Link>
-                  
-                  </li>
-                )}
+               
                 {user.name &&
                   (user.role === "user" ||
                     user.role === "farmer" ||
@@ -130,6 +112,14 @@ const Header = ({ cartProducts }) => {
                       {user.name &&
                         (user.role === "user" || user.role === "farmer") && (
                           <>
+                            <li className="mb-1 group">
+                              <Link to="/" id="login_btn">
+                                <a className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                                  <i className="ri-home-2-line mr-3 text-1xl" />
+                                  <span className="text-lg">Home</span>
+                                </a>
+                              </Link>
+                            </li>
                             <li className="mb-1 group">
                               <Link to={`/user/${user._id}`}>
                                 <a
@@ -141,9 +131,35 @@ const Header = ({ cartProducts }) => {
                                 </a>
                               </Link>
                             </li>
-
+                            {user.name && user.role === "user" && (
+                  <li className="mb-1 group">
+                    {/* <Link
+                      to="/"
+                      className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                    >
+                      <i className="ri-home-2-line mr-3 text-1xl" />
+                      <span className=" mr-3 text-lg">Home</span>
+                    </Link> */}
+                    <Link
+                      to="/cart"
+                      className="flex  font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                    >
+                      <i className="ri-shopping-bag-line mr-3 text-1xl" />
+                      <span className=" mr-3 text-lg">Cart</span>
+                    </Link>
+                  </li>
+                )}
                             {user.name && user.role === "farmer" && (
                               <li className="mb-1 group">
+                                <li className="mb-1 group">
+                                  <Link
+                                    to="/farmerDashboard"
+                                    className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                                  >
+                                    <i className="ri-file-chart-line mr-3 text-1xl" />
+                                    <span className="text-lg">Dashboard</span>
+                                  </Link>
+                                </li>
                                 <Link to={`/orderList`}>
                                   <a
                                     href=""
@@ -172,7 +188,7 @@ const Header = ({ cartProducts }) => {
                                   >
                                     <i className="ri-file-text-line mr-3 text-1xl" />
                                     <span className="text-lg">
-                                      Transactions
+                                      Orders
                                     </span>
                                     <span
                                       className="ml-2 text-black"
@@ -226,7 +242,7 @@ const Header = ({ cartProducts }) => {
                               <span className="text-lg">Government</span>
                             </Link>
                           </li>
-                          <li className="mb-1 group">
+                          {/* <li className="mb-1 group">
                             <Link
                               to="/Card"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
@@ -234,8 +250,8 @@ const Header = ({ cartProducts }) => {
                               <i className="ri-government-line mr-3 text-1xl" />
                               <span className="text-lg">Product</span>
                             </Link>
-                          </li>
-                          <li className="mb-1 group">
+                          </li> */}
+                          {/* <li className="mb-1 group">
                             <Link
                               to="/farmerDashboard"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
@@ -243,8 +259,8 @@ const Header = ({ cartProducts }) => {
                               <i className="ri-file-chart-line mr-3 text-1xl" />
                               <span className="text-lg">Dashboard</span>
                             </Link>
-                          </li>
-                          
+                          </li> */}
+
                           <li className="mb-1 group">
                             <Link
                               to="/orders"
@@ -260,15 +276,6 @@ const Header = ({ cartProducts }) => {
                         <>
                           <li className="mb-1 group">
                             <Link
-                              to="/AdminDashboard"
-                              className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
-                            >
-                              <i className=" bx bxs-dashboard mr-3 text-1xl" />
-                              <span className="text-lg">Dashboard</span>
-                            </Link>
-                          </li>
-                          <li className="mb-1 group">
-                            <Link
                               to="/AdminProfile"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle"
                             >
@@ -278,11 +285,30 @@ const Header = ({ cartProducts }) => {
                           </li>
                           <li className="mb-1 group">
                             <Link
+                              to="/AdminDashboard"
+                              className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                            >
+                              <i className=" bx bxs-dashboard mr-3 text-1xl" />
+                              <span className="text-lg">Dashboard</span>
+                            </Link>
+                          </li>
+                        
+                          <li className="mb-1 group">
+                            <Link
+                              to="/srp/List"
+                              className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle"
+                            >
+                              <i className="ri-ball-pen-line mr-3 text-1xl" />
+                              <span className="text-lg">SRP</span>
+                            </Link>
+                          </li>
+                          <li className="mb-1 group">
+                            <Link
                               to="/farmerlist"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                             >
                               <i className="bx bxs-user-badge mr-3 text-1xl" />
-                              <span className="text-lg">Farmer</span>
+                              <span className="text-lg">Farmers</span>
                             </Link>
                           </li>
                           <li className="mb-1 group">
@@ -291,7 +317,7 @@ const Header = ({ cartProducts }) => {
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                             >
                               <i className="ri-folder-user-line mr-3 text-1xl" />
-                              <span className="text-lg">User</span>
+                              <span className="text-lg">Accounts</span>
                             </Link>
                           </li>
                           <li className="mb-1 group">
@@ -303,7 +329,7 @@ const Header = ({ cartProducts }) => {
                               <span className="text-lg">Bank</span>
                             </Link>
                           </li>
-                          <li className="mb-1 group">
+                          {/* <li className="mb-1 group">
                             <Link
                               to="/Analytics"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
@@ -311,7 +337,7 @@ const Header = ({ cartProducts }) => {
                               <i className="ri-bar-chart-grouped-line mr-3 text-1xl" />
                               <span className="text-lg">Analytics</span>
                             </Link>
-                          </li>
+                          </li> */}
                         </>
                       )}
                       <section>

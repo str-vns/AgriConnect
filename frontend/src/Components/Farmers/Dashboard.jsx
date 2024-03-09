@@ -14,14 +14,20 @@ const Dashboard = () => {
     <MetaData title={"Register Farmer"} />
    
     <section className="flex  bg-white h-screen">
-      
-        <Header />
+    <div className="bg-white w-full bg-white md:w-1/6">
+          <Header />
+        </div>
   
       <div className="lg:grid flex overflow-y-scroll flex-grow justify-center items-center lg:min-h-screen  ">
     
       <div className="">
-        <ProductCard/>
-                <h6 className=" ml-20 text-black text-center">Product Revenue</h6>
+        
+      <section style={{ overflowY: 'scroll', maxHeight: '500px' }}>
+  <ProductCard />
+</section>
+
+        
+                {/* <h6 className=" ml-20 text-black text-center font-bold">Product Revenue</h6> */}
         <DMonthlyProducts/>
         </div>
       </div>

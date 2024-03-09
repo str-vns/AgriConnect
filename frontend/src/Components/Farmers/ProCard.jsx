@@ -42,38 +42,41 @@ console.log(allSrp)
     <section className="flex h-screen">
       
   
-      <section className="overflow-y-scroll w-full"> 
-      <h1 class="main-heading">All Products</h1>
-      {allSrp && allSrp.length > 0 ? (
-        allSrp.map(Srpy => (
-    <div className="product-container">
-      <div className="product-card">
-      {Srpy.images && Srpy.images.length > 0 ? (
-  <img
-    src={Srpy.images[0].url} 
-    className=""
-  />
-) : (
-  <img
-    src="/images/NoImage.jpeg" 
-    alt="No Image Available"
-    className=""
-  />
-)}
-        
+    <section className="overflow-y-scroll w-full">
+  {/* <h1 className="main-heading">All Products</h1> */}
+  <h6 className="main-heading ml-20 text-black text-center font-bold">SRP of Products</h6>
 
-        <h4>{Srpy.name}</h4>
-        <div>
-          <span>₱{Srpy.price} /Kg</span>
+  {allSrp && allSrp.length > 0 ? (
+    <div className="product-container">
+      {allSrp.map((Srpy, index) => (
+        <div key={index} className="product-card">
+          {Srpy.images && Srpy.images.length > 0 ? (
+            <img
+              src={Srpy.images[0].url}
+              alt={Srpy.name}
+              className="square-image" // Add this class for square images
+            />
+          ) : (
+            <img
+              src="/images/NoImage.jpeg"
+              alt="No Image Available"
+              className="square-image" // Add this class for square images
+            />
+          )}
+
+          <h4>{Srpy.name}</h4>
+          <div>
+            <span>₱{Srpy.price} /Kg</span>
+          </div>
         </div>
-      </div>
-     
+      ))}
     </div>
-    ))
-   ) : (
+  ) : (
     <p>No SRP products available</p>
-  )}  
-    </section>
+  )}
+</section>
+
+
     
 </section>
   </>
