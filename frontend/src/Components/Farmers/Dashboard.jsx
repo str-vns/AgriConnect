@@ -35,7 +35,7 @@ const Dashboard = () => {
   
       <div className="lg:grid flex overflow-y-scroll flex-grow justify-center items-center lg:min-h-screen  ">
       <div className="h-64">
-                <h6 className=" ml-20 text-black text-center">Product Revenue</h6>
+                <h6 className=" ml-20 text-black text-center font-bold text-2xl">Product Revenue</h6>
         <DMonthlyProducts/>
         </div>
       </div>

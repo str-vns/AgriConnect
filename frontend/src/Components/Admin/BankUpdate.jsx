@@ -157,7 +157,7 @@ const BankUpdate = () => {
           <div className="max-w-xl lg:max-w-3xl">
           <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
               <h1 className="mb-4 text-2xl font-bold sm:text-3xl text-black">
-                New Bank
+                Update Bank
               </h1>
 
               <div className="form-group">
@@ -312,7 +312,7 @@ const BankUpdate = () => {
                 type="submit"
                 className="btn inline-block my-2 rounded-lg bg-black  py-3 w-[150px] text-sm font-medium text-white hover:bg-white hover:text-black hover:border-black border-2"
               >
-                CREATE
+                UPDATE
               </button>
           </form>
           </div>

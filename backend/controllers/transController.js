@@ -1,11 +1,11 @@
 const cloudinary = require("cloudinary");
-const Product = require('../models/product');
+const Product = require("../models/product");
 const Transac = require("../models/transac");
 const User = require("../models/user");
-const sendEmail = require('../utility/sendEmail')
+const sendEmail = require("../utility/sendEmail");
 
 const mailsend = async (user, order) => {
-    const message = `
+  const message = `
     <section style="max-width: 20rem; padding: 0.75rem 1.5rem; margin: 0 auto; background-color: #F8FFA2;">
    <header style="display: flex; align-items: center; justify-content: center;">
     <svg fill="#000000" height="40px" width="40px" viewBox="0 0 512 512">
@@ -17,7 +17,9 @@ const mailsend = async (user, order) => {
 
         <main style="margin-top: 2rem; text-align: center;">
             <div style="border-bottom: 1px solid black;">
-                <h4 style="margin: 0;">Hi <span style="color: orange;">${user.name},</span></h4>
+                <h4 style="margin: 0;">Hi <span style="color: orange;">${
+                  user.name
+                },</span></h4>
                 <p style="margin: 0;">Your Transaction was successful</p>
                 <p style="margin: 0;">We will notify you when the order is Confirmed</p>
 
@@ -27,7 +29,11 @@ const mailsend = async (user, order) => {
                         <p style="margin: 0;">Order Id: ${order._id}</p>
                         <p style="margin: 0;">Order Date: ${order.createdAt}</p>
                     </div>
-                   ${order.orderItems && order.orderItems.map(item => `
+                   ${
+                     order.orderItems &&
+                     order.orderItems
+                       .map(
+                         (item) => `
     <div style="border-bottom: 1px solid black; padding: 10px; display: flex; align-items: center; justify-content: space-between;">
         <div>
             <img src="${item.image}" style="height: 100px; width: 100px; margin-right: 10px;" />
@@ -38,7 +44,10 @@ const mailsend = async (user, order) => {
             <p style="margin: 0px; font-size: 14px;">Price: ${item.price}</p>
         </div>
     </div>
-`).join('')}
+`
+                       )
+                       .join("")
+                   }
                 </div>
 
                 <p style="margin-top: 2rem; margin-bottom: 0;">Thanks for Buying<br>AgriConnect</p>
@@ -46,15 +55,15 @@ const mailsend = async (user, order) => {
         </main>
     </section>`;
 
-    await sendEmail({
-        email: user.email,
-        subject: 'AgriConnect Transaction Success',
-        message
-    });
-}
+  await sendEmail({
+    email: user.email,
+    subject: "AgriConnect Transaction Success",
+    message,
+  });
+};
 
 const ConfirmMailSend = async (user, order) => {
-    const message = `
+  const message = `
     <section style="max-width: 20rem; padding: 0.75rem 1.5rem; margin: 0 auto; background-color: #F8FFA2;">
     <header style="display: flex; align-items: center; justify-content: center;">
      <svg fill="#000000" height="40px" width="40px" viewBox="0 0 512 512">
@@ -68,21 +77,25 @@ const ConfirmMailSend = async (user, order) => {
         <div style="border-bottom: 1px solid black;">
         <h4>Hi <span style="color: orange;">${user.name},</span></h4>
         <p >
-            Your order <span style="color: orange;">${order._id}</span> has been approved.
+            Your order <span style="color: orange;">${
+              order._id
+            }</span> has been approved.
         </p>
         <p style="margin: 0px; ">We will notify you when your order is shipped your item</p>
-        <span>Download Reciept Here: </span><a href="http://localhost:4000/api/v1/order/${order._id}/receipt" style="
-  display: inline-block;
-  margin-bottom: 5px;
-  background-color: #555555;
-  border: none;
-  color: white;
-  padding: 2px 4px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
- onmouseover="this.style.backgroundColor='#333333'; onmouseout="this.style.backgroundColor='#555555';">Download Receipt</a>
+        <span>Download Reciept Here: </span><a href="http://localhost:4000/api/v1/order/${
+          order._id
+        }/receipt" style="
+        display: inline-block;
+        margin-bottom: 5px;
+        background-color: #555555;
+        border: none;
+        color: white;
+        padding: 2px 4px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        onmouseover="this.style.backgroundColor='#333333'; onmouseout="this.style.backgroundColor='#555555';">Download Receipt</a>
         </div>
 <div>
         <div>
@@ -104,7 +117,10 @@ const ConfirmMailSend = async (user, order) => {
  <p style="margin: 0px; font-size: 14px;">Quantity: ${item.quantity}</p>
 </div>
 </div>
-    `).join('')}
+    `
+            )
+            .join("")
+        }
 </div>
         <p style="margin-top: 2rem;  text-align: center;">
             Thanks, For Buying <br>
@@ -114,318 +130,323 @@ const ConfirmMailSend = async (user, order) => {
 </section>
 `;
 
-    await sendEmail({
-        email: user.email,
-        subject: 'AgriConnect Order Confirmed',
-        message
-    });
-}
+  await sendEmail({
+    email: user.email,
+    subject: "AgriConnect Order Confirmed",
+    message,
+  });
+};
 
 exports.newOrder = async (req, res, next) => {
-    const {
-        orderItems,
-    } = req.body;
+  const { orderItems } = req.body;
 
-    const order = await Transac.create({
-        orderItems,
-        paidAt: Date.now(),
-        user: req.user._id
-    })
+  const order = await Transac.create({
+    orderItems,
+    paidAt: Date.now(),
+    user: req.user._id,
+  });
 
-    if (!order) {
-        return res.status(400).json({ message: `Order not saved` })
-    }
-    const user = await User.findById(req.user._id);
-    await mailsend(user, order);
+  if (!order) {
+    return res.status(400).json({ message: `Order not saved` });
+  }
+  const user = await User.findById(req.user._id);
+  await mailsend(user, order);
 
-    res.status(200).json({
-        success: true,
-        order
-    })
-}
+  res.status(200).json({
+    success: true,
+    order,
+  });
+};
 
 exports.getSingleOrder = async (req, res, next) => {
-    const order = await Transac.findById(req.params.id).populate('user', 'name email')
-    
-    if (!order) {
-        return res.status(404).json({ message: `No Order found with this ID` })
-    }
-    res.status(200).json({
-        success: true,
-        order
-    })
-}
+  const order = await Transac.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (!order) {
+    return res.status(404).json({ message: `No Order found with this ID` });
+  }
+  res.status(200).json({
+    success: true,
+    order,
+  });
+};
 
 exports.allOrders = async (req, res, next) => {
-    try {
-        if (req.user.role !== 'farmer') {
-            return res.status(403).json({ success: false, message: "Access denied. You must be a farmer to access this resource." });
-        }
-
-        const farmerId = req.user._id;
-        console.log('Farmer ID:', farmerId);
-
-        const orders = await Transac.aggregate([
-            {
-                $match: {
-                    'orderItems.farmerid': farmerId
-                }
-            },
-            {
-                $project: {
-                    totalAmount: 1,
-                    orders: {
-                        $filter: {
-                            input: '$orderItems',
-                            as: 'item',
-                            cond: {
-                                $eq: ['$$item.farmerid', farmerId]
-                            }
-                        }
-                    }
-                }
-            }
-        ]);
-
-        let totalAmount = 0;
-        orders.forEach(order => {
-            totalAmount += order.totalPrice;
+  try {
+    if (req.user.role !== "farmer") {
+      return res
+        .status(403)
+        .json({
+          success: false,
+          message:
+            "Access denied. You must be a farmer to access this resource.",
         });
-
-        res.status(200).json({
-            success: true,
-            totalAmount,
-            orders
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
+
+    const farmerId = req.user._id;
+    console.log("Farmer ID:", farmerId);
+
+    const orders = await Transac.aggregate([
+      {
+        $match: {
+          "orderItems.farmerid": farmerId,
+        },
+      },
+      {
+        $project: {
+          totalAmount: 1,
+          orders: {
+            $filter: {
+              input: "$orderItems",
+              as: "item",
+              cond: {
+                $eq: ["$$item.farmerid", farmerId],
+              },
+            },
+          },
+        },
+      },
+    ]);
+
+    let totalAmount = 0;
+    orders.forEach((order) => {
+      totalAmount += order.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      totalAmount,
+      orders,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 async function updateStock(id, quantity) {
-    const product = await Product.findById(id);
-    product.stock = product.stock - quantity;
-    await product.save({ validateBeforeSave: false })
+  const product = await Product.findById(id);
+  product.stock = product.stock - quantity;
+  await product.save({ validateBeforeSave: false });
 }
-
-
 
 exports.updateOrderConfirmation = async (req, res, next) => {
-    try {
-        const order = await Transac.findById(req.params.id);
-        const user = await User.findById(order.user);
-    
-        const itemsToUpdate = [];
-        for (let i = 0; i < order.orderItems.length; i++) {
-            const item = order.orderItems[i];
-            if (item.farmerid.toString() === req.user._id.toString()) {
-                await updateStock(item.product, item.quantity);
-                itemsToUpdate.push(i);
-            }
-        }
-        for (const index of itemsToUpdate) {
-            order.orderItems[index].orderConfirmation = "Confirmed";
-        }
+  try {
+    const order = await Transac.findById(req.params.id);
+    const user = await User.findById(order.user);
 
-        await order.save();
-        await ConfirmMailSend(user, order);
-
-        res.status(200).json({
-            success: true,
-        });
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
+    const itemsToUpdate = [];
+    for (let i = 0; i < order.orderItems.length; i++) {
+      const item = order.orderItems[i];
+      if (item.farmerid.toString() === req.user._id.toString()) {
+        await updateStock(item.product, item.quantity);
+        itemsToUpdate.push(i);
+      }
     }
-}
+    for (const index of itemsToUpdate) {
+      order.orderItems[index].orderConfirmation = "Confirmed";
+    }
 
+    await order.save();
+    await ConfirmMailSend(user, order);
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 
 exports.getOrderConfirmationFarmer = async (req, res, next) => {
-    try {
-        const order = await Transac.findById(req.params.id);
-        const user = await User.findById(order.user);
+  try {
+    const order = await Transac.findById(req.params.id);
+    const user = await User.findById(order.user);
 
-        const confirmedItems = [];
-        for (let i = 0; i < order.orderItems.length; i++) {
-            const item = order.orderItems[i];
-            if (item.farmerid.toString() === req.user._id.toString()) {
-                confirmedItems.push({
-                    _id: item._id,
-                    productName: item.name,
-                    quantity: item.quantity,
-                    image: item.image,
-                    orderStatus: item.orderStatus,
-                    orderConfirmation: item.orderConfirmation
-                });
-            }
-        }
-
-        res.status(200).json({
-            success: true,
-            orderId: order._id,
-            items: confirmedItems
+    const confirmedItems = [];
+    for (let i = 0; i < order.orderItems.length; i++) {
+      const item = order.orderItems[i];
+      if (item.farmerid.toString() === req.user._id.toString()) {
+        confirmedItems.push({
+          _id: item._id,
+          productName: item.name,
+          quantity: item.quantity,
+          image: item.image,
+          orderStatus: item.orderStatus,
+          orderConfirmation: item.orderConfirmation,
         });
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
-}
-
-exports.myOrders = async (req, res, next) => {
-    const orders = await Transac.find({ user: req.user.id })
-
-    if (!orders) {
-        return res.status(404).json({ message: `Order found` })
+      }
     }
 
     res.status(200).json({
-        success: true,
-        orders
-    })
-}
+      success: true,
+      orderId: order._id,
+      items: confirmedItems,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 
-exports.upProcessOrder = async (req, res ) =>
-{
-    try {
-        const order = await Transac.findById(req.params.id);
-        const user = await User.findById(order.user);
-    
-        const itemsToUpdate = [];
-        for (let i = 0; i < order.orderItems.length; i++) {
-            const item = order.orderItems[i];
-            if (item.farmerid.toString() === req.user._id.toString()) {
-                itemsToUpdate.push(i);
-            }
-        }
-        for (const index of itemsToUpdate) {
-            if (order.orderItems[index].orderStatus === 'Delivered') {
-                return res.status(404).json({ message: `You have already delivered this order` })
-            }
-            
-            order.orderItems[index].orderStatus = req.body.status;
+exports.myOrders = async (req, res, next) => {
+  const orders = await Transac.find({ user: req.user.id });
 
-            if(order.orderItems[index].orderStatus === 'Delivered') {
-                order.deliveredAt = Date.now()
-            }
-        }
+  if (!orders) {
+    return res.status(404).json({ message: `Order found` });
+  }
 
-        await order.save();
-        // await ConfirmMailSend(user, order);
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+};
 
-        res.status(200).json({
-            success: true,
-        });
-    } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
+exports.upProcessOrder = async (req, res) => {
+  try {
+    const order = await Transac.findById(req.params.id);
+    const user = await User.findById(order.user);
+
+    const itemsToUpdate = [];
+    for (let i = 0; i < order.orderItems.length; i++) {
+      const item = order.orderItems[i];
+      if (item.farmerid.toString() === req.user._id.toString()) {
+        itemsToUpdate.push(i);
+      }
     }
-}
+    for (const index of itemsToUpdate) {
+      if (order.orderItems[index].orderStatus === "Delivered") {
+        return res
+          .status(404)
+          .json({ message: `You have already delivered this order` });
+      }
+
+      order.orderItems[index].orderStatus = req.body.status;
+
+      if (order.orderItems[index].orderStatus === "Delivered") {
+        order.deliveredAt = Date.now();
+      }
+    }
+
+    await order.save();
+    // await ConfirmMailSend(user, order);
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 
 exports.productStocky = async (req, res, next) => {
-    try {
-      const monthlyQuantities = await Transac.aggregate([
-        {
-          $project: {
-            month: { $month: '$createdAt' }, // Extract month from createdAt field
-            year: { $year: '$createdAt' }, // Extract year from createdAt field
-            orderItems: 1 // Include orderItems in the projection
-          }
+  try {
+    const monthlyQuantities = await Transac.aggregate([
+      {
+        $project: {
+          month: { $month: "$createdAt" }, // Extract month from createdAt field
+          year: { $year: "$createdAt" }, // Extract year from createdAt field
+          orderItems: 1, // Include orderItems in the projection
         },
-        {
-          $unwind: '$orderItems' 
+      },
+      {
+        $unwind: "$orderItems",
+      },
+      {
+        $group: {
+          _id: {
+            month: "$month",
+            year: "$year",
+            product: "$orderItems.product",
+            name: "$orderItems.name",
+          },
+          totalQuantity: { $sum: "$orderItems.quantity" },
         },
-        {
-          $group: {
-            _id: {
-              month: '$month',
-              year: '$year',
-              product: '$orderItems.product', 
-              name: '$orderItems.name',
-            },
-            totalQuantity: { $sum: '$orderItems.quantity' } 
-          }
+      },
+      {
+        $project: {
+          _id: 0,
+          month: "$_id.month",
+          year: "$_id.year",
+          name: "$_id.name",
+          product: "$_id.product",
+          totalQuantity: 1,
         },
-        {
-          $project: {
-            _id: 0,
-            month: '$_id.month',
-            year: '$_id.year',
-            name: '$_id.name',
-            product: '$_id.product',
-            totalQuantity: 1
-          }
-        }
-      ]);
-  
-      res.status(200).json({
-        success: true,
-        monthlyQuantities
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        error: error.message
-      });
-    }
-  };
+      },
+    ]);
 
-  exports.productSpecific = async (req, res, next) => {
-    try {
-        const farmerId = req.user._id; // Assuming farmerId is known or passed in the request
+    res.status(200).json({
+      success: true,
+      monthlyQuantities,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
 
-        console.log("Farmer ID:", farmerId);
+exports.productSpecific = async (req, res, next) => {
+  try {
+    const farmerId = req.user._id; // Assuming farmerId is known or passed in the request
 
-        const monthlyQuantities = await Transac.aggregate([
-            {
-                $match: {
-                    'orderItems.farmerid': farmerId
-                }
-            },
-            {
-                $unwind: '$orderItems'
-            },
-            {
-                $match: {
-                    'orderItems.farmerid': farmerId // Filter order items by farmerId
-                }
-            },
-            {
-                $group: {
-                    _id: {
-                        month: { $month: '$createdAt' },
-                        year: { $year: '$createdAt' },
-                        product: '$orderItems.product',
-                        name: '$orderItems.name', // Include product name in the grouping
-                        farmerid: '$orderItems.farmerid', // Include farmerid in the grouping
-                    },
-                    totalQuantity: { $sum: '$orderItems.quantity' }
-                }
-            },
-            {
-                $project: {
-                    _id: 0,
-                    month: '$_id.month',
-                    year: '$_id.year',
-                    product: '$_id.product',
-                    name: '$_id.name',
-                    farmerid: '$_id.farmerid', // Extract farmerid from _id
-                    totalQuantity: 1
-                }
-            }
-        ]);
-        
-        console.log("Monthly Quantities:", monthlyQuantities);
-        
-        res.status(200).json({
-            success: true,
-            monthlyQuantities
-        });
-    } catch (error) {
-        console.error("Error in productSpecific:", error);
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
-    }
+    console.log("Farmer ID:", farmerId);
+
+    const monthlyQuantities = await Transac.aggregate([
+      {
+        $match: {
+          "orderItems.farmerid": farmerId,
+        },
+      },
+      {
+        $unwind: "$orderItems",
+      },
+      {
+        $match: {
+          "orderItems.farmerid": farmerId, // Filter order items by farmerId
+        },
+      },
+      {
+        $group: {
+          _id: {
+            month: { $month: "$createdAt" },
+            year: { $year: "$createdAt" },
+            product: "$orderItems.product",
+            name: "$orderItems.name", // Include product name in the grouping
+            farmerid: "$orderItems.farmerid", // Include farmerid in the grouping
+          },
+          totalQuantity: { $sum: "$orderItems.quantity" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          month: "$_id.month",
+          year: "$_id.year",
+          product: "$_id.product",
+          name: "$_id.name",
+          farmerid: "$_id.farmerid", // Extract farmerid from _id
+          totalQuantity: 1,
+        },
+      },
+    ]);
+
+    console.log("Monthly Quantities:", monthlyQuantities);
+
+    res.status(200).json({
+      success: true,
+      monthlyQuantities,
+    });
+  } catch (error) {
+    console.error("Error in productSpecific:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
