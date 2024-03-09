@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary");
+const puppeteer = require("puppeteer");
 const Product = require("../models/product");
 const Transac = require("../models/transac");
 const User = require("../models/user");
@@ -62,7 +62,7 @@ const mailsend = async (user, order) => {
   });
 };
 
-const ConfirmMailSend = async (user, order) => {
+const ConfirmMailSend = async (user, confirmedItems, order) => {
   const message = `
     <section style="max-width: 20rem; padding: 0.75rem 1.5rem; margin: 0 auto; background-color: #F8FFA2;">
     <header style="display: flex; align-items: center; justify-content: center;">
@@ -78,12 +78,12 @@ const ConfirmMailSend = async (user, order) => {
         <h4>Hi <span style="color: orange;">${user.name},</span></h4>
         <p >
             Your order <span style="color: orange;">${
-              order._id
+                order._id
             }</span> has been approved.
         </p>
         <p style="margin: 0px; ">We will notify you when your order is shipped your item</p>
         <span>Download Reciept Here: </span><a href="http://localhost:4000/api/v1/order/${
-          order._id
+            order._id
         }/receipt" style="
         display: inline-block;
         margin-bottom: 5px;
@@ -104,22 +104,19 @@ const ConfirmMailSend = async (user, order) => {
             <p style="margin: 0px ">OrderDate: ${order.createdAt}</p>
         </div>
         ${
-          order.orderItems &&
-          order.orderItems
-            .map(
-              (item) => `
-<div style="border-bottom: 1px solid black; padding: 10px; display: flex; align-items: center; justify-content: space-between;">
-<div>
- <img src="${item.image}" style="height: 100px; width: 100px; margin-right: 10px;" />
-</div>
-<div style="text-align: left;">
- <span style="font-weight: bold; font-size: 16px;">${item.name}</span>
- <p style="margin: 0px; font-size: 14px;">Quantity: ${item.quantity}</p>
-</div>
-</div>
-    `
-            )
-            .join("")
+            confirmedItems.map(
+                (item) => `
+                  <div style="border-bottom: 1px solid black; padding: 10px; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                      <img src="${item.image}" style="height: 100px; width: 100px; margin-right: 10px;" />
+                    </div>
+                    <div style="text-align: left;">
+                      <span style="font-weight: bold; font-size: 16px;">${item.name}</span>
+                      <p style="margin: 0px; font-size: 14px;">Quantity: ${item.quantity}</p>
+                    </div>
+                  </div>
+                `
+              ).join("")
         }
 </div>
         <p style="margin-top: 2rem;  text-align: center;">
@@ -237,21 +234,21 @@ exports.updateOrderConfirmation = async (req, res, next) => {
     const order = await Transac.findById(req.params.id);
     const user = await User.findById(order.user);
 
-    const itemsToUpdate = [];
+    const confirmedItems = [];
     for (let i = 0; i < order.orderItems.length; i++) {
       const item = order.orderItems[i];
       if (item.farmerid.toString() === req.user._id.toString()) {
         await updateStock(item.product, item.quantity);
-        itemsToUpdate.push(i);
+        item.orderConfirmation = "Confirmed";
+        confirmedItems.push(item); 
       }
     }
-    for (const index of itemsToUpdate) {
-      order.orderItems[index].orderConfirmation = "Confirmed";
-    }
 
+
+    
     await order.save();
-    await ConfirmMailSend(user, order);
-
+    await ConfirmMailSend(user, confirmedItems, order );
+  
     res.status(200).json({
       success: true,
     });
@@ -450,3 +447,52 @@ exports.productSpecific = async (req, res, next) => {
     });
   }
 };
+
+async function getOrderById(id) {
+    return await Transac.findById(id);
+  }
+  function generateHtml(order) {
+    if (!order) {
+        return '<p>No order details found</p>';
+    }
+
+    const confirmedItems = order.orderItems.filter(item => item.orderConfirmation === "Confirmed");
+
+    return `
+        <section style="container max-width: 2rem; padding: 0.75rem 1.5rem; margin: 0 auto; background-color: white; ">
+            <header style="border-bottom: 1px solid ">
+                <h1 style="text-align: center;" >OnGarage</h1>   
+                <p style="text-align: center; margin: 0;" >Receipt</p> 
+            </header>
+            <table style="border-collapse: collapse; width: 100%; border-bottom: 1px solid ">
+                <tr>
+                    <th style="padding-top: 12px; padding-bottom: 12px; text-align: left; padding: 8px;">Item</th>
+                    <th style="padding-top: 12px; padding-bottom: 12px; text-align: left; padding: 8px;">Quantity</th>
+                </tr>
+                ${confirmedItems.map(item => `
+                    <tr>
+                        <td style="padding-top: 12px; padding-bottom: 12px; text-align: left; padding: 8px;">${item.name}</td>
+                        <td style="padding-top: 12px; padding-bottom: 12px; text-align: left; padding: 8px;">${item.quantity}</td>
+                    </tr>
+                `).join('')}
+            </table>
+            <p style="margin-top: 2rem; text-align: center;">
+                Thanks for Buying<br>OnGarage
+            </p>
+        </section>
+    `;
+}
+
+  exports.pdfreciept = async (req, res, next) => {
+    const orderId = req.params.id;
+    const order = await getOrderById(orderId);
+    const html = generateHtml(order);
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(html);
+    const pdf = await page.pdf({format: 'A4'});
+    await browser.close();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=reciept.pdf`);
+    res.send(pdf);
+  };

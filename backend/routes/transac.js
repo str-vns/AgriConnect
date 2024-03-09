@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {isAuthenticatedUser, authorizeRoles} = require('../middleware/auth');
-const { newOrder, allOrders, updateOrderConfirmation, getOrderConfirmationFarmer, myOrders, getSingleOrder, upProcessOrder,productStocky, productSpecific } = require('../controllers/transController');
+const { newOrder, allOrders, updateOrderConfirmation, getOrderConfirmationFarmer, myOrders, getSingleOrder, upProcessOrder,productStocky, productSpecific, pdfreciept } = require('../controllers/transController');
 
 
 router.post('/transaction', isAuthenticatedUser, newOrder )
@@ -13,4 +13,5 @@ router.get('/order/:id', isAuthenticatedUser, getSingleOrder);
 router.put ('/OrderUpdate/:id', isAuthenticatedUser, authorizeRoles('farmer'), upProcessOrder)
 router.get('/stocky', productStocky)
 router.get('/specific', isAuthenticatedUser, productSpecific)
+router.get('/order/:id/receipt', pdfreciept);
 module.exports = router;

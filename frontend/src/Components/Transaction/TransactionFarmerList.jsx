@@ -48,7 +48,7 @@ const confirmOrderHandler = async (id,userData) => {
       }
     const response = await axios.put(`http://localhost:4000/api/v1/order/confirm/${id}`,userData, config);
     console.log(response); 
-   
+    navigate('/orders')
     window.location.reload();
     toast.success('Confirmation successfully',
     {
