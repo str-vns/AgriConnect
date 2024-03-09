@@ -94,7 +94,7 @@ const Login = () => {
           authenticate(data, () => navigate("/AdminDashboard"));
         } else if (data.user.role === "farmer") {
           if (matchingFarmer) {
-            authenticate(data, () => navigate("/"));
+            authenticate(data, () => navigate("/farmerDashboard"));
           } else {
             authenticate(data, () => navigate("/farmerLocation"));
           }
