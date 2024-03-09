@@ -33,7 +33,7 @@ const DMonthlyProducts = () => {
 
     const getMonthName = (month) => {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        return monthNames[month - 1]; // Subtract 1 because month numbers start from 0 in JavaScript Date object
+        return monthNames[month - 1]; 
     }
 
     return (

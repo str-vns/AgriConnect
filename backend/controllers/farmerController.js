@@ -288,7 +288,14 @@ exports.getTopRatedFarmerReviews = async (req, res) => {
         $match: { ratings: { $gte: 0 } } // Match farmers with ratings greater than or equal to zero
       },
       {
-        $sort: { ratings: -1 } // Sort by ratings in descending order
+        $group: {
+          _id: '$farmName',
+          averageRating: { $avg: '$ratings' },
+          reviews: { $push: '$reviews' }
+        }
+      },
+      {
+        $sort: { averageRating: -1 } // Sort by average ratings in descending order
       },
       {
         $limit: 7 // Limit to the top 7 rated farmers
@@ -296,7 +303,7 @@ exports.getTopRatedFarmerReviews = async (req, res) => {
       {
         $lookup: {
           from: 'users', // Assuming the collection name for users is 'users'
-          localField: 'user',
+          localField: '_id', // Use _id as the localField since we're grouping by farmName
           foreignField: '_id',
           as: 'user'
         }
@@ -314,8 +321,8 @@ exports.getTopRatedFarmerReviews = async (req, res) => {
       },
       {
         $project: {
-          farmName: 1,
-          ratings: 1,
+          farmName: '$_id', // Rename _id to farmName
+          averageRating: 1,
           reviews: {
             user: {
               $arrayElemAt: ['$reviews.user', 0]

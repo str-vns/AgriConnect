@@ -40,10 +40,10 @@ const DMonthlyProductsAdmin = () => {
 
     const downloadPDF = () => {
         const input = pdfRef.current;
-        const currentDate = new Date().toLocaleString(); // Get current date and time
+        const currentDate = new Date().toLocaleString(); 
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('l', 'mm', 'a4', true); // 'l' for landscape mode
+            const pdf = new jsPDF('l', 'mm', 'a4', true); 
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
             const imgWidth = canvas.width;
@@ -53,10 +53,8 @@ const DMonthlyProductsAdmin = () => {
             const imgY = 30;
     
             
-            // Add image
             pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
     
-            // Add text for date and time
             pdf.setFontSize(10);
             pdf.text(`Downloaded on: ${currentDate}`, 10, pdfHeight - 10);
     
