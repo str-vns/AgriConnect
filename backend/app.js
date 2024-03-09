@@ -25,5 +25,4 @@ app.use('/api/v1/', mess)
 app.use('/api/v1/', transac)
 app.use('/api/v1/', srpProduct)
 
-
 module.exports = app;

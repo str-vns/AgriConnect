@@ -27,7 +27,7 @@ const UserRegister = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-
+  const [emailSent, setEmailSent] = useState(false); 
   let navigate = useNavigate();
 
   // useEffect(() => {
@@ -69,7 +69,7 @@ const UserRegister = () => {
     formData.set("role", role)
     if (avatar) formData.append("avatar", avatar);
 
-    register(formData);
+    register(formData,email);
   };
 
   console.log("Password:", password);
@@ -91,7 +91,7 @@ const UserRegister = () => {
     }
   };
 
-  const register = async (userData) => {
+  const register = async (userData,email) => {
     try {
       const config = {
         headers: {
@@ -109,8 +109,12 @@ const UserRegister = () => {
       setLoading(false);
       setUser(data.user);
       toast.success("Registration successful");
-      navigate("/login");
-      window.location.reload()
+      setEmailSent(true);
+      setTimeout(() => {
+      navigate('/otp', { state: { email } });
+}, 3000);
+
+      
     } catch (error) {
       setError(error.message || "An error occurred during registration");
       toast.error("Registration failed");

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const upload = require('../utility/multer');
-const {registerUser, getUser, getUpdateUser, deleteUser, UserLogin, UserLogout, UserProfile, updateProfile, getterProfile,updatePassword, resetPassword, forgotPassword,getUserDetails,removeUser, updateUser,allUsers} = require('../controllers/userController')
+const {registerUser, getUser, getUpdateUser, deleteUser, UserLogin, UserLogout, UserProfile, updateProfile, getterProfile,updatePassword, resetPassword, forgotPassword,getUserDetails,removeUser, updateUser,allUsers, verifyOTP} = require('../controllers/userController')
 const { isAuthenticatedUser } = require('../middleware/auth');
 
 router.post('/register', upload.single('avatar'), registerUser)
@@ -17,5 +17,5 @@ router.get('/editProfile', isAuthenticatedUser, updateProfile)
 router.get('/user/:id', getterProfile)
 router.get('/admin/users',  allUsers)
 router.route('/admin/user/:id').get(isAuthenticatedUser, getUserDetails ).delete(isAuthenticatedUser, removeUser).put(isAuthenticatedUser, updateUser)
-
+router.post('/verify-otp', verifyOTP)
 module.exports = router;

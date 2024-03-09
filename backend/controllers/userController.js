@@ -21,6 +21,7 @@ exports.registerUser = async (req, res, next) => {
         crop: "scale"
     });
 
+    const otp = Math.floor(100000 + Math.random() * 900000); 
     const { name, email, password,role } = req.body;
 
     const user = await User.create({
@@ -34,8 +35,48 @@ exports.registerUser = async (req, res, next) => {
             public_id: 'default',
             url: '/images/default_avatar.jpg'
         },
-      role
+      role,
+      otp 
     });
+
+    if (!user) {
+        return res.status(500).json({
+        success: false,
+        message: 'User not created'
+        });
+    }
+
+    const message = `<section class="max-w-2xl px-6 py-8 mx-auto bg-white dark:bg-gray-900">
+    <header>
+       <h1> AgriConnect</h1>     
+    </header>
+
+    <main class="mt-8">
+        <h4 class="text-gray-700 dark:text-gray-200">Hi \n\n${user.name}\n\n,</h4>
+
+        <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
+            This message Enable you to create New Password In <span class="font-semibold ">AgriConnect</span>.
+        </p>
+        
+
+           <p class="px-6 py-2 mt-4 text-sm font-medium tracking-wider text-white">${otp}</p>
+        
+        <p class="mt-8 text-gray-600 dark:text-gray-300">
+            Thanks, <br>
+            AgriConnect
+        </p>
+    </main>
+    
+
+    
+</section>`;
+
+
+await sendEmail({
+    email: user.email,
+    subject: 'AgriConnect OTP',
+    message
+});
 
     sendToken(user, 200, res);
 } catch (error) {
@@ -360,3 +401,28 @@ exports.getUserDetails = async (req, res, next) => {
         user
     })
 }
+
+exports.verifyOTP = async (req, res, next) => {
+    try {
+    const { email, enteredOTP } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.otp !== enteredOTP) {
+    return res.status(400).json({ message: 'Incorrect OTP' });
+    }
+
+    user.otp = '';
+    await user.save();
+
+    return res.status(200).json({ message: 'OTP verified successfully'
+    });
+    } catch (error) {
+    console.error('Error verifying OTP:', error);
+    return res.status(500).json({ message: 'Error verifying OTP' });
+    }
+    };
+    
