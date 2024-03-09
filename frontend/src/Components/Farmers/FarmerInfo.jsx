@@ -310,10 +310,14 @@ function FarmerInfo() {
                   </div>
                 </div>
                 <div className="text-center my-10">
-                  <h1 className="text-3xl font-bold mb-8 text-black">
-                    Products Available
-                  </h1>
-                  <Product products={products} />
+                <section style={{ overflowY: 'auto', maxHeight: '400px' }}>
+    <h1 className="text-3xl font-bold mb-8 text-black">
+        Products Available
+    </h1>
+    <Product products={products} />
+</section>
+
+                
                   <h1> Comment</h1>
                   {user ? (
                     <button
