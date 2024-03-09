@@ -140,7 +140,7 @@ const Login = () => {
 
       <div className="flex bg-white h-screen">
         <div className="w-full md:w-1/6 md:w-auto">{/* <Header /> */}</div>
-
+        <Header/>
         {loading ? (
           <Loader />
         ) : (
@@ -293,6 +293,8 @@ const Login = () => {
                 <img
                   alt="Welcome"
                   src="https://images.unsplash.com/photo-1545830790-68595959c491?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmFybWVyJTIwcG9ydHJhaXR8ZW58MHx8MHx8fDA%3D"
+                  // src="./images/4.png"
+
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
