@@ -95,7 +95,7 @@ function ConfirmOrder({ cartProducts }) {
                 </tbody>
               </table>
             </div>
-            <div className="divider" />
+      
             <div className="group">
               <button
                 className="buttonO"

@@ -6,6 +6,7 @@ import Header from '../Layout/Header';
 import axios from 'axios';
 import DMonthlyProductsAdmin from './Analytics/DMonthlyProductsAdmin';
 import MostRatedFarmer from './Analytics/MostRatedFarmer';
+import html2pdf from 'html2pdf.js';
 // import Chart from "chart.js/auto";
 
 
@@ -14,6 +15,7 @@ const AdminDashboard = () => {
   const chartRef = useRef(null);
   const [userData, setUserData] = useState({ users: [] });
 
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -30,7 +32,17 @@ const AdminDashboard = () => {
   const farmerCount = userData.users.filter(user => user.role === 'farmer').length;
   const userCount = userData.users.filter(user => user.role === 'user').length;
   const adminCount = userData.users.filter(user => user.role === 'admin').length;
+  const handleDownloadChart = async () => {
+    const chartContainer = document.getElementById('monthlyProductsAdminChart'); // Adjust the ID accordingly
+    const pdfOptions = { filename: 'monthly_products_chart.pdf' }; // Change the filename if needed
 
+    try {
+      const pdf = await html2pdf(chartContainer, pdfOptions);
+      console.log(pdf);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
   return (
     <Fragment>
       <MetaData title={"ADMIN DASHBOARD"} />
@@ -44,8 +56,9 @@ const AdminDashboard = () => {
       <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
       <script src="https://cdn.tailwindcss.com"></script>
 
-      <div className="flex overflow-y-scroll">
-          <Header />
+         <section className="flex h-screen">
+    <Header className="fixed-header" />
+    <section className="overflow-y-scroll w-full">
           <main className="w-full  overflow-y-auto bg-gray-200 min-h-screen transition-all main" style={{ background: '#F8FFA2' }}>
             {/* Content */}
             <div className="p-10">
@@ -78,7 +91,7 @@ const AdminDashboard = () => {
                   <div className="flex justify-between mb-8">
                     <div>
                       <div className="text-3xl font-semibold mb-2">100</div>
-                      <div className="text-lg font-medium text-gray-500">Blogs</div>
+                      <div className="text-lg font-medium text-gray-500">Products</div>
                     </div>
                     <div className="dropdown">
                       <button type="button" className="dropdown-toggle text-gray-400 hover:text-gray-600"><i className="ri-more-fill" /></button>
@@ -133,14 +146,19 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div> */}
-               <DMonthlyProductsAdmin/>
-               <MostRatedFarmer/>
+             <div style={{ display: 'flex', flexDirection: 'column', }}>
+  <DMonthlyProductsAdmin />
+  <div style={{ margin: '20px' }}></div> {/* Adjust the margin as needed */}
+  <MostRatedFarmer />
+</div>
+
             </div>
             {/* End Content */}
            
           </main>
 
-      </div>
+          </section>
+  </section>
     </Fragment>
   );
 };

@@ -27,11 +27,12 @@ const Info = () => {
                  benefiting both farmers and consumers by reducing middleman markups and ensuring fair prices
                   for agricultural products. This initiative envisions a brighter future for farmers and the 
                   agricultural sector as a whole</p>
-                  <div class="about-us">
-  <h1>About Us</h1>
-</div>
+                 
 
         </section>
+        <div class="about-us">
+  <h1>About Us</h1>
+</div>
         <Cards />
     
         </section>

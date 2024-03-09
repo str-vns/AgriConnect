@@ -94,7 +94,7 @@ const OrderDetails = () => {
         ) : (
           <Fragment>
             <div className="flex justify-center h-screen w-full bg-white py-10">
-              <div className="order-details border-2 border-black p-10">
+              <div className="order-details  ">
               <div className="text-center">
                   <h1 className="font-bold text-3xl text-black">Order Items</h1>
                 </div>
