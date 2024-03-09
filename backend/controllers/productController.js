@@ -70,72 +70,67 @@ exports.newProducts = async (req, res, next) => {
   
 
   //Update
-  exports.updateProducts = async (req,res,next) => {
-	let product = await Product.findById(req.params.id);
+exports.updateProducts = async (req,res,next) => {
+  let product = await Product.findById(req.params.id);
+	if (!product) {
+		return res.status(404).json({
+			success: false,
+			message: 'product not found'
+		})
+	}
+	let images = []
 
-if (!product) {
-  return res.status(404).json({
-    success: false,
-    message: 'Product not found'
-  });
-}
+	if (typeof req.body.images === 'string') {
+		images.push(req.body.images)
+	} else {
+		images = req.body.images
+	}
+	if (images !== undefined) {
+		for (let i = 0; i < product.images.length; i++) {
+			try {
+				let imageDataUri = product.images[i]
+			const result = await cloudinary.v2.uploader.destroy(`${imageDataUri.public_id}`)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+	}
+	let imagesLinks = [];
+	for (let i = 0; i < images.length; i++) {
+		try {
+			let imageDataUri = images[i]
+		const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+			folder: 'products',
+			width: 150,
+			crop: "scale",
+		});
+		imagesLinks.push({
+			public_id: result.public_id,
+			url: result.secure_url
+		})
+		} catch (error) {
+			console.log(error)
+		}
+		
 
-let images = req.body.images || [];
-
-
-if (images.length > 0) {
-
-  for (let i = 0; i < product.images.length; i++) {
-    try {
-      let imageDataUri = product.images[i];
-      const result = await cloudinary.v2.uploader.destroy(`${imageDataUri.public_id}`);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  let imagesLinks = [];
-  for (let i = 0; i < images.length; i++) {
-    try {
-      let imageDataUri = images[i];
-      const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
-        folder: 'products',
-        width: 150,
-        crop: 'scale',
-      });
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  req.body.images = imagesLinks;
-} else {
-
-  req.body.images = product.images;
-}
-
-product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-  new: true,
-  runValidators: true,
-  useFindAndModify: false,
-});
-
-if (!product) {
-  return res.status(400).json({
-    success: false,
-    message: 'Product not updated',
-  });
-}
-
-return res.status(200).json({
-  success: true,
-  product,
-});
-}
+	}
+	req.body.images = imagesLinks
+	product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+		new: true,
+		runValidators: true,
+		useFindandModify: false
+	})
+	if (!product)
+		return res.status(400).json({
+			success: false,
+			message: 'Product not updated'
+		})
+	// console.log(product)
+	return res.status(200).json({
+		success: true,
+		product
+	})
+  };
 
 
 //delete
@@ -190,4 +185,5 @@ exports.getFarmerProduct = async (req, res, next) => {
       });
   }
 };
+
 

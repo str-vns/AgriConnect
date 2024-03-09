@@ -91,6 +91,9 @@ import TransactionDetails from './Components/Transaction/TransactionDetails'
 import TransactionUserList from './Components/Transaction/TransactionUserList';
 import TransactionDetailsUser from './Components/Transaction/TranasctionDetailsUser'
 import FarmerLocUpdate from './Components/User/FarmerLocUpdate';
+import SrpCreate from './Components/Admin/Srp/SrpCreate';
+import Srp from './Components/Admin/Srp/Srp';
+import SrpUpdate from './Components/Admin/Srp/SrpUpdate';
 function App() {
   
 
@@ -250,7 +253,9 @@ function App() {
         <Route path="/orderList" element={<TransactionUserList/>}/>
         <Route path="/SingleOrder/:id" element={<TransactionDetailsUser/>}/>
 
-        
+        <Route path='/srp/Create' element={<ProtectedRoute isAdmin={true}><SrpCreate/></ProtectedRoute>}/>
+        <Route path='/srp/List' element={<ProtectedRoute isAdmin={true}><Srp/></ProtectedRoute>}/>
+        <Route path='/srp/update/:id' element={<SrpUpdate/>}/>
        </Routes>
     </Router>
 

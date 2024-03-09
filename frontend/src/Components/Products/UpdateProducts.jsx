@@ -36,6 +36,7 @@
       try {
          const { data } = await axios.get(`http://localhost:4000/api/v1/products/${id}`)
          setProduct(data.product)
+         setImagesPreview(data.product.images.map(image => image.url))
          setLoading(false)
          
       } catch (error) {

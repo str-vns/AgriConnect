@@ -82,55 +82,67 @@ exports.getSingleFarmer = async (req, res)=>
 
 //UPDATE
 exports.getUpdateFarmer = async (req, res, next) => {
-  try {
-      const newUpdata = {
-          farmName: req.body.farmName,
-          address: req.body.address,
-          city: req.body.city,
-          postalCode: req.body.postalCode
-      }
+  let farmer = await Farmer.findOne({user: req.user.id});
+	if (!farmer) {
+		return res.status(404).json({
+			success: false,
+			message: 'farmer not found'
+		})
+	}
+	let images = []
 
-      if (Array.isArray(req.body.images) && req.body.images.length > 0) {
-          const farmer = await Farmer.findOne({ user: req.user.id });
+	if (typeof req.body.images === 'string') {
+		images.push(req.body.images)
+	} else {
+		images = req.body.images
+	}
+	if (images !== undefined) {
+		// Deleting images associated with the product
+		for (let i = 0; i < farmer.images.length; i++) {
+			try {
+				let imageDataUri = farmer.images[i]
+			const result = await cloudinary.v2.uploader.destroy(`${imageDataUri.public_id}`)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+	}
+	let imagesLinks = [];
+	for (let i = 0; i < images.length; i++) {
+		try {
+			let imageDataUri = images[i]
+		const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+			folder: 'images',
+			width: 600,
+			crop: "scale",
+		});
+		imagesLinks.push({
+			public_id: result.public_id,
+			url: result.secure_url
+		})
+		} catch (error) {
+			console.log(error)
+		}
+		
 
-          // Check if the farmer has any images before trying to destroy
-          if (farmer.images && farmer.images.public_id) {
-              const image_id = farmer.images.public_id;
-              await cloudinary.v2.uploader.destroy(image_id);
-          }
-
-          // Upload each image in the array
-          const uploadResults = await Promise.all(req.body.images.map(async (image) => {
-              const result = await cloudinary.v2.uploader.upload(image, {
-                  folder: 'images',
-                  width: 150,
-                  crop: "scale"
-              });
-              return {
-                  public_id: result.public_id,
-                  url: result.secure_url
-              };
-          }));
-
-          newUpdata.images = uploadResults;
-      }
-
-      const farmer = await Farmer.findOneAndUpdate({ user: req.user.id }, newUpdata, {
-          new: true,
-          runValidators: true,
-      });
-      if (!farmer) {
-          return res.status(401).json({ message: 'Farmer Location Not Updated' });
-      }
-
-      res.status(200).json({
-          success: true
-      });
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server Error' });
-  }
-}
+	}
+	req.body.images = imagesLinks
+	farmer = await Farmer.findOneAndUpdate({ user: req.user.id }, req.body, {
+		new: true,
+		runValidators: true,
+		useFindandModify: false
+	})
+	if (!farmer)
+		return res.status(400).json({
+			success: false,
+			message: 'farmer not updated'
+		})
+	// console.log(product)
+	return res.status(200).json({
+		success: true,
+		farmer
+	})
+  };
 
 //GetLocFarmer
 exports.getLocFarmer = async (req, res, next) =>
@@ -285,50 +297,45 @@ exports.getTopRatedFarmerReviews = async (req, res) => {
   try {
     const topRatedFarmers = await Farmer.aggregate([
       {
-        $match: { ratings: { $gte: 0 } } // Match farmers with ratings greater than or equal to zero
+        $match: { ratings: { $gte: 0 } } 
       },
       {
-        $group: {
-          _id: '$farmName',
-          averageRating: { $avg: '$ratings' },
-          reviews: { $push: '$reviews' }
-        }
+        $sort: { ratings: -1 } 
       },
       {
-        $sort: { averageRating: -1 } // Sort by average ratings in descending order
-      },
-      {
-        $limit: 7 // Limit to the top 7 rated farmers
+        $limit: 7 
       },
       {
         $lookup: {
-          from: 'users', // Assuming the collection name for users is 'users'
-          localField: '_id', // Use _id as the localField since we're grouping by farmName
+          from: 'users', 
+          localField: 'user',
           foreignField: '_id',
           as: 'user'
         }
       },
       {
-        $unwind: '$reviews' // Unwind the reviews array
+        $unwind: '$reviews' 
       },
       {
         $lookup: {
-          from: 'users', // Assuming the collection name for users is 'users'
+          from: 'users', 
           localField: 'reviews.user',
           foreignField: '_id',
           as: 'reviews.user'
         }
       },
       {
-        $project: {
-          farmName: '$_id', // Rename _id to farmName
-          averageRating: 1,
+        $group: {
+          _id: '$_id',
+          farmName: { $first: '$farmName' },
+          ratings: { $first: '$ratings' },
+          user: { $first: '$user' },
           reviews: {
-            user: {
-              $arrayElemAt: ['$reviews.user', 0]
-            },
-            rating: '$reviews.rating',
-            comment: '$reviews.comment'
+            $push: {
+              user: { $arrayElemAt: ['$reviews.user', 0] },
+              rating: '$reviews.rating',
+              comment: '$reviews.comment'
+            }
           }
         }
       }
@@ -340,6 +347,7 @@ exports.getTopRatedFarmerReviews = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 
 

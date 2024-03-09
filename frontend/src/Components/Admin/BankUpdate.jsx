@@ -37,7 +37,7 @@ const BankUpdate = () => {
            const { data } = await axios.get(`http://localhost:4000/api/v1/bankinfo/${id}`)
            setBank(data.bank)
            setLoading(false)
-           
+           setImagesPreview(data.bank.images.map(image => image.url))
         } catch (error) {
             setError(error.response.data.message)
             

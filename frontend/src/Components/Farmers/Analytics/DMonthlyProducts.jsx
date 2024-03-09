@@ -21,7 +21,7 @@ const DMonthlyProducts = () => {
         }
         try {
             const { data } = await axios.get(`http://localhost:4000/api/v1/specific`, config);
-            console.log(data.monthlyQuantities);
+            // console.log(data.monthlyQuantities);
             setSpecificItem(data.monthlyQuantities);
             setLoading(false);
         } catch (error) {
