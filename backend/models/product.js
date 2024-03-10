@@ -40,11 +40,22 @@ const productSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+productSchema.statics.softDelete = async function(productId) {
+  return await this.findByIdAndUpdate(productId, { deleted: true });
+};
+
+productSchema.statics.restore = async function(productId) {
+  return await this.findByIdAndUpdate(productId, { deleted: false });
+};
 
 module.exports = mongoose.model("Product", productSchema);

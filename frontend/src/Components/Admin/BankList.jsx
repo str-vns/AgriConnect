@@ -20,6 +20,8 @@ const BankList = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isRestore, setIsRestore] = useState(false);
+  const [restoreError, setRestoreError] = useState("");
   let navigate = useNavigate();
 
   const getBank = async () => {
@@ -57,6 +59,12 @@ const BankList = () => {
       });
     }
 
+    if (restoreError) {
+      toast.error(restoreError, {
+        position: "top-right",
+      });
+    }
+
     if (isDeleted) {
       toast.success("Bank deleted successfully", {
         position: "top-right",
@@ -66,7 +74,17 @@ const BankList = () => {
       setIsDeleted(false);
       setDeleteError("");
     }
-  }, []);
+
+    if (isRestore) {
+      toast.success("Product Restore successfully", {
+        position: "top-right",
+      });
+      navigate("/banklist");
+      window.location.reload();
+      setIsRestore(false);
+      setRestoreError("");
+    }
+  }, [error, deleteError, isDeleted, restoreError, isRestore]);
 
   const deleteBank = async (id) => {
     try {
@@ -88,6 +106,26 @@ const BankList = () => {
     }
   };
 
+  const restoreBank = async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:4000/api/v1/restore/bank/${id}`,
+        config
+      );
+
+      setIsRestore(data.success);
+      setLoading(false);
+    } catch (error) {
+      setDeleteError(error.response.data.message);
+    }
+  };
+  
   const bankList = () => {
     const data = {
       columns: [
@@ -133,6 +171,8 @@ const BankList = () => {
         address: banks.address,
         actions: (
           <Fragment>
+              {!banks.deleted && (    
+                <Fragment>
             <Link
               to={`/bankupdate/${banks._id}`}
               className="btn bg-blue-500 py-1 px-2 hover:bg-blue-700 "
@@ -161,7 +201,7 @@ const BankList = () => {
             </Link>
             <button
               className="bg-red-500 btn py-1 px-2 ml-2 hover:bg-red-700"
-              onClick={() => deleteProductHandler(banks._id)}
+              onClick={() => deleteBankHandler(banks._id)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +219,21 @@ const BankList = () => {
                 />
               </svg>
             </button>
+            </Fragment> 
+        )}
+
+              {banks.deleted && (
+   <button
+   className="bg-green-500 btn py-1 px-2 ml-6 hover:bg-green-700 flex items-center justify-center"
+   onClick={() => restoreBankHandler(banks._id)}
+ >
+  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 48 48" width="20px">
+    <path d="M0 0h48v48h-48z" fill="none"/><path d="M25.99 6c-9.95 0-17.99 8.06-17.99 18h-6l7.79 7.79.14.29 8.07-8.08h-6c0-7.73 6.27-14 14-14s14 6.27 14 14-6.27 14-14 14c-3.87 0-7.36-1.58-9.89-4.11l-2.83 2.83c3.25 3.26 7.74 5.28 12.71 5.28 9.95 0 18.01-8.06 18.01-18s-8.06-18-18.01-18zm-1.99 10v10l8.56 5.08 1.44-2.43-7-4.15v-8.5h-3z"/>
+  </svg>
+ </button>
+)}
           </Fragment>
+          
         ),
       });
     });
@@ -187,9 +241,13 @@ const BankList = () => {
     return data;
   };
 
-  const deleteProductHandler = (id) => {
+  const deleteBankHandler = (id) => {
     deleteBank(id);
   };
+
+  const restoreBankHandler = (id) => {
+    restoreBank(id);
+  }
   return (
     <Fragment>
       <MetaData title={"All Banks"} />

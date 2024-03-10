@@ -168,7 +168,7 @@ const FarmerList = () => {
                 />
               </svg>
             </Link>
-            <button
+            {/* <button
               className="bg-red-500 btn py-1 px-2 ml-2 hover:bg-red-700"
               onClick={() => showDeleteConfirmation(user._id)}
             >
@@ -187,7 +187,7 @@ const FarmerList = () => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </button>
+            </button> */}
           </Fragment>
         ),
       });

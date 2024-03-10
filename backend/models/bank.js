@@ -53,12 +53,24 @@ const bankSchema = new mongoose.Schema(
                   },
                 },
               ],
+              
         resetPasswordToken: String,
         resetPasswordExpire: Date,
+        deleted: {
+            type: Boolean,
+            default: false,
+          },
         createdAt: {
             type: Date,
             default: Date.now
         }
     });
 
+    bankSchema.statics.softDelete = async function(bankId) {
+        return await this.findByIdAndUpdate(bankId, { deleted: true });
+      };
+      
+      bankSchema.statics.restore = async function(bankId) {
+        return await this.findByIdAndUpdate(bankId, { deleted: false });
+      };
     module.exports = mongoose.model("Bank", bankSchema);

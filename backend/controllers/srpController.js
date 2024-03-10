@@ -140,3 +140,56 @@ exports.getSingleSrp = async (req,res) =>
     });
 }
 
+exports.deleteSrp = async (req,res,next)=>
+{try {
+    const srpproduct = await srpProduct.softDelete(req.params.id);
+    if (!srpproduct) {
+      return res.status(404).json({
+        success: false,
+        message: "srpProduct not found"
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "srpProduct soft deleted successfully"
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+}
+
+exports.restoreSrp = async (req, res, next) => {
+	try {
+		const srpproduct = await srpProduct.restore(req.params.id);
+		if (!srpproduct) {
+		  return res.status(404).json({
+			success: false,
+			message: "srpProduct not found"
+		  });
+		}
+		res.status(200).json({
+		  success: true,
+		  message: "srpProduct restored successfully"
+		});
+	  } catch (error) {
+		console.error(error);
+		res.status(500).json({
+		  success: false,
+		  message: "Internal server error"
+		});
+	  }
+};
+
+exports.getSrpFarmer = async (req, res, next) =>
+{
+	const srpProducts = await srpProduct.find({deleted: false});
+
+	res.status(200).json({
+	  success: true,
+	  srpProducts,
+	});
+}

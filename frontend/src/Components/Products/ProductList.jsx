@@ -12,10 +12,12 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [deleteError, setDeleteError] = useState("");
+  const [restoreError, setRestoreError] = useState("");
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isRestore, setIsRestore] = useState(false);
   const [userly, setUserly] = useState({});
   let { id } = useParams();
   let navigate = useNavigate();
@@ -65,6 +67,12 @@ const ProductList = () => {
       });
     }
 
+    if (restoreError) {
+      toast.error(restoreError, {
+        position: "top-right",
+      });
+    }
+
     if (isDeleted) {
       toast.success("Product deleted successfully", {
         position: "top-right",
@@ -74,7 +82,17 @@ const ProductList = () => {
       setIsDeleted(false);
       setDeleteError("");
     }
-  }, [error, deleteError, isDeleted]);
+
+    if (isRestore) {
+      toast.success("Product Restore successfully", {
+        position: "top-right",
+      });
+      navigate("/ProductList");
+      window.location.reload();
+      setIsRestore(false);
+      setRestoreError("");
+    }
+  }, [error, deleteError, isDeleted, restoreError, isRestore]);
 
   const deleteProduct = async (id) => {
     try {
@@ -96,6 +114,26 @@ const ProductList = () => {
     }
   };
 
+  
+  const restoreProduct = async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:4000/api/v1/restore/${id}`,
+        config
+      );
+
+      setIsRestore(data.success);
+      setLoading(false);
+    } catch (error) {
+      setDeleteError(error.response.data.message);
+    }
+  };
   const productsList = () => {
     const data = {
       columns: [
@@ -136,6 +174,8 @@ const ProductList = () => {
           stock: product.stock,
           actions: (
             <Fragment>
+            {!product.deleted && (     
+              <Fragment>   
               <Link
                 to={`/updateProduct/${product._id}`}
                 className="btn bg-blue-500 py-1 px-2 hover:bg-blue-700 "
@@ -166,10 +206,24 @@ const ProductList = () => {
                      className="bg-red-500 btn py-1 px-2 ml-2 hover:bg-red-700"
                 onClick={() => deleteProductHandler(product._id)}
               >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20p" height="20px" viewBox="0 0 24 24" fill="none">
+                   
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
 <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
               </button>
+              </Fragment>
+        )}
+
+        {product.deleted && (
+   <button
+   className="bg-green-500 btn py-1 px-2 ml-6 hover:bg-green-700 flex items-center justify-center"
+   onClick={() => restoreProductHandler(product._id)}
+ >
+  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 48 48" width="20px">
+    <path d="M0 0h48v48h-48z" fill="none"/><path d="M25.99 6c-9.95 0-17.99 8.06-17.99 18h-6l7.79 7.79.14.29 8.07-8.08h-6c0-7.73 6.27-14 14-14s14 6.27 14 14-6.27 14-14 14c-3.87 0-7.36-1.58-9.89-4.11l-2.83 2.83c3.25 3.26 7.74 5.28 12.71 5.28 9.95 0 18.01-8.06 18.01-18s-8.06-18-18.01-18zm-1.99 10v10l8.56 5.08 1.44-2.43-7-4.15v-8.5h-3z"/>
+  </svg>
+ </button>
+)}
             </Fragment>
           ),
         });
@@ -182,6 +236,10 @@ const ProductList = () => {
   const deleteProductHandler = (id) => {
     deleteProduct(id);
   };
+
+  const restoreProductHandler = (id) => {
+    restoreProduct(id);
+  }
   return (
     <Fragment>
       <MetaData title={"All Products"} />
@@ -193,6 +251,7 @@ const ProductList = () => {
           <div className="flex flex-col items-center bg-white ">
             <h1 className="my-1 font-bold text-lg text-black ">All Product</h1>
             <div className="">
+      
               <button
                 className="inline-block rounded-lg bg-black ml-[900px] px-5 py-3 mb-5 text-sm font-medium text-white hover:bg-white hover:text-black "
                 style={{
@@ -203,6 +262,7 @@ const ProductList = () => {
               >
                 <Link to="/createProduct">Add Product</Link>
               </button>
+            
             </div>
             <div className="w-[1080px] overflow-x-auto">
               <Fragment>

@@ -65,7 +65,7 @@ const TranasctionDetailsUser = () => {
   console.log;
   return (
     <Fragment>
-      <section className="flex h-screen">
+      <section className="flex h-screen bg-white">
     <Header className="fixed-header" />
     <section className="overflow-y-scroll w-full">
         {loading ? (

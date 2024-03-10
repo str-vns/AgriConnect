@@ -109,7 +109,22 @@ const Header = ({ cartProducts }) => {
                     user.role === "farmer" ||
                     user.role === "admin") && (
                     <section>
+
+                  <div className="inline-flex px-5 text-sm/none text-black">
+                <img
+                  alt={user.name}
+                  src={user.avatar && user.avatar.url}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+                <p className="ms-2 hidden text-left text-xs sm:block">
+                  <strong className="block font-medium text-black">
+                    {user.name}
+                  </strong>
+                  <span className="text-black"> {user.email} </span>
+                </p>
+              </div>
                       {user.name &&
+                      
                         (user.role === "user" || user.role === "farmer") && (
                           <>
                             <li className="mb-1 group">
@@ -149,8 +164,9 @@ const Header = ({ cartProducts }) => {
                     </Link>
                   </li>
                 )}
-                            {user.name && user.role === "farmer" && (
+                          
                               <li className="mb-1 group">
+                              {user.name && user.role === "farmer" && (
                                 <li className="mb-1 group">
                                   <Link
                                     to="/farmerDashboard"
@@ -159,7 +175,10 @@ const Header = ({ cartProducts }) => {
                                     <i className="ri-file-chart-line mr-3 text-1xl" />
                                     <span className="text-lg">Dashboard</span>
                                   </Link>
+                                  
                                 </li>
+                                )}
+                                {user.name && user.role === "user" && (
                                 <Link to={`/orderList`}>
                                   <a
                                     href=""
@@ -177,8 +196,9 @@ const Header = ({ cartProducts }) => {
                                     </span>
                                   </a>
                                 </Link>
+                                  )}
                               </li>
-                            )}
+                           
                             {user.name && user.role === "user" && (
                               <li className="mb-1 group">
                                 <Link to={`/orderList`}>
@@ -240,6 +260,15 @@ const Header = ({ cartProducts }) => {
                             >
                               <i className="ri-government-line mr-3 text-1xl" />
                               <span className="text-lg">Government</span>
+                            </Link>
+                          </li>
+                          <li className="mb-1 group">
+                            <Link
+                              to="/bank/location"
+                              className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+                            >
+                              <i className="ri-government-line mr-3 text-1xl" />
+                              <span className="text-sm">Bank Locations</span>
                             </Link>
                           </li>
                           {/* <li className="mb-1 group">

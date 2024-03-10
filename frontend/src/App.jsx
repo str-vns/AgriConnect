@@ -95,6 +95,7 @@ import SrpCreate from './Components/Admin/Srp/SrpCreate';
 import Srp from './Components/Admin/Srp/Srp';
 import SrpUpdate from './Components/Admin/Srp/SrpUpdate';
 import Otp from './Components/User/Otp';
+import BankLoc from './Components/Farmers/Bank/BankLoc';
 function App() {
   
 
@@ -258,6 +259,7 @@ function App() {
         <Route path='/srp/List' element={<ProtectedRoute isAdmin={true}><Srp/></ProtectedRoute>}/>
         <Route path='/srp/update/:id' element={<SrpUpdate/>}/>
         <Route path='/otp' element={<Otp/>}/>
+        <Route path='/bank/location' element={<BankLoc/>}/>
        </Routes>
     </Router>
 

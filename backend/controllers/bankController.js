@@ -144,22 +144,48 @@ exports.updateBank = async (req,res,next) => {
 
 //DELETE
 exports.deleteBank = async (req,res,next)=>
-{
-    const banks = await Bank.findByIdAndDelete(req.params.id);
-     
-    if(!banks)
-    {
-        return res.status(404).json
-        ({
-            success: false,
-            message: "The Bank Not Deleted",
-        })
+{try {
+    const bank = await Bank.softDelete(req.params.id);
+    if (!bank) {
+      return res.status(404).json({
+        success: false,
+        message: "Bank not found"
+      });
     }
     res.status(200).json({
-        success: true,
-        message: "The Bank Has been Delete",
-    })
+      success: true,
+      message: "Bank soft deleted successfully"
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
 }
+
+exports.restoreBank = async (req, res, next) => {
+	try {
+		const bank = await Bank.restore(req.params.id);
+		if (!bank) {
+		  return res.status(404).json({
+			success: false,
+			message: "Bank not found"
+		  });
+		}
+		res.status(200).json({
+		  success: true,
+		  message: "Bank restored successfully"
+		});
+	  } catch (error) {
+		console.error(error);
+		res.status(500).json({
+		  success: false,
+		  message: "Internal server error"
+		});
+	  }
+};
 
 //DETAIL Bank
 exports.GetOneBank = async (req, res, next ) => {
@@ -177,3 +203,13 @@ exports.GetOneBank = async (req, res, next ) => {
       bank
   })
 }
+
+//Get Bank With Wiss
+exports.getBankLoc = async (req, res, next) => {
+  const banks = await Bank.find({deleted: false});
+
+  res.status(200).json({
+    success: true,
+    banks,
+  });
+};

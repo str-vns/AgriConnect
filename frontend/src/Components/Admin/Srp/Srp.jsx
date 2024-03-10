@@ -14,6 +14,8 @@ const Srp = () => {
   const [error, setError] = useState("");
   const [allSrp, setAllSrp] = useState([]);
   const [isDeleted, setIsDeleted] = useState("");
+  const [isRestore, setIsRestore] = useState(false);
+  const [restoreError, setRestoreError] = useState("");
   let navigate = useNavigate();
 
   const config = {
@@ -37,10 +39,10 @@ const Srp = () => {
     }
   };
 
-  const deleteFarmer = async (id) => {
+  const deleteSrp= async (id) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/v1/admin/user/${id}`,
+        `http://localhost:4000/api/v1/delete/srp/${id}`,
         config
       );
       setIsDeleted(data.success);
@@ -52,33 +54,68 @@ const Srp = () => {
     }
   };
 
+  const restoreSrp = async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:4000/api/v1/restore/srp/${id}`,
+        config
+      );
+
+      setIsRestore(data.success);
+      setLoading(false);
+    } catch (error) {
+      setDeleteError(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
     listFarmers();
     if (error) {
       console.log(error);
       setError("");
     }
+    
+    if (restoreError) {
+      toast.error(restoreError, {
+        position: "top-right",
+      });
+    }
+
     if (isDeleted) {
       toast.success("Farmer deleted successfully", {
         position: "top-right",
       });
 
-      navigate("/farmerlist");
+      navigate("/srp/list");
       window.location.reload();
     }
-  }, [error, isDeleted]);
 
-  const deleteFarmerHandler = (id) => {
-    deleteFarmer(id);
-  };
-
-  const showDeleteConfirmation = (userId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete?");
-
-    if (isConfirmed) {
-      deleteFarmerHandler(userId);
+    if (isRestore) {
+      toast.success("Product Restore successfully", {
+        position: "top-right",
+      });
+      navigate("/srp/list");
+      window.location.reload();
+      setIsRestore(false);
+      setRestoreError("");
     }
+  }, [error, isDeleted, restoreError, isRestore]);
+
+  
+
+  const deleteSrpHandler = (id) => {
+    deleteSrp(id);
   };
+
+  const restoreSrpHandler = (id) => {
+    restoreSrp(id);
+  }
 
   const Srplist = () => {
     const data = {
@@ -112,6 +149,8 @@ const Srp = () => {
         price: srpProducts.price,
         actions: (
           <Fragment>
+            {!srpProducts.deleted && (
+              <Fragment>
             <Link
               to={`/srp/update/${srpProducts._id}`}
               className="btn bg-blue-500 py-1 px-2 hover:bg-blue-700 "
@@ -140,7 +179,7 @@ const Srp = () => {
             </Link>
             <button
               className="bg-red-500 btn py-1 px-2 ml-2 hover:bg-red-700"
-              onClick={() => showDeleteConfirmation(user._id)}
+              onClick={() => deleteSrpHandler(srpProducts._id)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -158,6 +197,18 @@ const Srp = () => {
                 />
               </svg>
             </button>
+            </Fragment>
+            )}
+              {srpProducts.deleted && (
+   <button
+   className="bg-green-500 btn py-1 px-2 ml-6 hover:bg-green-700 flex items-center justify-center"
+   onClick={() => restoreSrpHandler(srpProducts._id)}
+ >
+  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 48 48" width="20px">
+    <path d="M0 0h48v48h-48z" fill="none"/><path d="M25.99 6c-9.95 0-17.99 8.06-17.99 18h-6l7.79 7.79.14.29 8.07-8.08h-6c0-7.73 6.27-14 14-14s14 6.27 14 14-6.27 14-14 14c-3.87 0-7.36-1.58-9.89-4.11l-2.83 2.83c3.25 3.26 7.74 5.28 12.71 5.28 9.95 0 18.01-8.06 18.01-18s-8.06-18-18.01-18zm-1.99 10v10l8.56 5.08 1.44-2.43-7-4.15v-8.5h-3z"/>
+  </svg>
+ </button>
+)}
           </Fragment>
         ),
       });

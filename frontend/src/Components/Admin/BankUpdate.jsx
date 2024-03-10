@@ -151,7 +151,7 @@ const BankUpdate = () => {
     <MetaData title={"New Bank"} />
     <section className="flex  bg-white h-screen">
       <Header />
-      <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen lg:grid-cols-12 ">
+      <div className="lg:grid flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen ">
 
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">

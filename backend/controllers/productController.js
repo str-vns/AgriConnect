@@ -135,23 +135,48 @@ exports.updateProducts = async (req,res,next) => {
 
 //delete
 exports.deleteProducts = async (req,res,next)=>
-{
-    const products = await Product.findByIdAndDelete(req.params.id);
-     
-    if(!products)
-    {
-        return res.status(404).json
-        ({
-            success: false,
-            message: "The Product Not Deleted",
-        })
+{try {
+    const product = await Product.softDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
     }
     res.status(200).json({
-        success: true,
-        message: "The Product Has been Delete",
-    })
+      success: true,
+      message: "Product soft deleted successfully"
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
 }
 
+exports.restoreProduct = async (req, res, next) => {
+	try {
+		const product = await Product.restore(req.params.id);
+		if (!product) {
+		  return res.status(404).json({
+			success: false,
+			message: "Product not found"
+		  });
+		}
+		res.status(200).json({
+		  success: true,
+		  message: "Product restored successfully"
+		});
+	  } catch (error) {
+		console.error(error);
+		res.status(500).json({
+		  success: false,
+		  message: "Internal server error"
+		});
+	  }
+};
 
 exports.GetOneProduct = async (req, res, next ) => {
   const product = await Product.findById(req.params.id);
@@ -171,7 +196,7 @@ exports.GetOneProduct = async (req, res, next ) => {
 
 exports.getFarmerProduct = async (req, res, next) => {
   try {
-      const product = await Product.find({ user: req.params.id });
+      const product = await Product.find({ user: req.params.id, deleted: false });
 
       res.status(200).json({
           success: true,
