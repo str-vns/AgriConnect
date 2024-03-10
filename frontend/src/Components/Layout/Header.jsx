@@ -258,8 +258,8 @@ const Header = ({ cartProducts }) => {
                               to="/government"
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                             >
-                              <i className="ri-government-line mr-3 text-1xl" />
-                              <span className="text-lg">Government</span>
+                              <i className="ri-article-line mr-3 text-1xl" />
+                              <span className="text-lg">Info</span>
                             </Link>
                           </li>
                           <li className="mb-1 group">
@@ -268,9 +268,10 @@ const Header = ({ cartProducts }) => {
                               className="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
                             >
                               <i className="ri-government-line mr-3 text-1xl" />
-                              <span className="text-sm">Bank Locations</span>
+                              <span className="text-lg">Bank</span>
                             </Link>
                           </li>
+                         
                           {/* <li className="mb-1 group">
                             <Link
                               to="/Card"

@@ -55,11 +55,11 @@ exports.registerUser = async (req, res, next) => {
         <h4 class="text-gray-700 dark:text-gray-200">Hi \n\n${user.name}\n\n,</h4>
 
         <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
-            This message Enable you to create New Password In <span class="font-semibold ">AgriConnect</span>.
+        This message is to verify your AgriConnect account. Please use the following one-time password (OTP) for the verification process:
         </p>
         
 
-           <p class="px-6 py-2 mt-4 text-sm font-medium tracking-wider text-white">${otp}</p>
+           <p class="px-6 py-2 mt-4 text-sm font-medium tracking-wider text-white font-bold">${otp}</p>
         
         <p class="mt-8 text-gray-600 dark:text-gray-300">
             Thanks, <br>
