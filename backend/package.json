@@ -17,6 +17,7 @@
     "nodemon": "^3.0.3",
     "otp-generator": "^4.0.1",
     "puppeteer": "^22.4.1",
+    "puppeteer-core": "^22.4.1",
     "slugify": "^1.6.6",
     "validator": "^13.11.0"
   },
