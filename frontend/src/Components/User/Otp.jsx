@@ -44,7 +44,7 @@ const Otp = () => {
   };
   return (
     <>
-      <div className="container">
+      <div className="containerO">
         <div className="main_div">
         <div className="title" style={{ textAlign: "center" }}>
         One Time Password

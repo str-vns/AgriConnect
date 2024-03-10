@@ -1,65 +1,85 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { getUser } from "../../Utilitys/helpers";
 import MetaData from "../Layout/MetaData";
-import Header from '../Layout/Header';
-import axios from 'axios';
-import DMonthlyProductsAdmin from './Analytics/DMonthlyProductsAdmin';
-import MostRatedFarmer from './Analytics/MostRatedFarmer';
-import html2pdf from 'html2pdf.js';
+import Header from "../Layout/Header";
+import axios from "axios";
+import DMonthlyProductsAdmin from "./Analytics/DMonthlyProductsAdmin";
+import MostRatedFarmer from "./Analytics/MostRatedFarmer";
+import html2pdf from "html2pdf.js";
 // import Chart from "chart.js/auto";
-
 
 const AdminDashboard = () => {
   const user = getUser();
   const chartRef = useRef(null);
   const [userData, setUserData] = useState({ users: [] });
 
-  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/admin/users');
+        const response = await axios.get(
+          "http://localhost:4000/api/v1/admin/users"
+        );
         setUserData(response.data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchUserData();
   }, []);
 
-  const farmerCount = userData.users.filter(user => user.role === 'farmer').length;
-  const userCount = userData.users.filter(user => user.role === 'user').length;
-  const adminCount = userData.users.filter(user => user.role === 'admin').length;
+  const farmerCount = userData.users.filter(
+    (user) => user.role === "farmer"
+  ).length;
+  const userCount = userData.users.filter(
+    (user) => user.role === "user"
+  ).length;
+  const adminCount = userData.users.filter(
+    (user) => user.role === "admin"
+  ).length;
   const handleDownloadChart = async () => {
-    const chartContainer = document.getElementById('monthlyProductsAdminChart'); // Adjust the ID accordingly
-    const pdfOptions = { filename: 'monthly_products_chart.pdf' }; // Change the filename if needed
+    const chartContainer = document.getElementById("monthlyProductsAdminChart"); // Adjust the ID accordingly
+    const pdfOptions = { filename: "monthly_products_chart.pdf" }; // Change the filename if needed
 
     try {
       const pdf = await html2pdf(chartContainer, pdfOptions);
       console.log(pdf);
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      console.error("Error generating PDF:", error);
     }
   };
   return (
     <Fragment>
       <MetaData title={"ADMIN DASHBOARD"} />
-      
 
       <link rel="preconnect" href="https://fonts.bunny.net" />
-      <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
-      <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.bunny.net"/>
-      <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+      <link
+        href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+      />
+      <link rel="preconnect" href="https://fonts.bunny.net" />
+      <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+      />
       <script src="https://cdn.tailwindcss.com"></script>
 
-         <section className="flex h-screen">
-    <Header className="fixed-header" />
-    <section className="overflow-y-scroll w-full">
-          <main className="w-full  overflow-y-auto bg-gray-200 min-h-screen transition-all main" style={{ background: '#F8FFA2' }}>
+      <section className="flex h-screen">
+        <Header className="fixed-header" />
+        <section className="overflow-y-scroll w-full">
+          <main
+            className="w-full  overflow-y-auto bg-gray-200 min-h-screen transition-all main"
+            style={{ background: "#F8FFA2" }}
+          >
             {/* Content */}
             <div className="p-10">
               <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
@@ -67,27 +87,45 @@ const AdminDashboard = () => {
                   <div className="flex justify-between mb-8">
                     <div>
                       <div className="flex items-center mb-2">
-                        <div className="text-3xl font-semibold">{farmerCount}</div>
+                        <div className="text-3xl font-semibold">
+                          {farmerCount}
+                        </div>
                       </div>
-                      <div className="text-lg font-medium text-gray-500">Farmers</div>
-                    </div> 
+                      <div className="text-lg font-medium text-gray-500">
+                        Farmers
+                      </div>
+                    </div>
                   </div>
-                  <Link to="/farmerlist" className="text-[#f84525] font-medium text-lg hover:text-red-800">View Farmers</Link>
+                  <Link
+                    to="/farmerlist"
+                    className="text-[#f84525] font-medium text-lg hover:text-red-800"
+                  >
+                    View Farmers
+                  </Link>
                 </div>
 
                 <div className="bg-white rounded-md border border-gray-100 p-8 shadow-md shadow-black/5">
                   <div className="flex justify-between mb-6">
                     <div>
                       <div className="flex items-center mb-2">
-                        <div className="text-3xl font-semibold">{userCount}</div>
+                        <div className="text-3xl font-semibold">
+                          {userCount}
+                        </div>
                       </div>
-                      <div className="text-lg font-medium text-gray-500">Users</div>
-                    </div> 
+                      <div className="text-lg font-medium text-gray-500">
+                        Users
+                      </div>
+                    </div>
                   </div>
-                  <a href="/AccountList" className="text-[#f84525] font-medium text-lg hover:text-red-800">View Users</a>
+                  <a
+                    href="/AccountList"
+                    className="text-[#f84525] font-medium text-lg hover:text-red-800"
+                  >
+                    View Users
+                  </a>
                 </div>
 
-                <div className="bg-white rounded-md border border-gray-100 p-8 shadow-md shadow-black/5">
+                {/* <div className="bg-white rounded-md border border-gray-100 p-8 shadow-md shadow-black/5">
                   <div className="flex justify-between mb-8">
                     <div>
                       <div className="text-3xl font-semibold mb-2">100</div>
@@ -109,7 +147,7 @@ const AdminDashboard = () => {
                     </div> 
                   </div>
                   <a href className="text-[#f84525] font-medium text-lg hover:text-red-800">View Blogs</a>
-                </div>
+                </div> */}
               </div>
               {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
                 <div className="p-10 relative flex flex-col min-w-0 mb-8 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
@@ -146,19 +184,17 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div> */}
-             <div style={{ display: 'flex', flexDirection: 'column', }}>
-  <DMonthlyProductsAdmin />
-  <div style={{ margin: '20px' }}></div> {/* Adjust the margin as needed */}
-  <MostRatedFarmer />
-</div>
-
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <DMonthlyProductsAdmin />
+                <div style={{ margin: "20px" }}></div>{" "}
+                {/* Adjust the margin as needed */}
+                <MostRatedFarmer />
+              </div>
             </div>
             {/* End Content */}
-           
           </main>
-
-          </section>
-  </section>
+        </section>
+      </section>
     </Fragment>
   );
 };
