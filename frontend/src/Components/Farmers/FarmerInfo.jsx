@@ -283,19 +283,19 @@ function FarmerInfo() {
           <div className="lg:grid  flex flex-grow overflow-y-scroll justify-center items-center lg:min-h-screen ">
             <div class=" py-8   flex flex-wrap items-center  justify-center  ">
               <div class="container rounded-lg lg:w-5/6 xl:w-2/7 sm:w-full md:w-2/3    bg-white  shadow-lg    transform   duration-200 easy-in-out">
-                {/* <div class=" h-48  overflow-hidden">
+                <div class=" h-48  overflow-hidden">
                   <img
                     class="w-full"
                     src={farmerloc?.farmersloc?.images[0].url}
                     alt=""
                   />
-                </div> */}
-                <div className="w-full h-[250px]">
+                </div>
+                {/* <div className="w-full h-[250px]">
                   <img
                     src="/images/cover.png"
                     className="w-full h-full rounded-tl-lg rounded-tr-lg"
                   />
-                </div>
+                </div> */}
                 <div class="flex justify-right px-5 items-end -mt-12">
                   <img
                     class="h-32 w-32 bg-white p-2 ring-2 ring-black rounded-full"

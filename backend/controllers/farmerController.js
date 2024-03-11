@@ -21,10 +21,12 @@ exports.registerFarmer = async (req, res, next) => {
 		let imageDataUri = images[i]
 		try {
 			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
-				folder: 'images',
-				width: 150,
-				crop: "scale",
-			});
+        folder: 'images',
+        width: 847.5,
+        height: 192,
+        crop: "scale",
+      });
+      
 
 			imagesLinks.push({
 				public_id: result.public_id,
